@@ -12,6 +12,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <org.openjfx.version>11.0.2</org.openjfx.version>
+        <org.springframework.version>5.2.13.RELEASE</org.springframework.version>
     </properties>
 
     <dependencies>
@@ -30,7 +31,13 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>5.3.14</version>
+            <version>${org.springframework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${org.springframework.version}</version>
         </dependency>
 
     </dependencies>
@@ -59,7 +66,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.gmail.shepard1992.familybudgetv1/com.gmail.shepard1992.familybudgetv1.HelloApplication
+                                com.gmail.shepard1992.familybudgetv1/com.gmail.shepard1992.familybudgetv1.MainApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
