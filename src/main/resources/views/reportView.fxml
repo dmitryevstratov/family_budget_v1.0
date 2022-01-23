@@ -12,7 +12,8 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+            prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gmail.shepard1992.familybudgetv1.controller.impl.ReportControllerImpl">
     <top>
         <VBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <MenuBar>
@@ -33,48 +34,41 @@
         <Label text="Разработанно by Евстратов" BorderPane.alignment="CENTER" />
     </bottom>
    <center>
-      <SplitPane dividerPositions="0.4999999999999999" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-        <items>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-               <children>
-                  <VBox prefHeight="334.0" prefWidth="300.0">
-                     <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="304.0" text="Таблица расходов" />
-                        <TableView prefHeight="91.0" prefWidth="300.0">
-                          <columns>
-                            <TableColumn prefWidth="75.0" text="Название графы" />
-                            <TableColumn prefWidth="186.3999786376953" text="Сумма, руб">
-                                 <columns>
-                                    <TableColumn prefWidth="75.0" text="План" />
-                                    <TableColumn prefWidth="75.0" text="Факт" />
-                                 </columns>
-                              </TableColumn>
-                              <TableColumn prefWidth="75.0" />
-                          </columns>
-                        </TableView>
-                        <Button mnemonicParsing="false" text="Добавить группу расходов" />
-                     </children>
-                  </VBox>
-               </children>
-            </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-               <children>
-                  <VBox prefHeight="334.0" prefWidth="301.0">
-                     <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="304.0" text="Таблица доходов" />
-                        <TableView prefHeight="90.0" prefWidth="302.0">
-                          <columns>
-                            <TableColumn prefWidth="95.20001524686813" text="Название дохода" />
-                            <TableColumn prefWidth="92.0" text="Сумма, руб" />
-                              <TableColumn prefWidth="113.60002136230469" />
-                          </columns>
-                        </TableView>
-                        <Button mnemonicParsing="false" text="Добавить строку" />
-                     </children>
-                  </VBox>
-               </children>
-            </AnchorPane>
-        </items>
-      </SplitPane>
+       <SplitPane dividerPositions="0.4999999999999999" prefHeight="160.0" prefWidth="200.0"
+                  BorderPane.alignment="CENTER">
+           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <VBox prefHeight="334.0" prefWidth="300.0">
+                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="304.0"
+                          text="Таблица расходов"/>
+                   <TableView prefHeight="91.0" prefWidth="300.0">
+                       <columns>
+                           <TableColumn prefWidth="75.0" text="Название графы"/>
+                           <TableColumn prefWidth="186.3999786376953" text="Сумма, руб">
+                               <columns>
+                                   <TableColumn prefWidth="75.0" text="План"/>
+                                   <TableColumn prefWidth="75.0" text="Факт"/>
+                               </columns>
+                           </TableColumn>
+                           <TableColumn prefWidth="75.0"/>
+                       </columns>
+                   </TableView>
+                   <Button fx:id="addGroupBtn" onAction="#addGroupBtn" mnemonicParsing="false" text="Добавить группу расходов"/>
+               </VBox>
+           </AnchorPane>
+           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <VBox prefHeight="334.0" prefWidth="301.0">
+                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="304.0"
+                          text="Таблица доходов"/>
+                   <TableView prefHeight="90.0" prefWidth="302.0">
+                       <columns>
+                           <TableColumn prefWidth="95.20001524686813" text="Название дохода"/>
+                           <TableColumn prefWidth="92.0" text="Сумма, руб"/>
+                           <TableColumn prefWidth="113.60002136230469"/>
+                       </columns>
+                   </TableView>
+                   <Button fx:id="addRowBtn" onAction="#addRowBtn" mnemonicParsing="false" text="Добавить строку"/>
+               </VBox>
+           </AnchorPane>
+       </SplitPane>
    </center>
 </BorderPane>
