@@ -6,4 +6,6 @@ public interface ViewsPath {
 
     String REPORT_VIEW = "/views/reportView.fxml";
 
+    String ADD_ROW_INCOME_VIEW = "/views/addRowIncomeView.fxml";
+
 }

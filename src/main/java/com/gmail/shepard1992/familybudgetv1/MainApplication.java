@@ -2,6 +2,7 @@ package com.gmail.shepard1992.familybudgetv1;
 
 import com.gmail.shepard1992.familybudgetv1.api.ShowViewsApi;
 import com.gmail.shepard1992.familybudgetv1.controller.api.MainController;
+import com.gmail.shepard1992.familybudgetv1.controller.api.ReportController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -18,7 +19,6 @@ public class MainApplication extends Application implements ShowViewsApi {
     private Stage primaryStage;
 
     public static void main(String[] args) {
-        //ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
         launch(args);
     }
 
@@ -40,7 +40,9 @@ public class MainApplication extends Application implements ShowViewsApi {
 
     public void showReportView() {
         try {
-            showView(REPORT_VIEW);
+            FXMLLoader loader = showView(REPORT_VIEW);
+            ReportController reportController = loader.getController();
+            reportController.setMainApp(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -55,6 +57,18 @@ public class MainApplication extends Application implements ShowViewsApi {
         primaryStage.setScene(scene);
         primaryStage.show();
         return loader;
+    }
+
+    public void addRow() {
+        System.out.println("Add new row");
+    }
+
+    public void updateRow() {
+        System.out.println("Update row");
+    }
+
+    public void deleteRow() {
+        System.out.println("Delete row");
     }
 
 }
