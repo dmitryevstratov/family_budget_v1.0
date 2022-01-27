@@ -1,14 +1,11 @@
 package com.gmail.shepard1992.familybudgetv1.controller.api;
 
-import com.gmail.shepard1992.familybudgetv1.api.SetMainAppApi;
+public interface ReportController extends Controller{
 
-public interface ReportController extends SetMainAppApi {
+    void addRow();
 
-    void addRowBtn();
+    void updateRow();
 
-    void addGroupBtn();
-
-    void deleteRowBtn();
-
+    void deleteRow();
 
 }

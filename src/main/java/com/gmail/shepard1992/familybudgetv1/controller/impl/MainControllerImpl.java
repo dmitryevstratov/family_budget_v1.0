@@ -2,17 +2,14 @@ package com.gmail.shepard1992.familybudgetv1.controller.impl;
 
 import com.gmail.shepard1992.familybudgetv1.MainApplication;
 import com.gmail.shepard1992.familybudgetv1.controller.api.MainController;
+import com.gmail.shepard1992.familybudgetv1.controller.buttons.api.ButtonApi;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-
-import static javafx.scene.input.MouseEvent.MOUSE_CLICKED;
 
 public class MainControllerImpl implements MainController {
 
     private MainApplication mainApp;
 
-    @FXML
-    private Button createReportBtn;
+    private final ButtonApi btn = MainApplication::showReportView;
 
     public MainControllerImpl() {
 
@@ -20,8 +17,8 @@ public class MainControllerImpl implements MainController {
 
     @FXML
     @Override
-    public void createReportBtn() {
-        createReportBtn.addEventHandler(MOUSE_CLICKED, e -> mainApp.showReportView());
+    public void createReport() {
+        btn.click(mainApp);
     }
 
     @Override

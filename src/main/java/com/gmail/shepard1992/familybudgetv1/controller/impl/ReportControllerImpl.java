@@ -2,44 +2,18 @@ package com.gmail.shepard1992.familybudgetv1.controller.impl;
 
 import com.gmail.shepard1992.familybudgetv1.MainApplication;
 import com.gmail.shepard1992.familybudgetv1.controller.api.ReportController;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-
-import static javafx.scene.input.MouseEvent.MOUSE_CLICKED;
+import com.gmail.shepard1992.familybudgetv1.controller.buttons.api.ButtonApi;
 
 public class ReportControllerImpl implements ReportController {
 
     private MainApplication mainApp;
 
-    @FXML
-    private Button addRowBtn;
-
-    @FXML
-    private Button addGroupBtn;
-
-    @FXML
-    private Button deleteRowBtn;
+    private final ButtonApi addIncomeBtn = MainApplication::addRow;
+    private final ButtonApi updateIncomeBtn = MainApplication::updateRow;
+    private final ButtonApi deleteIncomeBtn = MainApplication::deleteRow;
 
     public ReportControllerImpl() {
 
-    }
-
-    @FXML
-    @Override
-    public void addRowBtn() {
-        addRowBtn.addEventHandler(MOUSE_CLICKED, e -> System.out.println("add row"));
-    }
-
-    @FXML
-    @Override
-    public void addGroupBtn() {
-        addGroupBtn.addEventHandler(MOUSE_CLICKED, e -> System.out.println("add group"));
-    }
-
-    @FXML
-    @Override
-    public void deleteRowBtn() {
-        deleteRowBtn.addEventHandler(MOUSE_CLICKED, e -> System.out.println("delete row"));
     }
 
     @Override
@@ -47,4 +21,18 @@ public class ReportControllerImpl implements ReportController {
         this.mainApp = mainApp;
     }
 
+    @Override
+    public void addRow() {
+        addIncomeBtn.click(mainApp);
+    }
+
+    @Override
+    public void updateRow() {
+        updateIncomeBtn.click(mainApp);
+    }
+
+    @Override
+    public void deleteRow() {
+        deleteIncomeBtn.click(mainApp);
+    }
 }

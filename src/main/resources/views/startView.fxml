@@ -7,7 +7,7 @@
             fx:controller="com.gmail.shepard1992.familybudgetv1.controller.impl.MainControllerImpl">
     <left>
         <VBox prefHeight="474.0" prefWidth="150.0" BorderPane.alignment="CENTER">
-            <Button fx:id="createReportBtn" mnemonicParsing="false" onAction="#createReportBtn" text="Создать отчет"/>
+            <Button fx:id="createReportBtn" mnemonicParsing="false" onAction="#createReport" text="Создать отчет"/>
             <Button mnemonicParsing="false" text="Button"/>
             <Button mnemonicParsing="false" text="Button"/>
             <Button mnemonicParsing="false" text="Button"/>
