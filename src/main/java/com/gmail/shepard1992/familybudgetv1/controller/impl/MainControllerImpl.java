@@ -4,7 +4,9 @@ import com.gmail.shepard1992.familybudgetv1.MainApplication;
 import com.gmail.shepard1992.familybudgetv1.controller.api.MainController;
 import com.gmail.shepard1992.familybudgetv1.controller.buttons.api.ButtonApi;
 import javafx.fxml.FXML;
+import org.springframework.stereotype.Controller;
 
+@Controller
 public class MainControllerImpl implements MainController {
 
     private MainApplication mainApp;

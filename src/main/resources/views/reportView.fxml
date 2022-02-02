@@ -33,49 +33,49 @@
     <bottom>
         <Label text="Разработанно by Евстратов" BorderPane.alignment="CENTER" />
     </bottom>
-   <center>
-       <SplitPane dividerPositions="0.4999999999999999" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-               <VBox prefHeight="334.0" prefWidth="401.0">
-                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="405.0" text="Таблица расходов" />
-               <TableView prefHeight="190.0" prefWidth="405.0">
-                 <columns>
-                     <TableColumn prefWidth="31.999970257282257" text="#" />
-                   <TableColumn prefWidth="77.60003280639648" text="Категория" />
-                   <TableColumn prefWidth="105.59997177124023" text="Тип" />
-                     <TableColumn prefWidth="183.2000274658203" text="Сумма, руб">
+    <center>
+        <SplitPane dividerPositions="0.4999999999999999" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                <VBox prefHeight="334.0" prefWidth="401.0">
+                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="405.0" text="Таблица расходов" />
+                    <TableView prefHeight="190.0" prefWidth="378.0">
                         <columns>
-                           <TableColumn prefWidth="75.0" text="План" />
-                           <TableColumn prefWidth="76.0" text="Факт" />
+                            <TableColumn prefWidth="31.999970257282257" text="#" />
+                            <TableColumn prefWidth="127.99996566772461" text="Категория" />
+                            <TableColumn prefWidth="56.0" text="Тип" />
+                            <TableColumn prefWidth="183.2000274658203" text="Сумма, руб">
+                                <columns>
+                                    <TableColumn prefWidth="75.0" text="План" />
+                                    <TableColumn prefWidth="76.0" text="Факт" />
+                                </columns>
+                            </TableColumn>
                         </columns>
-                     </TableColumn>
-                 </columns>
-               </TableView>
-                   <HBox prefHeight="127.0" prefWidth="300.0">
-                       <Button id="addCostsBtn" mnemonicParsing="false" text="Добавить" />
-                       <Button id="updateCostsBtn" mnemonicParsing="false" text="Изменить" />
-                       <Button id="deleteCostsBtn" mnemonicParsing="false" text="Удалить" />
-                   </HBox>
-               </VBox>
-           </AnchorPane>
-           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-               <VBox prefHeight="334.0" prefWidth="401.0">
-                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="405.0" text="Таблица доходов" />
-               <TableView prefHeight="192.0" prefWidth="386.0">
-                 <columns>
-                     <TableColumn prefWidth="75.0" text="#" />
-                     <TableColumn prefWidth="72.0" text="Категрия" />
-                   <TableColumn minWidth="0.0" prefWidth="115.99992370605469" text="Тип" />
-                   <TableColumn maxWidth="213.59996032714844" prefWidth="134.4000244140625" text="Сумма, руб" />
-                 </columns>
-               </TableView>
-                   <HBox prefHeight="127.0" prefWidth="300.0">
-                       <Button id="addIncomeBtn" onAction="#addRow" mnemonicParsing="false" text="Добавить" />
-                       <Button id="updateIncomeBtn" onAction="#updateRow" mnemonicParsing="false" text="Изменить" />
-                       <Button id="deleteIncomeBtn" onAction="#deleteRow" mnemonicParsing="false" text="Удалить" />
-                   </HBox>
-               </VBox>
-           </AnchorPane>
-       </SplitPane>
-   </center>
+                    </TableView>
+                    <HBox prefHeight="127.0" prefWidth="300.0">
+                        <Button id="addCostsBtn" mnemonicParsing="false" text="Добавить" />
+                        <Button id="updateCostsBtn" mnemonicParsing="false" text="Изменить" />
+                        <Button id="deleteCostsBtn" mnemonicParsing="false" text="Удалить" />
+                    </HBox>
+                </VBox>
+            </AnchorPane>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                <VBox prefHeight="334.0" prefWidth="401.0">
+                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="405.0" text="Таблица доходов" />
+                    <TableView fx:id="tableIncome" prefHeight="191.0" prefWidth="420.0">
+                        <columns>
+                            <TableColumn fx:id="indexIncome" prefWidth="28.799987018108368" text="#" />
+                            <TableColumn fx:id="categoryIncome" prefWidth="163.20001602172852" text="Категрия" />
+                            <TableColumn fx:id="typeIncome" minWidth="0.0" prefWidth="79.99998474121094" text="Тип" />
+                            <TableColumn fx:id="sumIncome" maxWidth="213.59996032714844" prefWidth="128.7999267578125" text="Сумма, руб" />
+                        </columns>
+                    </TableView>
+                    <HBox prefHeight="127.0" prefWidth="300.0">
+                        <Button id="addIncomeBtn" mnemonicParsing="false" onAction="#addIncomeRow" text="Добавить" />
+                        <Button id="updateIncomeBtn" mnemonicParsing="false" onAction="#updateIncomeRow" text="Изменить" />
+                        <Button id="deleteIncomeBtn" mnemonicParsing="false" onAction="#deleteIncomeRow" text="Удалить" />
+                    </HBox>
+                </VBox>
+            </AnchorPane>
+        </SplitPane>
+    </center>
 </BorderPane>

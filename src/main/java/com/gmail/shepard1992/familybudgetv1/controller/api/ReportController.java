@@ -1,11 +1,11 @@
 package com.gmail.shepard1992.familybudgetv1.controller.api;
 
-public interface ReportController extends Controller{
+public interface ReportController extends Controller {
 
-    void addRow();
+    void addIncomeRow();
 
-    void updateRow();
+    void updateIncomeRow();
 
-    void deleteRow();
+    void deleteIncomeRow();
 
 }
