@@ -1,6 +1,7 @@
 package com.gmail.shepard1992.familybudgetv1.utils;
 
 import com.gmail.shepard1992.familybudgetv1.model.dto.ParamsForServiceAddRowDto;
+import com.gmail.shepard1992.familybudgetv1.model.dto.ParamsForServiceDeleteRowDto;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import org.springframework.stereotype.Component;
@@ -8,7 +9,26 @@ import org.springframework.stereotype.Component;
 @Component
 public class ValidationUtil {
 
-    public boolean isInputValid(ParamsForServiceAddRowDto params) {
+    public boolean isInputDeleteValid(ParamsForServiceDeleteRowDto params) {
+        String errorMessage = "";
+        if (params.getIndexField().getText() == null || params.getIndexField().getText().length() == 0) {
+            errorMessage += "Не заполнено поле Номер строки!\n";
+        } else {
+            try {
+                Integer.parseInt(params.getIndexField().getText());
+            } catch (Exception e) {
+                errorMessage += "Поле Номер строки должна содержать только числа!\n";
+            }
+        }
+        if (errorMessage.equals("")) {
+            return true;
+        } else {
+            showAlertModal(params.getDialogStage(), errorMessage);
+            return false;
+        }
+    }
+
+    public boolean isInputAddValid(ParamsForServiceAddRowDto params) {
         String errorMessage = "";
         if (params.getCategory() == null || params.getCategory().getText().length() == 0) {
             errorMessage += "Не заполнено поле Категория!\n";

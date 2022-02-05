@@ -45,7 +45,7 @@ public class IncomeDto {
     }
 
     public StringProperty getIndexProperty() {
-        return new SimpleStringProperty(index.toString());
+        return new SimpleStringProperty(index);
     }
 
     public static class IncomeDtoBuilder {

@@ -6,4 +6,6 @@ public interface ShowModalViewApi {
 
     void showAddRowIncomeModalView(IncomeDto incomeDto);
 
+    void showDeleteRowIncomeModalView(String index);
+
 }

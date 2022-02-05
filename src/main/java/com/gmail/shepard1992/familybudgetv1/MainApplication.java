@@ -48,7 +48,8 @@ public class MainApplication extends Application implements ShowViewApi, IncomeA
 
     @Override
     public void deleteIncomeRow() {
-        System.out.println("Delete row");
+        String index = new String();
+        showDeleteRowIncomeModalView(index);
     }
 
     @Override
@@ -64,5 +65,10 @@ public class MainApplication extends Application implements ShowViewApi, IncomeA
     @Override
     public void showAddRowIncomeModalView(IncomeDto incomeDto) {
         modalViewService.showAddRowIncomeModalView(MODAL_ADD_ROW_INCOME_VIEW, incomeDto);
+    }
+
+    @Override
+    public void showDeleteRowIncomeModalView(String index) {
+        modalViewService.showDeleteRowIncomeModalView(MODAL_DELETE_ROW_INCOME_VIEW, index);
     }
 }

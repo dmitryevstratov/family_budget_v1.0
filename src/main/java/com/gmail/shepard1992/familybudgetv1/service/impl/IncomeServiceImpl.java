@@ -3,6 +3,7 @@ package com.gmail.shepard1992.familybudgetv1.service.impl;
 import com.gmail.shepard1992.familybudgetv1.model.Income;
 import com.gmail.shepard1992.familybudgetv1.model.dto.IncomeDto;
 import com.gmail.shepard1992.familybudgetv1.model.dto.ParamsForServiceAddRowDto;
+import com.gmail.shepard1992.familybudgetv1.model.dto.ParamsForServiceDeleteRowDto;
 import com.gmail.shepard1992.familybudgetv1.repository.api.IncomeRepository;
 import com.gmail.shepard1992.familybudgetv1.service.api.IncomeService;
 import com.gmail.shepard1992.familybudgetv1.service.api.TotalService;
@@ -37,7 +38,7 @@ public class IncomeServiceImpl implements IncomeService, TotalService {
 
     @Override
     public boolean addRow(ParamsForServiceAddRowDto params) {
-        if (validationUtil.isInputValid(params)) {
+        if (validationUtil.isInputAddValid(params)) {
             IncomeDto dto = new IncomeDto.IncomeDtoBuilder()
                     .setCategory(params.getCategory().getText())
                     .setIndex(indexUtil.incrementIndex(getAll(params.getFile())))
@@ -59,9 +60,16 @@ public class IncomeServiceImpl implements IncomeService, TotalService {
     }
 
     @Override
-    public boolean deleteRow(Integer index, File file) {
-        //ToDo переращет индексов
-        return repository.deleteByIndex(index, file);
+    public boolean deleteRow(ParamsForServiceDeleteRowDto params) {
+        if (validationUtil.isInputDeleteValid(params)) {
+            params.getDialogStage().close();
+            boolean deleteByIndex = repository.deleteByIndex(Integer.parseInt(params.getIndexField().getText()), params.getFile());
+            setTotalByCategory(params.getFile());
+            setTotalAll(params.getFile());
+            return deleteByIndex;
+        } else {
+            return false;
+        }
     }
 
     @Override
@@ -105,12 +113,14 @@ public class IncomeServiceImpl implements IncomeService, TotalService {
                 .stream()
                 .mapToDouble(IncomeDto::getSum)
                 .sum();
-        repository.save(new Income.IncomeBuilder()
-                .setIndex(EMPTY)
-                .setCategory(TOTAL_ALL)
-                .setSum(totalAll)
-                .setType(EMPTY)
-                .build(), file);
+        if (totalAll != 0.0) {
+            repository.save(new Income.IncomeBuilder()
+                    .setIndex(EMPTY)
+                    .setCategory(TOTAL_ALL)
+                    .setSum(totalAll)
+                    .setType(EMPTY)
+                    .build(), file);
+        }
     }
 
 }
