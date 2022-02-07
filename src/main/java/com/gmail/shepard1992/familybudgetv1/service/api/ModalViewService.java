@@ -8,6 +8,8 @@ public interface ModalViewService extends Controller {
 
     void showAddRowIncomeModalView(String view, IncomeDto incomeDto);
 
+    void showDeleteRowIncomeModalView(String view, String index);
+
     void setPrimaryStage(Stage primaryStage);
 
 }

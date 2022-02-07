@@ -21,7 +21,7 @@ public class ReportControllerImpl implements ReportController {
     private IncomeService incomeService;
     private FileUtil fileUtil;
 
-    private final ButtonApi addIncomeBtn = MainApplication::addIncomeRow;
+    private ButtonApi addIncomeBtn = MainApplication::addIncomeRow;
     private final ButtonApi updateIncomeBtn = MainApplication::updateIncomeRow;
     private final ButtonApi deleteIncomeBtn = MainApplication::deleteIncomeRow;
 
@@ -80,6 +80,7 @@ public class ReportControllerImpl implements ReportController {
     @Override
     public void deleteIncomeRow() {
         deleteIncomeBtn.click(mainApp);
+        fileUtil.loadIncomeDtoData(incomeService, tableIncome);
     }
 
 }

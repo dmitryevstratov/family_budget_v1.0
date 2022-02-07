@@ -36,6 +36,7 @@ public class IncomeRepositoryImpl implements IncomeRepository {
 
     @Override
     public void save(Income income, File file) {
+        List<Income> incomeList = getAll(file);
         try {
             JAXBContext context = JAXBContext.newInstance(IncomeListWrapper.class);
 
@@ -48,7 +49,6 @@ public class IncomeRepositoryImpl implements IncomeRepository {
             m.setProperty(JAXB_FORMATTED_OUTPUT, true);
 
             IncomeListWrapper listWrapper = new IncomeListWrapper();
-            List<Income> incomeList = getAll(file);
             incomeList.add(income);
             listWrapper.setIncome(incomeList);
             m.marshal(listWrapper, file);
@@ -58,6 +58,7 @@ public class IncomeRepositoryImpl implements IncomeRepository {
         }
     }
 
+
     @Override
     public Income update(Income income) {
         return null;
@@ -65,18 +66,25 @@ public class IncomeRepositoryImpl implements IncomeRepository {
 
     @Override
     public boolean deleteByIndex(Integer index, File file) {
-        List<Income> allIncomes = getAll(file);
-        Income removeIncome = null;
-        for (int i = 0; i < allIncomes.size(); i++) {
-            if (allIncomes.get(i).getIndex().equals(index)) {
-                removeIncome = allIncomes.remove(i);
-                break;
+        List<Income> incomeList = getAll(file);
+        if (incomeList.stream()
+                .anyMatch(inc -> inc.getIndex().equals(index.toString()))) {
+            for (int i = 0; i < incomeList.size(); i++) {
+                if (incomeList.get(i).getIndex().equals(index.toString())) {
+                    incomeList.remove(i);
+                    clear(file);
+                    for (int j = 0; j < incomeList.size(); j++) {
+                        Income income = incomeList.get(j);
+                        if (!income.getIndex().equals(j + "")) {
+                            income.setIndex(j + "");
+                            save(income, file);
+                        } else {
+                            save(income, file);
+                        }
+                    }
+                    return true;
+                }
             }
-        }
-        if (removeIncome != null) {
-            clear(file);
-            allIncomes.forEach((income -> save(income, file)));
-            return true;
         }
         return false;
     }
@@ -84,15 +92,14 @@ public class IncomeRepositoryImpl implements IncomeRepository {
     @Override
     public List<Income> getAll(File file) {
         List<Income> incomeList = new ArrayList<>();
+        if (fileUtil.checkEmptyFile(file)) {
+            return incomeList;
+        }
         try {
             JAXBContext context = JAXBContext.newInstance(IncomeListWrapper.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
-            if (fileUtil.checkEmptyFile(file)) {
-                return incomeList;
-            } else {
-                IncomeListWrapper listWrapper = (IncomeListWrapper) unmarshaller.unmarshal(file);
-                incomeList = listWrapper.getIncome();
-            }
+            IncomeListWrapper listWrapper = (IncomeListWrapper) unmarshaller.unmarshal(file);
+            incomeList = listWrapper.getIncome();
         } catch (JAXBException e) {
             e.printStackTrace();
         }
@@ -118,17 +125,16 @@ public class IncomeRepositoryImpl implements IncomeRepository {
 
     @Override
     public void deleteByCategory(String category, File file) {
-        List<Income> allIncomes = getAll(file);
-        Income removeIncome = null;
-        for (int i = 0; i < allIncomes.size(); i++) {
-            if (allIncomes.get(i).getCategory().equals(category)) {
-                removeIncome = allIncomes.remove(i);
-                break;
+        List<Income> incomeList = getAll(file);
+        if (incomeList.stream()
+                .anyMatch(inc -> inc.getCategory().equals(category))) {
+            for (int i = 0; i < incomeList.size(); i++) {
+                if (incomeList.get(i).getCategory().equals(category)) {
+                    incomeList.remove(i);
+                    clear(file);
+                    incomeList.forEach((income -> save(income, file)));
+                }
             }
-        }
-        if (removeIncome != null) {
-            clear(file);
-            allIncomes.forEach((income -> save(income, file)));
         }
     }
 
