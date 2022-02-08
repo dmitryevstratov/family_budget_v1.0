@@ -5,7 +5,7 @@ import com.gmail.shepard1992.familybudgetv1.model.dto.IncomeDto;
 import com.gmail.shepard1992.familybudgetv1.model.dto.ParamsForServiceAddRowDto;
 import com.gmail.shepard1992.familybudgetv1.model.dto.ParamsForServiceDeleteRowDto;
 import com.gmail.shepard1992.familybudgetv1.model.dto.ParamsForServiceUpdateRowDto;
-import com.gmail.shepard1992.familybudgetv1.repository.api.IncomeRepository;
+import com.gmail.shepard1992.familybudgetv1.repository.api.Repository;
 import com.gmail.shepard1992.familybudgetv1.service.api.IncomeService;
 import com.gmail.shepard1992.familybudgetv1.service.api.TotalService;
 import com.gmail.shepard1992.familybudgetv1.utils.IndexUtil;
@@ -26,12 +26,12 @@ import static com.gmail.shepard1992.familybudgetv1.constants.ServiceConstants.*;
 public class IncomeServiceImpl implements IncomeService, TotalService {
 
     private final ValidationUtil validationUtil;
-    private final IncomeRepository repository;
+    private final Repository<Income> repository;
     private final MapperUtil mapperUtil;
     private final IndexUtil indexUtil;
 
     @Autowired
-    public IncomeServiceImpl(ValidationUtil validationUtil, IncomeRepository repository, MapperUtil mapperUtil, IndexUtil indexUtil) {
+    public IncomeServiceImpl(ValidationUtil validationUtil, Repository<Income> repository, MapperUtil mapperUtil, IndexUtil indexUtil) {
         this.validationUtil = validationUtil;
         this.repository = repository;
         this.mapperUtil = mapperUtil;

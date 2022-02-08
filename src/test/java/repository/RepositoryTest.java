@@ -2,7 +2,7 @@ package repository;
 
 import com.gmail.shepard1992.familybudgetv1.config.*;
 import com.gmail.shepard1992.familybudgetv1.model.Income;
-import com.gmail.shepard1992.familybudgetv1.repository.api.IncomeRepository;
+import com.gmail.shepard1992.familybudgetv1.repository.api.Repository;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,10 +28,10 @@ import static org.junit.Assert.*;
         IndexConfig.class,
         FileConfig.class
 })
-public class IncomeRepositoryTest {
+public class RepositoryTest {
 
     @Autowired
-    public IncomeRepository repository;
+    public Repository repository;
 
     private final File file = new File(MAIN_DIRECTORY + "test/");
 
