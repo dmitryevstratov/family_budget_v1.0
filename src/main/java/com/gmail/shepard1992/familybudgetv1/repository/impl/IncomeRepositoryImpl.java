@@ -3,10 +3,9 @@ package com.gmail.shepard1992.familybudgetv1.repository.impl;
 import com.gmail.shepard1992.familybudgetv1.MainApplication;
 import com.gmail.shepard1992.familybudgetv1.model.Income;
 import com.gmail.shepard1992.familybudgetv1.model.xmlWrapper.IncomeListWrapper;
-import com.gmail.shepard1992.familybudgetv1.repository.api.IncomeRepository;
+import com.gmail.shepard1992.familybudgetv1.repository.api.Repository;
 import com.gmail.shepard1992.familybudgetv1.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.xml.sax.SAXException;
 
 import javax.xml.bind.JAXBContext;
@@ -24,8 +23,8 @@ import static com.gmail.shepard1992.familybudgetv1.constants.PathXsd.INCOME_PATH
 import static javax.xml.XMLConstants.W3C_XML_SCHEMA_NS_URI;
 import static javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT;
 
-@Repository
-public class IncomeRepositoryImpl implements IncomeRepository {
+@org.springframework.stereotype.Repository
+public class IncomeRepositoryImpl implements Repository<Income> {
 
     private final FileUtil fileUtil;
 

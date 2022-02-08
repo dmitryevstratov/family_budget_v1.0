@@ -3,7 +3,7 @@ package service;
 import com.gmail.shepard1992.familybudgetv1.config.*;
 import com.gmail.shepard1992.familybudgetv1.model.Income;
 import com.gmail.shepard1992.familybudgetv1.model.dto.IncomeDto;
-import com.gmail.shepard1992.familybudgetv1.repository.api.IncomeRepository;
+import com.gmail.shepard1992.familybudgetv1.repository.api.Repository;
 import com.gmail.shepard1992.familybudgetv1.service.api.IncomeService;
 import config.IncomeRepositoryConfigTest;
 import org.junit.Test;
@@ -34,7 +34,7 @@ import static org.mockito.ArgumentMatchers.any;
 public class IncomeServiceTest {
 
     @Autowired
-    public IncomeRepository repository;
+    public Repository repository;
 
     @Autowired
     public IncomeService service;

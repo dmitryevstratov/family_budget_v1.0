@@ -1,19 +1,17 @@
 package com.gmail.shepard1992.familybudgetv1.repository.api;
 
-import com.gmail.shepard1992.familybudgetv1.model.Income;
-
 import java.io.File;
 import java.util.List;
 
-public interface IncomeRepository {
+public interface Repository<E> {
 
-    void save(Income income, File file);
+    void save(E element, File file);
 
-    void update(Income income, File file);
+    void update(E element, File file);
 
     boolean deleteByIndex(Integer index, File file);
 
-    List<Income> getAll(File file);
+    List<E> getAll(File file);
 
     void clear(File file);
 
