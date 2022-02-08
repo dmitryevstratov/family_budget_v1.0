@@ -114,4 +114,25 @@ public class IncomeRepositoryTest {
         assertEquals("Dog", all.get(0).getCategory());
     }
 
+    @Test
+    public void test_when_call_update_then_success() {
+        repository.save(new Income.IncomeBuilder()
+                .setIndex("0")
+                .setCategory("Dog")
+                .setType("Dog")
+                .setSum(100d)
+                .build(), file);
+
+        repository.update(new Income.IncomeBuilder()
+                .setIndex("0")
+                .setCategory("")
+                .setType("")
+                .setSum(300d)
+                .build(), file);
+        List<Income> all = repository.getAll(file);
+
+        assertFalse(all.isEmpty());
+        assertEquals("300.0", all.get(0).getSum().toString());
+    }
+
 }

@@ -21,11 +21,9 @@ public class ReportControllerImpl implements ReportController {
     private IncomeService incomeService;
     private FileUtil fileUtil;
 
-    private ButtonApi addIncomeBtn = MainApplication::addIncomeRow;
+    private final ButtonApi addIncomeBtn = MainApplication::addIncomeRow;
     private final ButtonApi updateIncomeBtn = MainApplication::updateIncomeRow;
     private final ButtonApi deleteIncomeBtn = MainApplication::deleteIncomeRow;
-
-    //ToDo настроить валидацию
 
     @FXML
     private TableView<IncomeDto> tableIncome;
@@ -75,6 +73,7 @@ public class ReportControllerImpl implements ReportController {
     @Override
     public void updateIncomeRow() {
         updateIncomeBtn.click(mainApp);
+        fileUtil.loadIncomeDtoData(incomeService, tableIncome);
     }
 
     @Override

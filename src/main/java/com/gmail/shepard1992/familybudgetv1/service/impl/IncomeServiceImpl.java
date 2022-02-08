@@ -4,12 +4,14 @@ import com.gmail.shepard1992.familybudgetv1.model.Income;
 import com.gmail.shepard1992.familybudgetv1.model.dto.IncomeDto;
 import com.gmail.shepard1992.familybudgetv1.model.dto.ParamsForServiceAddRowDto;
 import com.gmail.shepard1992.familybudgetv1.model.dto.ParamsForServiceDeleteRowDto;
+import com.gmail.shepard1992.familybudgetv1.model.dto.ParamsForServiceUpdateRowDto;
 import com.gmail.shepard1992.familybudgetv1.repository.api.IncomeRepository;
 import com.gmail.shepard1992.familybudgetv1.service.api.IncomeService;
 import com.gmail.shepard1992.familybudgetv1.service.api.TotalService;
 import com.gmail.shepard1992.familybudgetv1.utils.IndexUtil;
 import com.gmail.shepard1992.familybudgetv1.utils.MapperUtil;
 import com.gmail.shepard1992.familybudgetv1.utils.ValidationUtil;
+import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,9 +47,7 @@ public class IncomeServiceImpl implements IncomeService, TotalService {
                     .setSum(Double.parseDouble(params.getSum().getText()))
                     .setType(params.getType().getText()).build();
             repository.save(mapperUtil.convertToIncome(dto), params.getFile());
-            params.getDialogStage().close();
-            setTotalByCategory(params.getFile());
-            setTotalAll(params.getFile());
+            updateTotal(params.getDialogStage(), params.getFile());
             return true;
         } else {
             return false;
@@ -55,17 +55,34 @@ public class IncomeServiceImpl implements IncomeService, TotalService {
     }
 
     @Override
-    public boolean updateRow() {
+    public boolean updateRow(ParamsForServiceUpdateRowDto params) {
+        if (validationUtil.isInputUpdateValid(params)) {
+            Income income = new Income.IncomeBuilder()
+                    .setIndex(params.getIndex().getText())
+                    .setCategory(params.getCategory().getText())
+                    .setType(params.getType().getText())
+                    .build();
+            if (!params.getSum().getText().isEmpty()) {
+                income.setIncomeSum(Double.parseDouble(params.getSum().getText()));
+            }
+            repository.update(income, params.getFile());
+            updateTotal(params.getDialogStage(), params.getFile());
+            return true;
+        }
         return false;
+    }
+
+    private void updateTotal(Stage params, File file) {
+        params.close();
+        setTotalByCategory(file);
+        setTotalAll(file);
     }
 
     @Override
     public boolean deleteRow(ParamsForServiceDeleteRowDto params) {
         if (validationUtil.isInputDeleteValid(params)) {
-            params.getDialogStage().close();
             boolean deleteByIndex = repository.deleteByIndex(Integer.parseInt(params.getIndexField().getText()), params.getFile());
-            setTotalByCategory(params.getFile());
-            setTotalAll(params.getFile());
+            updateTotal(params.getDialogStage(), params.getFile());
             return deleteByIndex;
         } else {
             return false;

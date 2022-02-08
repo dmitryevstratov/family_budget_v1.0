@@ -1,9 +1,9 @@
-package com.gmail.shepard1992.familybudgetv1.controller.impl;
+package com.gmail.shepard1992.familybudgetv1.controller.impl.modal.income;
 
 import com.gmail.shepard1992.familybudgetv1.MainApplication;
-import com.gmail.shepard1992.familybudgetv1.controller.api.ModalAddRowIncomeController;
+import com.gmail.shepard1992.familybudgetv1.controller.api.income.ModalUpdateRowIncomeController;
 import com.gmail.shepard1992.familybudgetv1.model.dto.IncomeDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.ParamsForServiceAddRowDto;
+import com.gmail.shepard1992.familybudgetv1.model.dto.ParamsForServiceUpdateRowDto;
 import com.gmail.shepard1992.familybudgetv1.service.api.IncomeService;
 import com.gmail.shepard1992.familybudgetv1.utils.FileUtil;
 import javafx.fxml.FXML;
@@ -13,13 +13,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 @Controller
-public class ModalAddRowIncomeControllerImpl implements ModalAddRowIncomeController {
+public class ModalUpdateRowIncomeControllerImpl implements ModalUpdateRowIncomeController {
 
     private MainApplication mainApp;
     private Stage dialogStage;
     private IncomeDto incomeDto;
     private final IncomeService incomeService;
     private final FileUtil fileUtil;
+
+    @FXML
+    private TextField index;
 
     @FXML
     private TextField category;
@@ -31,9 +34,14 @@ public class ModalAddRowIncomeControllerImpl implements ModalAddRowIncomeControl
     private TextField sum;
 
     @Autowired
-    public ModalAddRowIncomeControllerImpl(IncomeService incomeService, FileUtil fileUtil) {
+    public ModalUpdateRowIncomeControllerImpl(IncomeService incomeService, FileUtil fileUtil) {
         this.incomeService = incomeService;
         this.fileUtil = fileUtil;
+    }
+
+    @Override
+    public void setMainApp(MainApplication mainApp) {
+        this.mainApp = mainApp;
     }
 
     @Override
@@ -48,19 +56,15 @@ public class ModalAddRowIncomeControllerImpl implements ModalAddRowIncomeControl
 
     @FXML
     private boolean handleOk() {
-        ParamsForServiceAddRowDto params = new ParamsForServiceAddRowDto(
+        ParamsForServiceUpdateRowDto params = new ParamsForServiceUpdateRowDto(
+                index,
                 category,
                 type,
                 sum,
                 dialogStage,
                 fileUtil.getFile()
         );
-        return incomeService.addRow(params);
-    }
-
-    @Override
-    public void setMainApp(MainApplication mainApp) {
-        this.mainApp = mainApp;
+        return incomeService.updateRow(params);
     }
 
 }

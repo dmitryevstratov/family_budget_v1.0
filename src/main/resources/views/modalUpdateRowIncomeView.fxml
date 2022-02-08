@@ -3,9 +3,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0"
-            prefWidth="300.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gmail.shepard1992.familybudgetv1.controller.impl.modal.income.ModalAddRowIncomeControllerImpl">
+            prefWidth="300.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.gmail.shepard1992.familybudgetv1.controller.impl.modal.income.ModalUpdateRowIncomeControllerImpl">
     <top>
-        <Label text="Добавить доход" BorderPane.alignment="CENTER"/>
+        <Label text="Изменить строку" BorderPane.alignment="CENTER"/>
     </top>
     <center>
         <GridPane BorderPane.alignment="CENTER">
@@ -16,6 +17,8 @@
             <rowConstraints>
                 <RowConstraints maxHeight="105.80000152587891" minHeight="10.0" prefHeight="45.199995803833005"
                                 vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="105.80000152587891" minHeight="10.0" prefHeight="45.199995803833005"
+                                vgrow="SOMETIMES"/>
                 <RowConstraints maxHeight="207.3999942779541" minHeight="0.0" prefHeight="50.20001525878907"
                                 vgrow="SOMETIMES"/>
                 <RowConstraints maxHeight="277.9999877929688" minHeight="10.0" prefHeight="58.199969482421864"
@@ -23,15 +26,17 @@
                 <RowConstraints maxHeight="254.99996032714841" minHeight="10.0" prefHeight="179.80003051757814"
                                 vgrow="SOMETIMES"/>
             </rowConstraints>
-            <Label text="Категория"/>
-            <Label text="Тип" GridPane.rowIndex="1"/>
-            <Label text="Сумма, руб" GridPane.rowIndex="2"/>
-            <TextField fx:id="category" GridPane.columnIndex="1"/>
-            <TextField fx:id="type" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-            <TextField fx:id="sum" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+            <Label text="Категория" GridPane.rowIndex="1"/>
+            <Label text="Тип" GridPane.rowIndex="2"/>
+            <Label text="Сумма, руб" GridPane.rowIndex="3"/>
+            <TextField fx:id="category" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+            <TextField fx:id="type" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+            <TextField fx:id="sum" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+            <TextField fx:id="index" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
+            <Label text="Номер строки" GridPane.rowIndex="0"/>
         </GridPane>
     </center>
     <bottom>
-        <Button onAction="#handleOk" mnemonicParsing="false" text="Добавить" BorderPane.alignment="CENTER"/>
+        <Button mnemonicParsing="false" onAction="#handleOk" text="Изменить" BorderPane.alignment="CENTER"/>
     </bottom>
 </BorderPane>

@@ -60,8 +60,20 @@ public class IncomeRepositoryImpl implements IncomeRepository {
 
 
     @Override
-    public Income update(Income income) {
-        return null;
+    public void update(Income income, File file) {
+        List<Income> incomeList = getAll(file);
+        if (incomeList.stream()
+                .anyMatch(inc -> inc.getIndex().equals(income.getIndex()))) {
+            for (Income inc : incomeList) {
+                if (inc.getIndex().equals(income.getIndex())) {
+                    if (!income.getCategory().isEmpty()) inc.setIncomeCategory(income.getCategory());
+                    if (!income.getType().isEmpty()) inc.setIncomeType(income.getType());
+                    if (income.getSum() != null) inc.setIncomeSum(income.getSum());
+                }
+            }
+            clear(file);
+            incomeList.forEach(inc -> save(inc, file));
+        }
     }
 
     @Override
