@@ -1,7 +1,7 @@
 package com.gmail.shepard1992.familybudgetv1;
 
-import com.gmail.shepard1992.familybudgetv1.api.IncomeActionApi;
-import com.gmail.shepard1992.familybudgetv1.api.ShowModalViewApi;
+import com.gmail.shepard1992.familybudgetv1.api.income.IncomeActionApi;
+import com.gmail.shepard1992.familybudgetv1.api.income.ShowModalIncomeViewApi;
 import com.gmail.shepard1992.familybudgetv1.api.ShowViewApi;
 import com.gmail.shepard1992.familybudgetv1.config.AppConfig;
 import com.gmail.shepard1992.familybudgetv1.model.dto.IncomeDto;
@@ -14,7 +14,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import static com.gmail.shepard1992.familybudgetv1.constants.ViewsPath.*;
 
-public class MainApplication extends Application implements ShowViewApi, IncomeActionApi, ShowModalViewApi {
+public class MainApplication extends Application implements ShowViewApi, IncomeActionApi, ShowModalIncomeViewApi {
 
     private Stage primaryStage;
     private ViewService viewService;
@@ -43,7 +43,8 @@ public class MainApplication extends Application implements ShowViewApi, IncomeA
 
     @Override
     public void updateIncomeRow() {
-        System.out.println("Update row");
+        IncomeDto incomeDto = new IncomeDto.IncomeDtoBuilder().build();
+        showUpdateRowIncomeModalView(incomeDto);
     }
 
     @Override
@@ -65,6 +66,11 @@ public class MainApplication extends Application implements ShowViewApi, IncomeA
     @Override
     public void showAddRowIncomeModalView(IncomeDto incomeDto) {
         modalViewService.showAddRowIncomeModalView(MODAL_ADD_ROW_INCOME_VIEW, incomeDto);
+    }
+
+    @Override
+    public void showUpdateRowIncomeModalView(IncomeDto incomeDto) {
+        modalViewService.showUpdateRowIncomeModalView(MODAL_UPDATE_ROW_INCOME_VIEW, incomeDto);
     }
 
     @Override

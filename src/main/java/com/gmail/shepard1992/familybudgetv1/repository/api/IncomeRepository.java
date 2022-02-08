@@ -9,7 +9,7 @@ public interface IncomeRepository {
 
     void save(Income income, File file);
 
-    Income update(Income income);
+    void update(Income income, File file);
 
     boolean deleteByIndex(Integer index, File file);
 

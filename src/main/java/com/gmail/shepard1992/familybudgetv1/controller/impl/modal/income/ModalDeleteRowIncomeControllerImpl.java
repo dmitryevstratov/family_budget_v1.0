@@ -1,7 +1,7 @@
-package com.gmail.shepard1992.familybudgetv1.controller.impl;
+package com.gmail.shepard1992.familybudgetv1.controller.impl.modal.income;
 
 import com.gmail.shepard1992.familybudgetv1.MainApplication;
-import com.gmail.shepard1992.familybudgetv1.controller.api.ModalDeleteRowIncomeController;
+import com.gmail.shepard1992.familybudgetv1.controller.api.income.ModalDeleteRowIncomeController;
 import com.gmail.shepard1992.familybudgetv1.model.dto.ParamsForServiceDeleteRowDto;
 import com.gmail.shepard1992.familybudgetv1.service.api.IncomeService;
 import com.gmail.shepard1992.familybudgetv1.utils.FileUtil;

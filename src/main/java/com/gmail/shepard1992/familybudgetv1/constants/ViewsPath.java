@@ -10,4 +10,6 @@ public interface ViewsPath {
 
     String MODAL_DELETE_ROW_INCOME_VIEW = "/views/modalDeleteRowIncomeView.fxml";
 
+    String MODAL_UPDATE_ROW_INCOME_VIEW = "/views/modalUpdateRowIncomeView.fxml";
+
 }

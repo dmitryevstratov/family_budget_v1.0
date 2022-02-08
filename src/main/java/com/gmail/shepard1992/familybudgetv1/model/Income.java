@@ -2,6 +2,7 @@ package com.gmail.shepard1992.familybudgetv1.model;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
+import java.util.Objects;
 
 @XmlType(propOrder = {"index", "category", "type", "sum"})
 public class Income {
@@ -45,6 +46,18 @@ public class Income {
 
     public void setIndex(String index) {
         this.index = index;
+    }
+
+    public void setIncomeCategory(String category) {
+        this.category = category;
+    }
+
+    public void setIncomeType(String type) {
+        this.type = type;
+    }
+
+    public void setIncomeSum(Double sum) {
+        this.sum = sum;
     }
 
     public static class IncomeBuilder {
