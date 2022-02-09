@@ -15,7 +15,7 @@ import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
-        FileConfig.class
+        UtilConfig.class
 })
 public class FileUtilTest {
 

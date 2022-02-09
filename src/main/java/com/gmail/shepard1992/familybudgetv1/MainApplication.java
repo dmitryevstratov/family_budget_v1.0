@@ -1,10 +1,12 @@
 package com.gmail.shepard1992.familybudgetv1;
 
+import com.gmail.shepard1992.familybudgetv1.api.ShowModalViewApi;
+import com.gmail.shepard1992.familybudgetv1.api.ShowViewApi;
 import com.gmail.shepard1992.familybudgetv1.api.income.IncomeActionApi;
 import com.gmail.shepard1992.familybudgetv1.api.income.ShowModalIncomeViewApi;
-import com.gmail.shepard1992.familybudgetv1.api.ShowViewApi;
 import com.gmail.shepard1992.familybudgetv1.config.AppConfig;
 import com.gmail.shepard1992.familybudgetv1.model.dto.IncomeDto;
+import com.gmail.shepard1992.familybudgetv1.service.api.ModalIncomeViewService;
 import com.gmail.shepard1992.familybudgetv1.service.api.ModalViewService;
 import com.gmail.shepard1992.familybudgetv1.service.api.ViewService;
 import javafx.application.Application;
@@ -14,10 +16,11 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import static com.gmail.shepard1992.familybudgetv1.constants.ViewsPath.*;
 
-public class MainApplication extends Application implements ShowViewApi, IncomeActionApi, ShowModalIncomeViewApi {
+public class MainApplication extends Application implements ShowViewApi, IncomeActionApi, ShowModalIncomeViewApi, ShowModalViewApi {
 
     private Stage primaryStage;
     private ViewService viewService;
+    private ModalIncomeViewService modalIncomeViewService;
     private ModalViewService modalViewService;
 
     public static void main(String[] args) {
@@ -28,10 +31,17 @@ public class MainApplication extends Application implements ShowViewApi, IncomeA
     public void start(Stage primaryStage) {
         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
         this.primaryStage = primaryStage;
+
         this.viewService = context.getBean(ViewService.class);
-        this.modalViewService = context.getBean(ModalViewService.class);
         this.viewService.setMainApp(this);
         this.viewService.setPrimaryStage(primaryStage);
+
+        this.modalIncomeViewService = context.getBean(ModalIncomeViewService.class);
+
+        this.modalViewService = context.getBean(ModalViewService.class);
+        this.modalViewService.setMainApp(this);
+        this.modalViewService.setPrimaryStage(primaryStage);
+
         showRootView();
     }
 
@@ -65,16 +75,22 @@ public class MainApplication extends Application implements ShowViewApi, IncomeA
 
     @Override
     public void showAddRowIncomeModalView(IncomeDto incomeDto) {
-        modalViewService.showAddRowIncomeModalView(MODAL_ADD_ROW_INCOME_VIEW, incomeDto);
+        modalIncomeViewService.showAddRowIncomeModalView(MODAL_ADD_ROW_INCOME_VIEW, incomeDto);
     }
 
     @Override
     public void showUpdateRowIncomeModalView(IncomeDto incomeDto) {
-        modalViewService.showUpdateRowIncomeModalView(MODAL_UPDATE_ROW_INCOME_VIEW, incomeDto);
+        modalIncomeViewService.showUpdateRowIncomeModalView(MODAL_UPDATE_ROW_INCOME_VIEW, incomeDto);
     }
 
     @Override
     public void showDeleteRowIncomeModalView(String index) {
-        modalViewService.showDeleteRowIncomeModalView(MODAL_DELETE_ROW_INCOME_VIEW, index);
+        modalIncomeViewService.showDeleteRowIncomeModalView(MODAL_DELETE_ROW_INCOME_VIEW, index);
     }
+
+    @Override
+    public void showModalCreateReportView() {
+        modalViewService.showCreateReportModalView(MODAL_CREATE_REPORT_VIEW);
+    }
+
 }

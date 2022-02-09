@@ -6,8 +6,6 @@ import com.gmail.shepard1992.familybudgetv1.controller.buttons.api.ButtonApi;
 import com.gmail.shepard1992.familybudgetv1.model.dto.IncomeDto;
 import com.gmail.shepard1992.familybudgetv1.service.api.IncomeService;
 import com.gmail.shepard1992.familybudgetv1.utils.FileUtil;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;

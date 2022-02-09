@@ -25,16 +25,12 @@ import static org.mockito.ArgumentMatchers.any;
         ControllerConfig.class,
         ViewConfig.class,
         ServiceConfig.class,
-        MapperConfig.class,
-        IndexConfig.class,
-        FileConfig.class,
-        ValidationConfig.class,
         IncomeRepositoryConfigTest.class
 })
 public class IncomeServiceTest {
 
     @Autowired
-    public Repository repository;
+    public Repository<Income> repository;
 
     @Autowired
     public IncomeService service;

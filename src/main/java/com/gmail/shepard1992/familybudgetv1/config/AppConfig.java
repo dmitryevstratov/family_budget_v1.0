@@ -8,11 +8,8 @@ import org.springframework.context.annotation.Import;
         ControllerConfig.class,
         ViewConfig.class,
         ServiceConfig.class,
-        ValidationConfig.class,
         RepositoryConfig.class,
-        MapperConfig.class,
-        IndexConfig.class,
-        FileConfig.class
+        UtilConfig.class
 }
 )
 public class AppConfig {

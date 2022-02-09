@@ -1,9 +1,9 @@
 package com.gmail.shepard1992.familybudgetv1.controller.impl.modal.income;
 
 import com.gmail.shepard1992.familybudgetv1.MainApplication;
-import com.gmail.shepard1992.familybudgetv1.controller.api.income.ModalUpdateRowIncomeController;
+import com.gmail.shepard1992.familybudgetv1.controller.api.modal.income.ModalUpdateRowIncomeController;
 import com.gmail.shepard1992.familybudgetv1.model.dto.IncomeDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.ParamsForServiceUpdateRowDto;
+import com.gmail.shepard1992.familybudgetv1.model.dto.ServiceUpdateRowDto;
 import com.gmail.shepard1992.familybudgetv1.service.api.IncomeService;
 import com.gmail.shepard1992.familybudgetv1.utils.FileUtil;
 import javafx.fxml.FXML;
@@ -56,7 +56,7 @@ public class ModalUpdateRowIncomeControllerImpl implements ModalUpdateRowIncomeC
 
     @FXML
     private boolean handleOk() {
-        ParamsForServiceUpdateRowDto params = new ParamsForServiceUpdateRowDto(
+        ServiceUpdateRowDto params = new ServiceUpdateRowDto(
                 index,
                 category,
                 type,

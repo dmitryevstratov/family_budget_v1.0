@@ -6,10 +6,12 @@ public interface ViewsPath {
 
     String REPORT_VIEW = "/views/reportView.fxml";
 
-    String MODAL_ADD_ROW_INCOME_VIEW = "/views/modalAddRowIncomeView.fxml";
+    String MODAL_ADD_ROW_INCOME_VIEW = "/views/modal/income/modalAddRowIncomeView.fxml";
 
-    String MODAL_DELETE_ROW_INCOME_VIEW = "/views/modalDeleteRowIncomeView.fxml";
+    String MODAL_DELETE_ROW_INCOME_VIEW = "/views/modal/income/modalDeleteRowIncomeView.fxml";
 
-    String MODAL_UPDATE_ROW_INCOME_VIEW = "/views/modalUpdateRowIncomeView.fxml";
+    String MODAL_UPDATE_ROW_INCOME_VIEW = "/views/modal/income/modalUpdateRowIncomeView.fxml";
+
+    String MODAL_CREATE_REPORT_VIEW = "/views/modal/modalCreateReportView.fxml";
 
 }

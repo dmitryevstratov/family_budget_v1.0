@@ -22,16 +22,12 @@ import static org.junit.Assert.*;
         ControllerConfig.class,
         ViewConfig.class,
         ServiceConfig.class,
-        ValidationConfig.class,
         RepositoryConfig.class,
-        MapperConfig.class,
-        IndexConfig.class,
-        FileConfig.class
 })
 public class RepositoryTest {
 
     @Autowired
-    public Repository repository;
+    public Repository<Income> repository;
 
     private final File file = new File(MAIN_DIRECTORY + "test/");
 

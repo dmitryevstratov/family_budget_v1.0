@@ -1,8 +1,8 @@
 package com.gmail.shepard1992.familybudgetv1.utils;
 
-import com.gmail.shepard1992.familybudgetv1.model.dto.ParamsForServiceAddRowDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.ParamsForServiceDeleteRowDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.ParamsForServiceUpdateRowDto;
+import com.gmail.shepard1992.familybudgetv1.model.dto.ServiceAddRowDto;
+import com.gmail.shepard1992.familybudgetv1.model.dto.ServiceDeleteRowDto;
+import com.gmail.shepard1992.familybudgetv1.model.dto.ServiceUpdateRowDto;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import org.springframework.stereotype.Component;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ValidationUtil {
 
-    public boolean isInputDeleteValid(ParamsForServiceDeleteRowDto params) {
+    public boolean isInputDeleteValid(ServiceDeleteRowDto params) {
         String errorMessage = "";
         if (params.getIndexField().getText() == null || params.getIndexField().getText().length() == 0) {
             errorMessage += "Не заполнено поле Номер строки!\n";
@@ -29,7 +29,7 @@ public class ValidationUtil {
         }
     }
 
-    public boolean isInputAddValid(ParamsForServiceAddRowDto params) {
+    public boolean isInputAddValid(ServiceAddRowDto params) {
         String errorMessage = "";
         if (params.getCategory() == null || params.getCategory().getText().length() == 0) {
             errorMessage += "Не заполнено поле Категория!\n";
@@ -63,7 +63,7 @@ public class ValidationUtil {
         alert.showAndWait();
     }
 
-    public boolean isInputUpdateValid(ParamsForServiceUpdateRowDto params) {
+    public boolean isInputUpdateValid(ServiceUpdateRowDto params) {
         String errorMessage = "";
         if (params.getIndex() == null || params.getIndex().getText().length() == 0) {
             errorMessage += "Не заполнено поле Номер строки!\n";

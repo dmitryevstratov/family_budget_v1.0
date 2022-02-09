@@ -1,6 +1,6 @@
 package utils;
 
-import com.gmail.shepard1992.familybudgetv1.config.MapperConfig;
+import com.gmail.shepard1992.familybudgetv1.config.UtilConfig;
 import com.gmail.shepard1992.familybudgetv1.model.Income;
 import com.gmail.shepard1992.familybudgetv1.model.dto.IncomeDto;
 import com.gmail.shepard1992.familybudgetv1.utils.MapperUtil;
@@ -14,7 +14,7 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
-        MapperConfig.class,
+        UtilConfig.class,
 })
 public class MapperUtilTest {
 

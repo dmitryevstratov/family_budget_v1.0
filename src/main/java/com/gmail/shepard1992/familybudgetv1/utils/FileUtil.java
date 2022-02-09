@@ -1,5 +1,6 @@
 package com.gmail.shepard1992.familybudgetv1.utils;
 
+import com.gmail.shepard1992.familybudgetv1.model.dto.CreateDirectoryDto;
 import com.gmail.shepard1992.familybudgetv1.model.dto.IncomeDto;
 import com.gmail.shepard1992.familybudgetv1.service.api.IncomeService;
 import javafx.collections.FXCollections;
@@ -15,6 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.Objects;
 
 import static com.gmail.shepard1992.familybudgetv1.constants.FilesConstants.*;
 
@@ -22,6 +24,37 @@ import static com.gmail.shepard1992.familybudgetv1.constants.FilesConstants.*;
 public class FileUtil {
 
     private final Calendar calendar = Calendar.getInstance();
+
+    public File getFile(CreateDirectoryDto dto, File dir) {
+        if (dir != null) {
+            String pathYear = Objects.requireNonNull(dir).getAbsolutePath() + DEL + dto.getYear().getValue();
+            String pathMonth = dto.getMonth().getValue().toString() + XML;
+            File file = getFileByName(pathYear, pathMonth);
+            if (file == null) {
+                if (!Files.exists(Path.of(pathYear + DEL + pathMonth))) {
+                    try {
+                        createYearDirectory(Objects.requireNonNull(dir).getAbsolutePath() + DEL, dto.getYear().getValue());
+                        file = Files.createFile(Path.of(pathYear + DEL + pathMonth)).toFile();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+            return file;
+        } else {
+            return null;
+        }
+    }
+
+    private void createYearDirectory(String dir, Integer dto) {
+        if (!Files.exists(Path.of(dir + dto))) {
+            try {
+                Files.createDirectory(Path.of(dir + dto));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
     public File getFile() {
         int directoryYear = createYearDirectory();
@@ -40,13 +73,7 @@ public class FileUtil {
 
     private int createYearDirectory() {
         int year = calendar.get(Calendar.YEAR);
-        if (!Files.exists(Path.of(MAIN_DIRECTORY + year))) {
-            try {
-                Files.createDirectory(Path.of(MAIN_DIRECTORY + year));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        createYearDirectory(MAIN_DIRECTORY, year);
         return year;
     }
 

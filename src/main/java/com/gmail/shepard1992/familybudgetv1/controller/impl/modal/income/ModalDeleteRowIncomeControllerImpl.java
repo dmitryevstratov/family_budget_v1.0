@@ -1,8 +1,8 @@
 package com.gmail.shepard1992.familybudgetv1.controller.impl.modal.income;
 
 import com.gmail.shepard1992.familybudgetv1.MainApplication;
-import com.gmail.shepard1992.familybudgetv1.controller.api.income.ModalDeleteRowIncomeController;
-import com.gmail.shepard1992.familybudgetv1.model.dto.ParamsForServiceDeleteRowDto;
+import com.gmail.shepard1992.familybudgetv1.controller.api.modal.income.ModalDeleteRowIncomeController;
+import com.gmail.shepard1992.familybudgetv1.model.dto.ServiceDeleteRowDto;
 import com.gmail.shepard1992.familybudgetv1.service.api.IncomeService;
 import com.gmail.shepard1992.familybudgetv1.utils.FileUtil;
 import javafx.fxml.FXML;
@@ -36,7 +36,7 @@ public class ModalDeleteRowIncomeControllerImpl implements ModalDeleteRowIncomeC
 
     @FXML
     private boolean handleOk() {
-        ParamsForServiceDeleteRowDto params = new ParamsForServiceDeleteRowDto(
+        ServiceDeleteRowDto params = new ServiceDeleteRowDto(
                 indexField,
                 dialogStage,
                 fileUtil.getFile()
