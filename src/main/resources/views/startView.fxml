@@ -11,7 +11,7 @@
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gmail.shepard1992.familybudgetv1.controller.impl.MainControllerImpl">
     <left>
         <VBox BorderPane.alignment="CENTER">
-            <Button fx:id="createReportBtn" mnemonicParsing="false" onAction="#createReport" text="Создать отчет" />
+            <Button fx:id="createReportBtn" mnemonicParsing="false" onAction="#showModalCreateReport" text="Создать отчет" />
             <Button mnemonicParsing="false" text="Button" />
             <Button mnemonicParsing="false" text="Button" />
             <Button mnemonicParsing="false" text="Button" />

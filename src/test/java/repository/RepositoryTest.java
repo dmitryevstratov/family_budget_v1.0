@@ -14,7 +14,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.io.File;
 import java.util.List;
 
-import static com.gmail.shepard1992.familybudgetv1.constants.FilesConstants.MAIN_DIRECTORY;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -22,18 +21,14 @@ import static org.junit.Assert.*;
         ControllerConfig.class,
         ViewConfig.class,
         ServiceConfig.class,
-        ValidationConfig.class,
         RepositoryConfig.class,
-        MapperConfig.class,
-        IndexConfig.class,
-        FileConfig.class
 })
 public class RepositoryTest {
 
     @Autowired
-    public Repository repository;
+    public Repository<Income> repository;
 
-    private final File file = new File(MAIN_DIRECTORY + "test/");
+    private final File file = new File("" + "test/");
 
     @After
     @Before

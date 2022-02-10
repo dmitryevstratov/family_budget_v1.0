@@ -1,11 +1,11 @@
-package com.gmail.shepard1992.familybudgetv1.model.dto;
+package com.gmail.shepard1992.familybudgetv1.model.dto.incomeService;
 
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.File;
 
-public class ParamsForServiceAddRowDto {
+public class ServiceAddRowDto {
 
     private final TextField category;
     private final TextField type;
@@ -13,7 +13,7 @@ public class ParamsForServiceAddRowDto {
     private final Stage dialogStage;
     private final File file;
 
-    public ParamsForServiceAddRowDto(TextField category, TextField type, TextField sum, Stage dialogStage, File file) {
+    public ServiceAddRowDto(TextField category, TextField type, TextField sum, Stage dialogStage, File file) {
         this.category = category;
         this.type = type;
         this.sum = sum;

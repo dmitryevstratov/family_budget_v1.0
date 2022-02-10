@@ -2,9 +2,9 @@ package com.gmail.shepard1992.familybudgetv1.service.impl;
 
 import com.gmail.shepard1992.familybudgetv1.model.Income;
 import com.gmail.shepard1992.familybudgetv1.model.dto.IncomeDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.ParamsForServiceAddRowDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.ParamsForServiceDeleteRowDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.ParamsForServiceUpdateRowDto;
+import com.gmail.shepard1992.familybudgetv1.model.dto.incomeService.ServiceAddRowDto;
+import com.gmail.shepard1992.familybudgetv1.model.dto.incomeService.ServiceDeleteRowDto;
+import com.gmail.shepard1992.familybudgetv1.model.dto.incomeService.ServiceUpdateRowDto;
 import com.gmail.shepard1992.familybudgetv1.repository.api.Repository;
 import com.gmail.shepard1992.familybudgetv1.service.api.IncomeService;
 import com.gmail.shepard1992.familybudgetv1.service.api.TotalService;
@@ -39,7 +39,7 @@ public class IncomeServiceImpl implements IncomeService, TotalService {
     }
 
     @Override
-    public boolean addRow(ParamsForServiceAddRowDto params) {
+    public boolean addRow(ServiceAddRowDto params) {
         if (validationUtil.isInputAddValid(params)) {
             IncomeDto dto = new IncomeDto.IncomeDtoBuilder()
                     .setCategory(params.getCategory().getText())
@@ -55,7 +55,7 @@ public class IncomeServiceImpl implements IncomeService, TotalService {
     }
 
     @Override
-    public boolean updateRow(ParamsForServiceUpdateRowDto params) {
+    public boolean updateRow(ServiceUpdateRowDto params) {
         if (validationUtil.isInputUpdateValid(params)) {
             Income income = new Income.IncomeBuilder()
                     .setIndex(params.getIndex().getText())
@@ -79,7 +79,7 @@ public class IncomeServiceImpl implements IncomeService, TotalService {
     }
 
     @Override
-    public boolean deleteRow(ParamsForServiceDeleteRowDto params) {
+    public boolean deleteRow(ServiceDeleteRowDto params) {
         if (validationUtil.isInputDeleteValid(params)) {
             boolean deleteByIndex = repository.deleteByIndex(Integer.parseInt(params.getIndexField().getText()), params.getFile());
             updateTotal(params.getDialogStage(), params.getFile());

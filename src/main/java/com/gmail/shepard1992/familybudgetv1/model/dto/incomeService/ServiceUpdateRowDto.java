@@ -1,11 +1,11 @@
-package com.gmail.shepard1992.familybudgetv1.model.dto;
+package com.gmail.shepard1992.familybudgetv1.model.dto.incomeService;
 
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.File;
 
-public class ParamsForServiceUpdateRowDto {
+public class ServiceUpdateRowDto {
 
     private final TextField index;
     private final TextField category;
@@ -14,7 +14,7 @@ public class ParamsForServiceUpdateRowDto {
     private final Stage dialogStage;
     private final File file;
 
-    public ParamsForServiceUpdateRowDto(TextField index, TextField category, TextField type, TextField sum, Stage dialogStage, File file) {
+    public ServiceUpdateRowDto(TextField index, TextField category, TextField type, TextField sum, Stage dialogStage, File file) {
         this.index = index;
         this.category = category;
         this.type = type;

@@ -4,8 +4,8 @@ import com.gmail.shepard1992.familybudgetv1.MainApplication;
 
 import java.io.File;
 
-public interface ButtonApi {
+public interface ButtonFileApi {
 
-    void click(MainApplication mainApp);
+    void click(MainApplication mainApp, File file);
 
 }

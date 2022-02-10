@@ -1,16 +1,17 @@
 package com.gmail.shepard1992.familybudgetv1.controller.impl.modal.income;
 
 import com.gmail.shepard1992.familybudgetv1.MainApplication;
-import com.gmail.shepard1992.familybudgetv1.controller.api.income.ModalAddRowIncomeController;
+import com.gmail.shepard1992.familybudgetv1.controller.api.modal.income.ModalAddRowIncomeController;
 import com.gmail.shepard1992.familybudgetv1.model.dto.IncomeDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.ParamsForServiceAddRowDto;
+import com.gmail.shepard1992.familybudgetv1.model.dto.incomeService.ServiceAddRowDto;
 import com.gmail.shepard1992.familybudgetv1.service.api.IncomeService;
-import com.gmail.shepard1992.familybudgetv1.utils.FileUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
+import java.io.File;
 
 @Controller
 public class ModalAddRowIncomeControllerImpl implements ModalAddRowIncomeController {
@@ -19,7 +20,7 @@ public class ModalAddRowIncomeControllerImpl implements ModalAddRowIncomeControl
     private Stage dialogStage;
     private IncomeDto incomeDto;
     private final IncomeService incomeService;
-    private final FileUtil fileUtil;
+    private File file;
 
     @FXML
     private TextField category;
@@ -31,14 +32,18 @@ public class ModalAddRowIncomeControllerImpl implements ModalAddRowIncomeControl
     private TextField sum;
 
     @Autowired
-    public ModalAddRowIncomeControllerImpl(IncomeService incomeService, FileUtil fileUtil) {
+    public ModalAddRowIncomeControllerImpl(IncomeService incomeService) {
         this.incomeService = incomeService;
-        this.fileUtil = fileUtil;
     }
 
     @Override
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
+    }
+
+    @Override
+    public void setFile(File file) {
+        this.file = file;
     }
 
     @Override
@@ -48,12 +53,12 @@ public class ModalAddRowIncomeControllerImpl implements ModalAddRowIncomeControl
 
     @FXML
     private boolean handleOk() {
-        ParamsForServiceAddRowDto params = new ParamsForServiceAddRowDto(
+        ServiceAddRowDto params = new ServiceAddRowDto(
                 category,
                 type,
                 sum,
                 dialogStage,
-                fileUtil.getFile()
+                file
         );
         return incomeService.addRow(params);
     }

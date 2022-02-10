@@ -11,7 +11,7 @@ public class MainControllerImpl implements MainController {
 
     private MainApplication mainApp;
 
-    private final ButtonApi btn = MainApplication::showReportView;
+    private final ButtonApi btn = MainApplication::showModalCreateReportView;
 
     public MainControllerImpl() {
 
@@ -19,7 +19,7 @@ public class MainControllerImpl implements MainController {
 
     @FXML
     @Override
-    public void createReport() {
+    public void showModalCreateReport() {
         btn.click(mainApp);
     }
 
