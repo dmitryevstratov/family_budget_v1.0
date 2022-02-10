@@ -2,9 +2,9 @@ package com.gmail.shepard1992.familybudgetv1.service.impl;
 
 import com.gmail.shepard1992.familybudgetv1.model.Income;
 import com.gmail.shepard1992.familybudgetv1.model.dto.IncomeDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.ServiceAddRowDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.ServiceDeleteRowDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.ServiceUpdateRowDto;
+import com.gmail.shepard1992.familybudgetv1.model.dto.incomeService.ServiceAddRowDto;
+import com.gmail.shepard1992.familybudgetv1.model.dto.incomeService.ServiceDeleteRowDto;
+import com.gmail.shepard1992.familybudgetv1.model.dto.incomeService.ServiceUpdateRowDto;
 import com.gmail.shepard1992.familybudgetv1.repository.api.Repository;
 import com.gmail.shepard1992.familybudgetv1.service.api.IncomeService;
 import com.gmail.shepard1992.familybudgetv1.service.api.TotalService;

@@ -2,14 +2,15 @@ package com.gmail.shepard1992.familybudgetv1.controller.impl.modal.income;
 
 import com.gmail.shepard1992.familybudgetv1.MainApplication;
 import com.gmail.shepard1992.familybudgetv1.controller.api.modal.income.ModalDeleteRowIncomeController;
-import com.gmail.shepard1992.familybudgetv1.model.dto.ServiceDeleteRowDto;
+import com.gmail.shepard1992.familybudgetv1.model.dto.incomeService.ServiceDeleteRowDto;
 import com.gmail.shepard1992.familybudgetv1.service.api.IncomeService;
-import com.gmail.shepard1992.familybudgetv1.utils.FileUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
+import java.io.File;
 
 @Controller
 public class ModalDeleteRowIncomeControllerImpl implements ModalDeleteRowIncomeController {
@@ -18,15 +19,14 @@ public class ModalDeleteRowIncomeControllerImpl implements ModalDeleteRowIncomeC
     private Stage dialogStage;
     private String index;
     private final IncomeService incomeService;
-    private final FileUtil fileUtil;
+    private File file;
 
     @FXML
     private TextField indexField;
 
     @Autowired
-    public ModalDeleteRowIncomeControllerImpl(IncomeService incomeService, FileUtil fileUtil) {
+    public ModalDeleteRowIncomeControllerImpl(IncomeService incomeService) {
         this.incomeService = incomeService;
-        this.fileUtil = fileUtil;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class ModalDeleteRowIncomeControllerImpl implements ModalDeleteRowIncomeC
         ServiceDeleteRowDto params = new ServiceDeleteRowDto(
                 indexField,
                 dialogStage,
-                fileUtil.getFile()
+                file
         );
         return incomeService.deleteRow(params);
     }
@@ -52,5 +52,10 @@ public class ModalDeleteRowIncomeControllerImpl implements ModalDeleteRowIncomeC
     @Override
     public void setIndex(String index) {
         this.index = index;
+    }
+
+    @Override
+    public void setFile(File file) {
+        this.file = file;
     }
 }

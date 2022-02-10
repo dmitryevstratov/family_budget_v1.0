@@ -1,8 +1,8 @@
 package com.gmail.shepard1992.familybudgetv1.utils;
 
-import com.gmail.shepard1992.familybudgetv1.model.dto.ServiceAddRowDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.ServiceDeleteRowDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.ServiceUpdateRowDto;
+import com.gmail.shepard1992.familybudgetv1.model.dto.incomeService.ServiceAddRowDto;
+import com.gmail.shepard1992.familybudgetv1.model.dto.incomeService.ServiceDeleteRowDto;
+import com.gmail.shepard1992.familybudgetv1.model.dto.incomeService.ServiceUpdateRowDto;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import org.springframework.stereotype.Component;

@@ -33,18 +33,18 @@ public class ControllerConfig {
     }
 
     @Bean
-    public ModalAddRowIncomeController getModalAddRowIncomeControllerBean(IncomeService incomeService, FileUtil fileUtil) {
-        return new ModalAddRowIncomeControllerImpl(incomeService, fileUtil);
+    public ModalAddRowIncomeController getModalAddRowIncomeControllerBean(IncomeService incomeService) {
+        return new ModalAddRowIncomeControllerImpl(incomeService);
     }
 
     @Bean
-    public ModalUpdateRowIncomeController getModalUpdateRowIncomeControllerBean(IncomeService incomeService, FileUtil fileUtil) {
-        return new ModalUpdateRowIncomeControllerImpl(incomeService, fileUtil);
+    public ModalUpdateRowIncomeController getModalUpdateRowIncomeControllerBean(IncomeService incomeService) {
+        return new ModalUpdateRowIncomeControllerImpl(incomeService);
     }
 
     @Bean
-    public ModalDeleteRowIncomeController getModalDeleteRowIncomeControllerBean(IncomeService incomeService, FileUtil fileUtil) {
-        return new ModalDeleteRowIncomeControllerImpl(incomeService, fileUtil);
+    public ModalDeleteRowIncomeController getModalDeleteRowIncomeControllerBean(IncomeService incomeService) {
+        return new ModalDeleteRowIncomeControllerImpl(incomeService);
     }
 
     @Bean

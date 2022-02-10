@@ -7,6 +7,8 @@ import com.gmail.shepard1992.familybudgetv1.controller.api.modal.income.ModalNew
 import com.gmail.shepard1992.familybudgetv1.controller.api.modal.income.ModalUpdateRowIncomeController;
 import com.gmail.shepard1992.familybudgetv1.model.dto.IncomeDto;
 import com.gmail.shepard1992.familybudgetv1.model.dto.ModalViewDto;
+import com.gmail.shepard1992.familybudgetv1.model.dto.viewIncomeService.AddRowIncomeModalView;
+import com.gmail.shepard1992.familybudgetv1.model.dto.viewIncomeService.DeleteRowIncomeModalView;
 import com.gmail.shepard1992.familybudgetv1.service.api.ModalIncomeViewService;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -16,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.IOException;
 
 import static javafx.stage.Modality.WINDOW_MODAL;
@@ -33,9 +36,9 @@ public class ModalIncomeViewServiceImpl implements ModalIncomeViewService {
     }
 
     @Override
-    public void showAddRowIncomeModalView(String view, IncomeDto incomeDto) {
+    public void showAddRowIncomeModalView(AddRowIncomeModalView dto) {
         try {
-            ModalViewDto<ModalAddRowIncomeController> params = new ModalViewDto<>(view, ModalAddRowIncomeController.class, incomeDto);
+            ModalViewDto<ModalAddRowIncomeController> params = new ModalViewDto<>(dto.getView(), ModalAddRowIncomeController.class, dto.getIncomeDto(), dto.getFile());
             showModalView(params);
         } catch (IOException e) {
             e.printStackTrace();
@@ -43,9 +46,9 @@ public class ModalIncomeViewServiceImpl implements ModalIncomeViewService {
     }
 
     @Override
-    public void showUpdateRowIncomeModalView(String view, IncomeDto incomeDto) {
+    public void showUpdateRowIncomeModalView(AddRowIncomeModalView dto) {
         try {
-            ModalViewDto<ModalUpdateRowIncomeController> params = new ModalViewDto<>(view, ModalUpdateRowIncomeController.class, incomeDto);
+            ModalViewDto<ModalUpdateRowIncomeController> params = new ModalViewDto<>(dto.getView(), ModalUpdateRowIncomeController.class, dto.getIncomeDto(), dto.getFile());
             showModalView(params);
         } catch (IOException e) {
             e.printStackTrace();
@@ -53,9 +56,9 @@ public class ModalIncomeViewServiceImpl implements ModalIncomeViewService {
     }
 
     @Override
-    public void showDeleteRowIncomeModalView(String view, String index) {
+    public void showDeleteRowIncomeModalView(DeleteRowIncomeModalView dto) {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainApplication.class.getResource(view));
+        loader.setLocation(MainApplication.class.getResource(dto.getView()));
         loader.setControllerFactory(cls -> context.getBean(ModalDeleteRowIncomeController.class));
         BorderPane rootLayout = null;
         try {
@@ -65,11 +68,12 @@ public class ModalIncomeViewServiceImpl implements ModalIncomeViewService {
         }
 
         ModalDeleteRowIncomeController controller = loader.getController();
+        controller.setFile(dto.getFile());
         controller.setMainApp(mainApp);
 
         Stage dialogStage = getStage(rootLayout);
         controller.setDialogStage(dialogStage);
-        controller.setIndex(index);
+        controller.setIndex(dto.getIndex());
 
         dialogStage.showAndWait();
     }
@@ -81,6 +85,7 @@ public class ModalIncomeViewServiceImpl implements ModalIncomeViewService {
         BorderPane rootLayout = loader.load();
 
         C controller = loader.getController();
+        controller.setFile(params.getFile());
         controller.setMainApp(mainApp);
 
         Stage dialogStage = getStage(rootLayout);

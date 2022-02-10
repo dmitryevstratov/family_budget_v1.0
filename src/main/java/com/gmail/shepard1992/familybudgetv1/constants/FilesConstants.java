@@ -8,9 +8,6 @@ public interface FilesConstants {
 
     String DEL = "\\";
 
-    @Deprecated
-    String MAIN_DIRECTORY = "D:/Установленные проги/familyBudgetV1_0/";
-
     Integer DEFAULT_MONTH = 1;
 
     Integer START_MONTH = 1;

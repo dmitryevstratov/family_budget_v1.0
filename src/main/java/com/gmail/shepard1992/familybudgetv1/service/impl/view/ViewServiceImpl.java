@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.IOException;
 
 @Service
@@ -41,11 +42,12 @@ public class ViewServiceImpl implements ViewService {
     }
 
     @Override
-    public void showReportView(String view) {
+    public void showReportView(String view, File file) {
         try {
             ShowViewDto<ReportController> dto = new ShowViewDto<>(view, ReportController.class, context, primaryStage);
             FXMLLoader loader = viewUtil.showView(dto);
             ReportController reportController = loader.getController();
+            reportController.setFile(file);
             reportController.setMainApp(mainApp);
         } catch (IOException e) {
             e.printStackTrace();

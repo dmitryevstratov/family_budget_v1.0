@@ -1,4 +1,4 @@
-package com.gmail.shepard1992.familybudgetv1.model.dto;
+package com.gmail.shepard1992.familybudgetv1.model.dto.incomeService;
 
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;

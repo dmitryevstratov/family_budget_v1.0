@@ -3,14 +3,15 @@ package com.gmail.shepard1992.familybudgetv1.controller.impl.modal.income;
 import com.gmail.shepard1992.familybudgetv1.MainApplication;
 import com.gmail.shepard1992.familybudgetv1.controller.api.modal.income.ModalUpdateRowIncomeController;
 import com.gmail.shepard1992.familybudgetv1.model.dto.IncomeDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.ServiceUpdateRowDto;
+import com.gmail.shepard1992.familybudgetv1.model.dto.incomeService.ServiceUpdateRowDto;
 import com.gmail.shepard1992.familybudgetv1.service.api.IncomeService;
-import com.gmail.shepard1992.familybudgetv1.utils.FileUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
+import java.io.File;
 
 @Controller
 public class ModalUpdateRowIncomeControllerImpl implements ModalUpdateRowIncomeController {
@@ -19,7 +20,7 @@ public class ModalUpdateRowIncomeControllerImpl implements ModalUpdateRowIncomeC
     private Stage dialogStage;
     private IncomeDto incomeDto;
     private final IncomeService incomeService;
-    private final FileUtil fileUtil;
+    private File file;
 
     @FXML
     private TextField index;
@@ -34,9 +35,8 @@ public class ModalUpdateRowIncomeControllerImpl implements ModalUpdateRowIncomeC
     private TextField sum;
 
     @Autowired
-    public ModalUpdateRowIncomeControllerImpl(IncomeService incomeService, FileUtil fileUtil) {
+    public ModalUpdateRowIncomeControllerImpl(IncomeService incomeService) {
         this.incomeService = incomeService;
-        this.fileUtil = fileUtil;
     }
 
     @Override
@@ -62,9 +62,14 @@ public class ModalUpdateRowIncomeControllerImpl implements ModalUpdateRowIncomeC
                 type,
                 sum,
                 dialogStage,
-                fileUtil.getFile()
+                file
         );
         return incomeService.updateRow(params);
+    }
+
+    @Override
+    public void setFile(File file) {
+        this.file = file;
     }
 
 }

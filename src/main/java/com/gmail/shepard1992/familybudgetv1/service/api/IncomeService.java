@@ -1,9 +1,9 @@
 package com.gmail.shepard1992.familybudgetv1.service.api;
 
 import com.gmail.shepard1992.familybudgetv1.model.dto.IncomeDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.ServiceAddRowDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.ServiceDeleteRowDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.ServiceUpdateRowDto;
+import com.gmail.shepard1992.familybudgetv1.model.dto.incomeService.ServiceAddRowDto;
+import com.gmail.shepard1992.familybudgetv1.model.dto.incomeService.ServiceDeleteRowDto;
+import com.gmail.shepard1992.familybudgetv1.model.dto.incomeService.ServiceUpdateRowDto;
 
 import java.io.File;
 import java.util.List;

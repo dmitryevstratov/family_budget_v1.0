@@ -2,7 +2,7 @@ package com.gmail.shepard1992.familybudgetv1.controller.impl.modal;
 
 import com.gmail.shepard1992.familybudgetv1.MainApplication;
 import com.gmail.shepard1992.familybudgetv1.controller.api.modal.ModalCreateReportController;
-import com.gmail.shepard1992.familybudgetv1.controller.buttons.api.ButtonApi;
+import com.gmail.shepard1992.familybudgetv1.controller.buttons.api.ButtonFileApi;
 import com.gmail.shepard1992.familybudgetv1.model.dto.CreateDirectoryDto;
 import com.gmail.shepard1992.familybudgetv1.service.api.CreateReportService;
 import com.gmail.shepard1992.familybudgetv1.utils.MapperUtil;
@@ -27,7 +27,7 @@ public class ModalCreateReportControllerImpl implements ModalCreateReportControl
     private File dir;
     private CreateDirectoryDto dto;
 
-    private final ButtonApi createReport = MainApplication::showReportView;
+    private final ButtonFileApi createReport = MainApplication::showReportView;
 
     @FXML
     private TextField chooseDirectoryField;
@@ -57,10 +57,9 @@ public class ModalCreateReportControllerImpl implements ModalCreateReportControl
     @FXML
     @Override
     public void createReport() {
-        //ToDo нужно как то передать созданный файл в новый отчет
         File report = service.createFile(dir, dto);
         if (report != null) {
-            createReport.click(mainApp);
+            createReport.click(mainApp, report);
         }
     }
 

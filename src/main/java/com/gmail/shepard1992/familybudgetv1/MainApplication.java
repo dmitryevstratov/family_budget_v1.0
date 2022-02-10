@@ -6,6 +6,8 @@ import com.gmail.shepard1992.familybudgetv1.api.income.IncomeActionApi;
 import com.gmail.shepard1992.familybudgetv1.api.income.ShowModalIncomeViewApi;
 import com.gmail.shepard1992.familybudgetv1.config.AppConfig;
 import com.gmail.shepard1992.familybudgetv1.model.dto.IncomeDto;
+import com.gmail.shepard1992.familybudgetv1.model.dto.viewIncomeService.AddRowIncomeModalView;
+import com.gmail.shepard1992.familybudgetv1.model.dto.viewIncomeService.DeleteRowIncomeModalView;
 import com.gmail.shepard1992.familybudgetv1.service.api.ModalIncomeViewService;
 import com.gmail.shepard1992.familybudgetv1.service.api.ModalViewService;
 import com.gmail.shepard1992.familybudgetv1.service.api.ViewService;
@@ -13,6 +15,8 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+import java.io.File;
 
 import static com.gmail.shepard1992.familybudgetv1.constants.ViewsPath.*;
 
@@ -46,21 +50,21 @@ public class MainApplication extends Application implements ShowViewApi, IncomeA
     }
 
     @Override
-    public void addIncomeRow() {
+    public void addIncomeRow(File file) {
         IncomeDto incomeDto = new IncomeDto.IncomeDtoBuilder().build();
-        showAddRowIncomeModalView(incomeDto);
+        showAddRowIncomeModalView(incomeDto, file);
     }
 
     @Override
-    public void updateIncomeRow() {
+    public void updateIncomeRow(File file) {
         IncomeDto incomeDto = new IncomeDto.IncomeDtoBuilder().build();
-        showUpdateRowIncomeModalView(incomeDto);
+        showUpdateRowIncomeModalView(incomeDto, file);
     }
 
     @Override
-    public void deleteIncomeRow() {
-        String index = new String();
-        showDeleteRowIncomeModalView(index);
+    public void deleteIncomeRow(File file) {
+        String index = "";
+        showDeleteRowIncomeModalView(index, file);
     }
 
     @Override
@@ -69,23 +73,26 @@ public class MainApplication extends Application implements ShowViewApi, IncomeA
     }
 
     @Override
-    public void showReportView() {
-        viewService.showReportView(REPORT_VIEW);
+    public void showReportView(File file) {
+        viewService.showReportView(REPORT_VIEW, file);
     }
 
     @Override
-    public void showAddRowIncomeModalView(IncomeDto incomeDto) {
-        modalIncomeViewService.showAddRowIncomeModalView(MODAL_ADD_ROW_INCOME_VIEW, incomeDto);
+    public void showAddRowIncomeModalView(IncomeDto incomeDto, File file) {
+        AddRowIncomeModalView dto = new AddRowIncomeModalView(MODAL_ADD_ROW_INCOME_VIEW, incomeDto, file);
+        modalIncomeViewService.showAddRowIncomeModalView(dto);
     }
 
     @Override
-    public void showUpdateRowIncomeModalView(IncomeDto incomeDto) {
-        modalIncomeViewService.showUpdateRowIncomeModalView(MODAL_UPDATE_ROW_INCOME_VIEW, incomeDto);
+    public void showUpdateRowIncomeModalView(IncomeDto incomeDto, File file) {
+        AddRowIncomeModalView dto = new AddRowIncomeModalView(MODAL_UPDATE_ROW_INCOME_VIEW, incomeDto, file);
+        modalIncomeViewService.showUpdateRowIncomeModalView(dto);
     }
 
     @Override
-    public void showDeleteRowIncomeModalView(String index) {
-        modalIncomeViewService.showDeleteRowIncomeModalView(MODAL_DELETE_ROW_INCOME_VIEW, index);
+    public void showDeleteRowIncomeModalView(String index, File file) {
+        DeleteRowIncomeModalView dto = new DeleteRowIncomeModalView(MODAL_DELETE_ROW_INCOME_VIEW, index, file);
+        modalIncomeViewService.showDeleteRowIncomeModalView(dto);
     }
 
     @Override
