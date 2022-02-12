@@ -1,7 +1,7 @@
 package com.gmail.shepard1992.familybudgetv1.service.impl;
 
 import com.gmail.shepard1992.familybudgetv1.model.dto.CreateDirectoryDto;
-import com.gmail.shepard1992.familybudgetv1.repository.api.CreateReportRepository;
+import com.gmail.shepard1992.familybudgetv1.repository.api.CreateFileReportRepository;
 import com.gmail.shepard1992.familybudgetv1.service.api.CreateReportService;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +12,11 @@ import java.io.File;
 @Service
 public class CreateReportServiceImpl implements CreateReportService {
 
-    private final CreateReportRepository repository;
+    private final CreateFileReportRepository repository;
     private Stage primaryStage;
 
     @Autowired
-    public CreateReportServiceImpl(CreateReportRepository repository) {
+    public CreateReportServiceImpl(CreateFileReportRepository repository) {
         this.repository = repository;
     }
 

@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:element name="reportWrapper">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="report">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element type="xs:integer" name="year"/>
+                            <xs:element type="xs:integer" name="month"/>
+                            <xs:element name="incomeList">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="income" maxOccurs="unbounded" minOccurs="0">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element type="xs:string" name="index"/>
+                                                    <xs:element type="xs:string" name="category"/>
+                                                    <xs:element type="xs:string" name="type"/>
+                                                    <xs:element type="xs:double" name="sum"/>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                            <xs:element name="costList">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="cost" maxOccurs="unbounded" minOccurs="0">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element type="xs:string" name="index"/>
+                                                    <xs:element type="xs:string" name="category"/>
+                                                    <xs:element type="xs:string" name="type"/>
+                                                    <xs:element type="xs:double" name="sumPlan"/>
+                                                    <xs:element type="xs:double" name="sumFact"/>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>
