@@ -5,7 +5,6 @@ import com.gmail.shepard1992.familybudgetv1.controller.api.modal.income.ModalAdd
 import com.gmail.shepard1992.familybudgetv1.controller.api.modal.income.ModalDeleteRowIncomeController;
 import com.gmail.shepard1992.familybudgetv1.controller.api.modal.income.ModalNewRowController;
 import com.gmail.shepard1992.familybudgetv1.controller.api.modal.income.ModalUpdateRowIncomeController;
-import com.gmail.shepard1992.familybudgetv1.model.dto.IncomeDto;
 import com.gmail.shepard1992.familybudgetv1.model.dto.ModalViewDto;
 import com.gmail.shepard1992.familybudgetv1.model.dto.viewIncomeService.AddRowIncomeModalView;
 import com.gmail.shepard1992.familybudgetv1.model.dto.viewIncomeService.DeleteRowIncomeModalView;
@@ -18,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.io.IOException;
 
 import static javafx.stage.Modality.WINDOW_MODAL;

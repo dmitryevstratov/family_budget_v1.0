@@ -5,7 +5,7 @@ import javafx.stage.Stage;
 
 import java.io.File;
 
-public interface CreateReportRepository {
+public interface CreateFileReportRepository {
 
     File chooseFile(Stage primaryStage, CreateDirectoryDto dto);
 

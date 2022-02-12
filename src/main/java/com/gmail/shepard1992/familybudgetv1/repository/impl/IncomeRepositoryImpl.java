@@ -1,59 +1,37 @@
 package com.gmail.shepard1992.familybudgetv1.repository.impl;
 
-import com.gmail.shepard1992.familybudgetv1.MainApplication;
 import com.gmail.shepard1992.familybudgetv1.model.Income;
-import com.gmail.shepard1992.familybudgetv1.model.xmlWrapper.IncomeListWrapper;
+import com.gmail.shepard1992.familybudgetv1.model.IncomeList;
+import com.gmail.shepard1992.familybudgetv1.model.Report;
+import com.gmail.shepard1992.familybudgetv1.repository.api.ReportRepository;
 import com.gmail.shepard1992.familybudgetv1.repository.api.Repository;
-import com.gmail.shepard1992.familybudgetv1.utils.FileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.xml.sax.SAXException;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
 import java.io.File;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.gmail.shepard1992.familybudgetv1.constants.PathXsd.INCOME_PATH_XSD;
-import static javax.xml.XMLConstants.W3C_XML_SCHEMA_NS_URI;
-import static javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT;
+import java.util.Objects;
 
 @org.springframework.stereotype.Repository
 public class IncomeRepositoryImpl implements Repository<Income> {
 
-    private final FileUtil fileUtil;
+    private final ReportRepository reportRepository;
 
     @Autowired
-    public IncomeRepositoryImpl(FileUtil fileUtil) {
-        this.fileUtil = fileUtil;
+    public IncomeRepositoryImpl(ReportRepository reportRepository) {
+        this.reportRepository = reportRepository;
     }
 
     @Override
     public void save(Income income, File file) {
         List<Income> incomeList = getAll(file);
-        try {
-            JAXBContext context = JAXBContext.newInstance(IncomeListWrapper.class);
-
-            SchemaFactory schemaFactory = SchemaFactory.newInstance(W3C_XML_SCHEMA_NS_URI);
-            URL schemaURL = MainApplication.class.getResource(INCOME_PATH_XSD);
-            Schema schema = schemaFactory.newSchema(schemaURL);
-
-            Marshaller m = context.createMarshaller();
-            m.setSchema(schema);
-            m.setProperty(JAXB_FORMATTED_OUTPUT, true);
-
-            IncomeListWrapper listWrapper = new IncomeListWrapper();
+        IncomeList list = new IncomeList();
+        Report report = reportRepository.get(file);
+        if (report != null) {
             incomeList.add(income);
-            listWrapper.setIncome(incomeList);
-            m.marshal(listWrapper, file);
-
-        } catch (JAXBException | SAXException e) {
-            e.printStackTrace();
+            list.setIncome(incomeList);
+            report.setReportIncomeList(list);
+            reportRepository.save(report, file);
         }
     }
 
@@ -61,8 +39,7 @@ public class IncomeRepositoryImpl implements Repository<Income> {
     @Override
     public void update(Income income, File file) {
         List<Income> incomeList = getAll(file);
-        if (incomeList.stream()
-                .anyMatch(inc -> inc.getIndex().equals(income.getIndex()))) {
+        if (incomeList.stream().anyMatch(inc -> inc.getIndex().equals(income.getIndex()))) {
             for (Income inc : incomeList) {
                 if (inc.getIndex().equals(income.getIndex())) {
                     if (!income.getCategory().isEmpty()) inc.setIncomeCategory(income.getCategory());
@@ -78,8 +55,7 @@ public class IncomeRepositoryImpl implements Repository<Income> {
     @Override
     public boolean deleteByIndex(Integer index, File file) {
         List<Income> incomeList = getAll(file);
-        if (incomeList.stream()
-                .anyMatch(inc -> inc.getIndex().equals(index.toString()))) {
+        if (incomeList.stream().anyMatch(inc -> inc.getIndex().equals(index.toString()))) {
             for (int i = 0; i < incomeList.size(); i++) {
                 if (incomeList.get(i).getIndex().equals(index.toString())) {
                     incomeList.remove(i);
@@ -87,7 +63,7 @@ public class IncomeRepositoryImpl implements Repository<Income> {
                     for (int j = 0; j < incomeList.size(); j++) {
                         Income income = incomeList.get(j);
                         if (!income.getIndex().equals(j + "")) {
-                            income.setIndex(j + "");
+                            income.setIncomeIndex(j + "");
                             save(income, file);
                         } else {
                             save(income, file);
@@ -102,43 +78,26 @@ public class IncomeRepositoryImpl implements Repository<Income> {
 
     @Override
     public List<Income> getAll(File file) {
-        List<Income> incomeList = new ArrayList<>();
-        if (fileUtil.checkEmptyFile(file)) {
-            return incomeList;
+        Report report = reportRepository.get(file);
+        if (report == null) {
+            return new ArrayList<>();
+        } else {
+            return Objects.requireNonNullElse(report.getIncomeList().getIncome(), new ArrayList<>());
         }
-        try {
-            JAXBContext context = JAXBContext.newInstance(IncomeListWrapper.class);
-            Unmarshaller unmarshaller = context.createUnmarshaller();
-            IncomeListWrapper listWrapper = (IncomeListWrapper) unmarshaller.unmarshal(file);
-            incomeList = listWrapper.getIncome();
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }
-        return incomeList;
     }
 
     @Override
     public void clear(File file) {
-        try {
-            JAXBContext context = JAXBContext.newInstance(IncomeListWrapper.class);
-            Marshaller m = context.createMarshaller();
-            m.setProperty(JAXB_FORMATTED_OUTPUT, true);
-
-            IncomeListWrapper listWrapper = new IncomeListWrapper();
-            List<Income> incomeList = new ArrayList<>();
-            listWrapper.setIncome(incomeList);
-            m.marshal(listWrapper, file);
-
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }
+        Report report = reportRepository.get(file);
+        report.setReportIncomeList(new IncomeList());
+        report.getIncomeList().setIncome(new ArrayList<>());
+        reportRepository.save(report, file);
     }
 
     @Override
     public void deleteByCategory(String category, File file) {
         List<Income> incomeList = getAll(file);
-        if (incomeList.stream()
-                .anyMatch(inc -> inc.getCategory().equals(category))) {
+        if (incomeList.stream().anyMatch(inc -> inc.getCategory().equals(category))) {
             for (int i = 0; i < incomeList.size(); i++) {
                 if (incomeList.get(i).getCategory().equals(category)) {
                     incomeList.remove(i);

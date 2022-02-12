@@ -26,14 +26,12 @@ public class FileUtil {
             String pathYear = Objects.requireNonNull(dir).getAbsolutePath() + DEL + dto.getYear().getValue();
             String pathMonth = dto.getMonth().getValue().toString() + XML;
             File file = getFileByName(pathYear, pathMonth);
-            if (file == null) {
-                if (!Files.exists(Path.of(pathYear + DEL + pathMonth))) {
-                    try {
-                        createYearDirectory(Objects.requireNonNull(dir).getAbsolutePath() + DEL, dto.getYear().getValue());
-                        file = Files.createFile(Path.of(pathYear + DEL + pathMonth)).toFile();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+            if (file == null && !Files.exists(Path.of(pathYear + DEL + pathMonth))) {
+                try {
+                    createYearDirectory(Objects.requireNonNull(dir).getAbsolutePath() + DEL, dto.getYear().getValue());
+                    file = Files.createFile(Path.of(pathYear + DEL + pathMonth)).toFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
             return file;
@@ -69,7 +67,7 @@ public class FileUtil {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String s;
             while ((s = reader.readLine()) != null) {
-                if (s.contains("<income>")) {
+                if (s.contains("<reportWrapper>")) {
                     return false;
                 }
             }

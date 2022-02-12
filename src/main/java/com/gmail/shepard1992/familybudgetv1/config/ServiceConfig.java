@@ -1,7 +1,7 @@
 package com.gmail.shepard1992.familybudgetv1.config;
 
 import com.gmail.shepard1992.familybudgetv1.model.Income;
-import com.gmail.shepard1992.familybudgetv1.repository.api.CreateReportRepository;
+import com.gmail.shepard1992.familybudgetv1.repository.api.CreateFileReportRepository;
 import com.gmail.shepard1992.familybudgetv1.repository.api.Repository;
 import com.gmail.shepard1992.familybudgetv1.service.api.CreateReportService;
 import com.gmail.shepard1992.familybudgetv1.service.api.IncomeService;
@@ -31,7 +31,7 @@ public class ServiceConfig {
     }
 
     @Bean
-    public CreateReportService getCreateReportServiceBean(CreateReportRepository repository) {
+    public CreateReportService getCreateReportServiceBean(CreateFileReportRepository repository) {
         return new CreateReportServiceImpl(repository);
     }
 
