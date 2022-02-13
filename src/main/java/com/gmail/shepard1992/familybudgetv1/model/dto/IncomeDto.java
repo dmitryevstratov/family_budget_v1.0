@@ -7,7 +7,7 @@ public class IncomeDto {
     private final String index;
     private final String category;
     private final String type;
-    private final Double sum;
+    private Double sum;
 
     private IncomeDto(IncomeDtoBuilder incomeDtoBuilder) {
         this.index = incomeDtoBuilder.index;
@@ -46,6 +46,10 @@ public class IncomeDto {
 
     public StringProperty getIndexProperty() {
         return new SimpleStringProperty(index);
+    }
+
+    public void setIncomeSum(double sum) {
+        this.sum = sum;
     }
 
     public static class IncomeDtoBuilder {

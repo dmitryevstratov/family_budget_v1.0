@@ -14,21 +14,20 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.io.File;
 import java.util.List;
 
+import static com.gmail.shepard1992.familybudgetv1.constants.FilesConstants.FILE_PATH_TEST;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
-        ControllerConfig.class,
-        ViewConfig.class,
-        ServiceConfig.class,
         RepositoryConfig.class,
+        UtilConfig.class
 })
-public class RepositoryTest {
+public class IncomeRepositoryTest {
 
     @Autowired
     public Repository<Income> repository;
 
-    private final File file = new File("" + "test/");
+    private final File file = new File(FILE_PATH_TEST);
 
     @After
     @Before
@@ -128,6 +127,26 @@ public class RepositoryTest {
 
         assertFalse(all.isEmpty());
         assertEquals("300.0", all.get(0).getSum().toString());
+    }
+
+    @Test
+    public void test_when_call_getAll_then_return_list(){
+        repository.save(new Income.IncomeBuilder()
+                .setIndex("1")
+                .setCategory("Dog")
+                .setType("Dog")
+                .setSum(100d)
+                .build(), file);
+        repository.save(new Income.IncomeBuilder()
+                .setIndex("2")
+                .setCategory("Cat")
+                .setType("Dog")
+                .setSum(100d)
+                .build(), file);
+        List<Income> all = repository.getAll(file);
+
+        assertNotNull(all);
+        assertEquals(2, all.size());
     }
 
 }

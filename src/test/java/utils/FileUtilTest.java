@@ -1,6 +1,6 @@
 package utils;
 
-import com.gmail.shepard1992.familybudgetv1.config.*;
+import com.gmail.shepard1992.familybudgetv1.config.UtilConfig;
 import com.gmail.shepard1992.familybudgetv1.utils.FileUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,8 +10,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.File;
 
-import static org.junit.Assert.assertNotNull;
-
+import static com.gmail.shepard1992.familybudgetv1.constants.FilesConstants.FILE_PATH_TEST;
+import static org.junit.Assert.assertFalse;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
@@ -22,11 +22,13 @@ public class FileUtilTest {
     @Autowired
     public FileUtil fileUtil;
 
-    @Test
-    public void test_when_call_getFile_then_return_file() {
-        /*File file = fileUtil.getFile();
+    private final File file = new File(FILE_PATH_TEST);
 
-        assertNotNull(file);*/
+    @Test
+    public void test_when_call_checkEmptyFile_then_return_result() {
+        boolean result = fileUtil.checkEmptyFile(file);
+
+        assertFalse(result);
     }
 
 }

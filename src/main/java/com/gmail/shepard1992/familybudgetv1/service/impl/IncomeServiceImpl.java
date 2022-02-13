@@ -57,15 +57,15 @@ public class IncomeServiceImpl implements IncomeService, TotalService {
     @Override
     public boolean updateRow(ServiceUpdateRowDto params) {
         if (validationUtil.isInputUpdateValid(params)) {
-            Income income = new Income.IncomeBuilder()
+            IncomeDto dto = new IncomeDto.IncomeDtoBuilder()
                     .setIndex(params.getIndex().getText())
                     .setCategory(params.getCategory().getText())
                     .setType(params.getType().getText())
                     .build();
             if (!params.getSum().getText().isEmpty()) {
-                income.setIncomeSum(Double.parseDouble(params.getSum().getText()));
+                dto.setIncomeSum(Double.parseDouble(params.getSum().getText()));
             }
-            repository.update(income, params.getFile());
+            repository.update(mapperUtil.convertToIncome(dto), params.getFile());
             updateTotal(params.getDialogStage(), params.getFile());
             return true;
         }
@@ -109,12 +109,13 @@ public class IncomeServiceImpl implements IncomeService, TotalService {
                 .collect(Collectors.groupingBy(IncomeDto::getCategory));
         for (Map.Entry<String, List<IncomeDto>> stringListEntry : groupByCategory.entrySet()) {
             double sum = stringListEntry.getValue().stream().mapToDouble(IncomeDto::getSum).sum();
-            repository.save(new Income.IncomeBuilder()
+            IncomeDto dto = new IncomeDto.IncomeDtoBuilder()
                     .setIndex(EMPTY)
                     .setCategory(TOTAL_BY + stringListEntry.getKey())
                     .setSum(sum)
                     .setType(EMPTY)
-                    .build(), file);
+                    .build();
+            repository.save(mapperUtil.convertToIncome(dto), file);
         }
     }
 
@@ -131,12 +132,13 @@ public class IncomeServiceImpl implements IncomeService, TotalService {
                 .mapToDouble(IncomeDto::getSum)
                 .sum();
         if (totalAll != 0.0) {
-            repository.save(new Income.IncomeBuilder()
+            IncomeDto dto = new IncomeDto.IncomeDtoBuilder()
                     .setIndex(EMPTY)
                     .setCategory(TOTAL_ALL)
                     .setSum(totalAll)
                     .setType(EMPTY)
-                    .build(), file);
+                    .build();
+            repository.save(mapperUtil.convertToIncome(dto), file);
         }
     }
 

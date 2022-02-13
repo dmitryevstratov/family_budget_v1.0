@@ -5,7 +5,7 @@ import java.util.List;
 
 public interface Repository<E> {
 
-    void save(E element, File file);
+    boolean save(E element, File file);
 
     void update(E element, File file);
 

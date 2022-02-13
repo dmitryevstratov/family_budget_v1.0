@@ -33,7 +33,7 @@ public class ReportRepositoryImpl implements ReportRepository {
     }
 
     @Override
-    public void save(Report report, File file) {
+    public boolean save(Report report, File file) {
         try {
             JAXBContext context = JAXBContext.newInstance(ReportWrapper.class);
 
@@ -48,10 +48,12 @@ public class ReportRepositoryImpl implements ReportRepository {
             ReportWrapper reportWrapper = new ReportWrapper();
             reportWrapper.setReport(report);
             m.marshal(reportWrapper, file);
+            return true;
 
         } catch (JAXBException | SAXException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     @Override
