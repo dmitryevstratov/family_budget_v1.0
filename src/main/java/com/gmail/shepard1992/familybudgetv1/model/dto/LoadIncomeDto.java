@@ -7,9 +7,9 @@ import java.io.File;
 
 public class LoadIncomeDto {
 
-    private IncomeService incomeService;
-    private TableView<IncomeDto> tableIncome;
-    private File file;
+    private final IncomeService incomeService;
+    private final TableView<IncomeDto> tableIncome;
+    private final File file;
 
     public LoadIncomeDto(IncomeService incomeService, TableView<IncomeDto> tableIncome, File file) {
         this.incomeService = incomeService;

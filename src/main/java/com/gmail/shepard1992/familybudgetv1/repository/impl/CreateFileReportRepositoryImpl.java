@@ -16,15 +16,11 @@ public class CreateFileReportRepositoryImpl implements CreateFileReportRepositor
 
     private final FileUtil fileUtil;
     private final ReportRepository reportRepository;
-    private final com.gmail.shepard1992.familybudgetv1.repository.api.Repository<Income> incomeRepository;
-    private final com.gmail.shepard1992.familybudgetv1.repository.api.Repository<Cost> costRepository;
 
     @Autowired
-    public CreateFileReportRepositoryImpl(FileUtil fileUtil, ReportRepository reportRepository, com.gmail.shepard1992.familybudgetv1.repository.api.Repository<Income> incomeRepository, com.gmail.shepard1992.familybudgetv1.repository.api.Repository<Cost> costRepository) {
+    public CreateFileReportRepositoryImpl(FileUtil fileUtil, ReportRepository reportRepository) {
         this.fileUtil = fileUtil;
         this.reportRepository = reportRepository;
-        this.incomeRepository = incomeRepository;
-        this.costRepository = costRepository;
     }
 
     @Override

@@ -191,7 +191,6 @@
                         <exclude>**/controller/**</exclude>
                         <exclude>**/constants/**</exclude>
                         <exclude>**/model/**</exclude>
-                        <exclude>**/settings/**</exclude>
                     </excludes>
                 </configuration>
             </plugin>

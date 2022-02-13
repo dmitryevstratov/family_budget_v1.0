@@ -23,7 +23,7 @@ public class IncomeRepositoryImpl implements Repository<Income> {
     }
 
     @Override
-    public void save(Income income, File file) {
+    public boolean save(Income income, File file) {
         List<Income> incomeList = getAll(file);
         IncomeList list = new IncomeList();
         Report report = reportRepository.get(file);
@@ -31,8 +31,9 @@ public class IncomeRepositoryImpl implements Repository<Income> {
             incomeList.add(income);
             list.setIncome(incomeList);
             report.setReportIncomeList(list);
-            reportRepository.save(report, file);
+            return reportRepository.save(report, file);
         }
+        return false;
     }
 
 

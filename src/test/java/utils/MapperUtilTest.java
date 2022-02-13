@@ -4,6 +4,7 @@ import com.gmail.shepard1992.familybudgetv1.config.UtilConfig;
 import com.gmail.shepard1992.familybudgetv1.model.Income;
 import com.gmail.shepard1992.familybudgetv1.model.dto.IncomeDto;
 import com.gmail.shepard1992.familybudgetv1.utils.MapperUtil;
+import javafx.collections.ObservableList;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,13 @@ public class MapperUtilTest {
         assertEquals(incomeDto.getCategory(), income.getCategory());
         assertEquals(incomeDto.getType(), income.getType());
         assertEquals(incomeDto.getSum(), income.getSum());
+    }
+
+    @Test
+    public void test_mapper_getObservableListRange() {
+        ObservableList<Integer> observableListRange = mapperUtil.getObservableListRange(1, 10);
+
+        assertEquals(10, observableListRange.size());
     }
 
 }

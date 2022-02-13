@@ -1,11 +1,13 @@
 package service;
 
-import com.gmail.shepard1992.familybudgetv1.config.*;
+import com.gmail.shepard1992.familybudgetv1.config.RepositoryConfig;
+import com.gmail.shepard1992.familybudgetv1.config.ServiceConfig;
+import com.gmail.shepard1992.familybudgetv1.config.UtilConfig;
 import com.gmail.shepard1992.familybudgetv1.model.Income;
 import com.gmail.shepard1992.familybudgetv1.model.dto.IncomeDto;
 import com.gmail.shepard1992.familybudgetv1.repository.api.Repository;
 import com.gmail.shepard1992.familybudgetv1.service.api.IncomeService;
-import config.IncomeRepositoryConfigTest;
+import config.RepositoryConfigTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mockito;
@@ -17,15 +19,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
-        ControllerConfig.class,
-        ViewConfig.class,
         ServiceConfig.class,
-        IncomeRepositoryConfigTest.class
+        RepositoryConfig.class,
+        RepositoryConfigTest.class,
+        UtilConfig.class
 })
 public class IncomeServiceTest {
 

@@ -6,7 +6,7 @@ import java.io.File;
 
 public interface ReportRepository {
 
-    void save(Report report, File file);
+    boolean save(Report report, File file);
 
     Report get(File file);
 

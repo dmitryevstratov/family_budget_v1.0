@@ -22,8 +22,8 @@ public class RepositoryConfig {
     }
 
     @Bean
-    public CreateFileReportRepository getCreateReportRepositoryBean(FileUtil fileUtil, ReportRepository repository, Repository<Income> incomeRepository, Repository<Cost> costRepository) {
-        return new CreateFileReportRepositoryImpl(fileUtil, repository, incomeRepository, costRepository);
+    public CreateFileReportRepository getCreateReportRepositoryBean(FileUtil fileUtil, ReportRepository repository) {
+        return new CreateFileReportRepositoryImpl(fileUtil, repository);
     }
 
     @Bean
