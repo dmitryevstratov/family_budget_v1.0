@@ -30,7 +30,7 @@ public class IndexUtilTest {
                 .setIndex("0")
                 .setCategory("Cat")
                 .setType("Type")
-                .setSum(100d)
+                .setSumFact(100d)
                 .build());
         String incrementIndex = indexUtil.incrementIndex(incomeDtoList);
         assertEquals("1", incrementIndex);

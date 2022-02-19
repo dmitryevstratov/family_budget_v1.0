@@ -3,7 +3,7 @@ package com.gmail.shepard1992.familybudgetv1.model;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlType(propOrder = {"index", "category", "type", "sum"})
+@XmlType(propOrder = {"index", "category", "type", "sumFact"})
 public class Income {
 
     @XmlElement
@@ -16,7 +16,7 @@ public class Income {
     private String type;
 
     @XmlElement
-    private Double sum;
+    private Double sumFact;
 
     public Income() {
     }
@@ -25,7 +25,7 @@ public class Income {
         this.index = incomeBuilder.index;
         this.category = incomeBuilder.category;
         this.type = incomeBuilder.type;
-        this.sum = incomeBuilder.sum;
+        this.sumFact = incomeBuilder.sum;
     }
 
     public String getCategory() {
@@ -36,8 +36,8 @@ public class Income {
         return type;
     }
 
-    public Double getSum() {
-        return sum;
+    public Double getSumFact() {
+        return sumFact;
     }
 
     public String getIndex() {
@@ -57,7 +57,7 @@ public class Income {
     }
 
     public void setIncomeSum(Double sum) {
-        this.sum = sum;
+        this.sumFact = sum;
     }
 
     public static class IncomeBuilder {
@@ -97,7 +97,7 @@ public class Income {
                 "index=" + index +
                 ", category='" + category + '\'' +
                 ", type='" + type + '\'' +
-                ", sum=" + sum +
+                ", sum=" + sumFact +
                 '}';
     }
 

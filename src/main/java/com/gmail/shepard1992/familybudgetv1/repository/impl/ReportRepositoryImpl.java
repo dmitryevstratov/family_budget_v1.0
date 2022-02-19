@@ -64,7 +64,9 @@ public class ReportRepositoryImpl implements ReportRepository {
         }
         try {
             JAXBContext context = JAXBContext.newInstance(ReportWrapper.class);
+
             Unmarshaller unmarshaller = context.createUnmarshaller();
+
             ReportWrapper reportWrapper = (ReportWrapper) unmarshaller.unmarshal(file);
             report = reportWrapper.getReport();
         } catch (JAXBException e) {

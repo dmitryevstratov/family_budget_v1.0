@@ -31,8 +31,16 @@ public class Report {
         return incomeList;
     }
 
+    public CostList getCostList() {
+        return costList;
+    }
+
     public void setReportIncomeList(IncomeList incomes) {
         this.incomeList = incomes;
+    }
+
+    public void setReportCostList(CostList costList) {
+        this.costList = costList;
     }
 
     private Report(ReportBuilder reportBuilder) {

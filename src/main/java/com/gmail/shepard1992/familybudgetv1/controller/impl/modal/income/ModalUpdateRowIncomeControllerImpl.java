@@ -3,8 +3,8 @@ package com.gmail.shepard1992.familybudgetv1.controller.impl.modal.income;
 import com.gmail.shepard1992.familybudgetv1.MainApplication;
 import com.gmail.shepard1992.familybudgetv1.controller.api.modal.income.ModalUpdateRowIncomeController;
 import com.gmail.shepard1992.familybudgetv1.model.dto.IncomeDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.incomeService.ServiceUpdateRowDto;
-import com.gmail.shepard1992.familybudgetv1.service.api.IncomeService;
+import com.gmail.shepard1992.familybudgetv1.model.dto.service.ServiceNewRowDto;
+import com.gmail.shepard1992.familybudgetv1.service.api.Service;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -19,7 +19,7 @@ public class ModalUpdateRowIncomeControllerImpl implements ModalUpdateRowIncomeC
     private MainApplication mainApp;
     private Stage dialogStage;
     private IncomeDto incomeDto;
-    private final IncomeService incomeService;
+    private final Service<IncomeDto> incomeService;
     private File file;
 
     @FXML
@@ -32,10 +32,10 @@ public class ModalUpdateRowIncomeControllerImpl implements ModalUpdateRowIncomeC
     private TextField type;
 
     @FXML
-    private TextField sum;
+    private TextField sumFact;
 
     @Autowired
-    public ModalUpdateRowIncomeControllerImpl(IncomeService incomeService) {
+    public ModalUpdateRowIncomeControllerImpl(Service<IncomeDto> incomeService) {
         this.incomeService = incomeService;
     }
 
@@ -50,20 +50,21 @@ public class ModalUpdateRowIncomeControllerImpl implements ModalUpdateRowIncomeC
     }
 
     @Override
-    public void setIncome(IncomeDto incomeDto) {
+    public void setDto(IncomeDto incomeDto) {
         this.incomeDto = incomeDto;
     }
 
     @FXML
     private boolean handleOk() {
-        ServiceUpdateRowDto params = new ServiceUpdateRowDto(
-                index,
-                category,
-                type,
-                sum,
-                dialogStage,
-                file
-        );
+        ServiceNewRowDto params = new ServiceNewRowDto.ServiceNewRowDtoBuilder()
+                .setIndex(index)
+                .setCategory(category)
+                .setType(type)
+                .setSumFact(sumFact)
+                .setSumPlan(new TextField("0"))
+                .setDialogStage(dialogStage)
+                .setFile(file)
+                .build();
         return incomeService.updateRow(params);
     }
 

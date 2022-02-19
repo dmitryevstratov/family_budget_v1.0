@@ -126,7 +126,7 @@ public class IncomeRepositoryTest {
         List<Income> all = repository.getAll(file);
 
         assertFalse(all.isEmpty());
-        assertEquals("300.0", all.get(0).getSum().toString());
+        assertEquals("300.0", all.get(0).getSumFact().toString());
     }
 
     @Test

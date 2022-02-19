@@ -1,9 +1,10 @@
 package com.gmail.shepard1992.familybudgetv1.model.dto;
 
+import com.gmail.shepard1992.familybudgetv1.model.dto.api.Dto;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class IncomeDto {
+public class IncomeDto implements Dto {
     private final String index;
     private final String category;
     private final String type;
@@ -40,7 +41,7 @@ public class IncomeDto {
         return new SimpleStringProperty(type);
     }
 
-    public StringProperty getSumProperty() {
+    public StringProperty getSumFactProperty() {
         return new SimpleStringProperty(sum.toString());
     }
 
@@ -73,7 +74,7 @@ public class IncomeDto {
             return this;
         }
 
-        public IncomeDtoBuilder setSum(Double sum) {
+        public IncomeDtoBuilder setSumFact(Double sum) {
             this.sum = sum;
             return this;
         }

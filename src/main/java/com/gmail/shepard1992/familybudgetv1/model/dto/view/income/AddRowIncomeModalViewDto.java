@@ -1,16 +1,16 @@
-package com.gmail.shepard1992.familybudgetv1.model.dto.viewIncomeService;
+package com.gmail.shepard1992.familybudgetv1.model.dto.view.income;
 
 import com.gmail.shepard1992.familybudgetv1.model.dto.IncomeDto;
 
 import java.io.File;
 
-public class AddRowIncomeModalView {
+public class AddRowIncomeModalViewDto {
 
-    private String view;
-    private IncomeDto incomeDto;
-    private File file;
+    private final String view;
+    private final IncomeDto incomeDto;
+    private final File file;
 
-    public AddRowIncomeModalView(String view, IncomeDto incomeDto, File file) {
+    public AddRowIncomeModalViewDto(String view, IncomeDto incomeDto, File file) {
         this.view = view;
         this.incomeDto = incomeDto;
         this.file = file;

@@ -1,9 +1,11 @@
 package com.gmail.shepard1992.familybudgetv1.config;
 
+import com.gmail.shepard1992.familybudgetv1.service.api.ModalCostViewService;
 import com.gmail.shepard1992.familybudgetv1.service.api.ModalIncomeViewService;
 import com.gmail.shepard1992.familybudgetv1.service.api.ViewService;
-import com.gmail.shepard1992.familybudgetv1.service.impl.view.modal.ModalIncomeViewServiceImpl;
 import com.gmail.shepard1992.familybudgetv1.service.impl.view.ViewServiceImpl;
+import com.gmail.shepard1992.familybudgetv1.service.impl.view.modal.ModalCostViewServiceImpl;
+import com.gmail.shepard1992.familybudgetv1.service.impl.view.modal.ModalIncomeViewServiceImpl;
 import com.gmail.shepard1992.familybudgetv1.utils.ViewUtil;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -18,8 +20,13 @@ public class ViewConfig {
     }
 
     @Bean
-    public ModalIncomeViewService getModalIncomeViewServiceBean(ApplicationContext context) {
-        return new ModalIncomeViewServiceImpl(context);
+    public ModalIncomeViewService getModalIncomeViewServiceBean(ApplicationContext context, ViewUtil viewUtil) {
+        return new ModalIncomeViewServiceImpl(context, viewUtil);
+    }
+
+    @Bean
+    public ModalCostViewService getModalCostViewServiceBean(ApplicationContext context, ViewUtil viewUtil) {
+        return new ModalCostViewServiceImpl(context, viewUtil);
     }
 
 }
