@@ -32,8 +32,8 @@ public class RepositoryConfig {
     }
 
     @Bean
-    public Repository<Cost> getCostRepositoryBean(FileUtil fileUtil) {
-        return new CostRepositoryImpl(fileUtil);
+    public Repository<Cost> getCostRepositoryBean(ReportRepository reportRepository) {
+        return new CostRepositoryImpl(reportRepository);
     }
 
 }

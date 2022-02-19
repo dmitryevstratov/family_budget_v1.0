@@ -38,14 +38,14 @@ public class IncomeRepositoryImpl implements Repository<Income> {
 
 
     @Override
-    public void update(Income income, File file) {
+    public void update(Income element, File file) {
         List<Income> incomeList = getAll(file);
-        if (incomeList.stream().anyMatch(inc -> inc.getIndex().equals(income.getIndex()))) {
+        if (incomeList.stream().anyMatch(inc -> inc.getIndex().equals(element.getIndex()))) {
             for (Income inc : incomeList) {
-                if (inc.getIndex().equals(income.getIndex())) {
-                    if (!income.getCategory().isEmpty()) inc.setIncomeCategory(income.getCategory());
-                    if (!income.getType().isEmpty()) inc.setIncomeType(income.getType());
-                    if (income.getSum() != null) inc.setIncomeSum(income.getSum());
+                if (inc.getIndex().equals(element.getIndex())) {
+                    if (!element.getCategory().isEmpty()) inc.setIncomeCategory(element.getCategory());
+                    if (!element.getType().isEmpty()) inc.setIncomeType(element.getType());
+                    if (element.getSumFact() != null) inc.setIncomeSum(element.getSumFact());
                 }
             }
             clear(file);

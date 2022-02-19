@@ -31,7 +31,7 @@
             <Label text="Сумма, руб" GridPane.rowIndex="3"/>
             <TextField fx:id="category" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
             <TextField fx:id="type" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
-            <TextField fx:id="sum" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
+            <TextField fx:id="sumFact" GridPane.columnIndex="1" GridPane.rowIndex="3"/>
             <TextField fx:id="index" GridPane.columnIndex="1" GridPane.rowIndex="0"/>
             <Label text="Номер строки" GridPane.rowIndex="0"/>
         </GridPane>

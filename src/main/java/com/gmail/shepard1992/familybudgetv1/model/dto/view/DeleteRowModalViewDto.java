@@ -1,14 +1,14 @@
-package com.gmail.shepard1992.familybudgetv1.model.dto.viewIncomeService;
+package com.gmail.shepard1992.familybudgetv1.model.dto.view;
 
 import java.io.File;
 
-public class DeleteRowIncomeModalView {
+public class DeleteRowModalViewDto {
 
-    private String view;
-    private String index;
-    private File file;
+    private final String view;
+    private final String index;
+    private final File file;
 
-    public DeleteRowIncomeModalView(String view, String index, File file) {
+    public DeleteRowModalViewDto(String view, String index, File file) {
         this.view = view;
         this.index = index;
         this.file = file;
@@ -25,4 +25,5 @@ public class DeleteRowIncomeModalView {
     public File getFile() {
         return file;
     }
+
 }

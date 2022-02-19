@@ -6,7 +6,7 @@ import com.gmail.shepard1992.familybudgetv1.config.UtilConfig;
 import com.gmail.shepard1992.familybudgetv1.model.Income;
 import com.gmail.shepard1992.familybudgetv1.model.dto.IncomeDto;
 import com.gmail.shepard1992.familybudgetv1.repository.api.Repository;
-import com.gmail.shepard1992.familybudgetv1.service.api.IncomeService;
+import com.gmail.shepard1992.familybudgetv1.service.api.Service;
 import config.RepositoryConfigTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,7 +34,7 @@ public class IncomeServiceTest {
     public Repository<Income> repository;
 
     @Autowired
-    public IncomeService service;
+    public Service service;
 
     @Test
     public void test_when_call_getAll_then_return_result() {

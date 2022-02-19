@@ -28,14 +28,14 @@ public class MapperUtilTest {
                 .setIndex("1")
                 .setCategory("Dog")
                 .setType("Type")
-                .setSum(1000d)
+                .setSumFact(1000d)
                 .build();
         Income income = mapperUtil.convertToIncome(incomeDto);
 
         assertEquals(incomeDto.getIndex(), income.getIndex());
         assertEquals(incomeDto.getCategory(), income.getCategory());
         assertEquals(incomeDto.getType(), income.getType());
-        assertEquals(incomeDto.getSum(), income.getSum());
+        assertEquals(incomeDto.getSum(), income.getSumFact());
     }
 
     @Test
@@ -51,7 +51,7 @@ public class MapperUtilTest {
         assertEquals(incomeDto.getIndex(), income.getIndex());
         assertEquals(incomeDto.getCategory(), income.getCategory());
         assertEquals(incomeDto.getType(), income.getType());
-        assertEquals(incomeDto.getSum(), income.getSum());
+        assertEquals(incomeDto.getSum(), income.getSumFact());
     }
 
     @Test

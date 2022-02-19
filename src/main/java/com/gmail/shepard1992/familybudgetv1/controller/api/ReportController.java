@@ -10,6 +10,12 @@ public interface ReportController extends Controller {
 
     void deleteIncomeRow();
 
+    void addCostRow();
+
+    void updateCostRow();
+
+    void deleteCostRow();
+
     void setFile(File file);
 
 }

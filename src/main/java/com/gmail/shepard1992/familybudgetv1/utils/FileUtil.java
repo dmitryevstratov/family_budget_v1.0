@@ -1,8 +1,7 @@
 package com.gmail.shepard1992.familybudgetv1.utils;
 
 import com.gmail.shepard1992.familybudgetv1.model.dto.CreateDirectoryDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.IncomeDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.LoadIncomeDto;
+import com.gmail.shepard1992.familybudgetv1.model.dto.LoadDto;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.springframework.stereotype.Component;
@@ -77,10 +76,10 @@ public class FileUtil {
         return true;
     }
 
-    public void loadIncomeDtoData(LoadIncomeDto dto) {
-        ObservableList<IncomeDto> incomesDtoData = FXCollections.observableArrayList();
-        incomesDtoData.addAll(dto.getIncomeService().getAll(dto.getFile()));
-        dto.getTableIncome().setItems(incomesDtoData);
+    public <D> void loadDtoData(LoadDto<D> dto) {
+        ObservableList<D> incomesDtoData = FXCollections.observableArrayList();
+        incomesDtoData.addAll(dto.getDtoService().getAll(dto.getFile()));
+        dto.getTable().setItems(incomesDtoData);
     }
 
 }

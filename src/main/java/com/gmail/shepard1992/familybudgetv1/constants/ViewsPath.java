@@ -14,4 +14,10 @@ public interface ViewsPath {
 
     String MODAL_CREATE_REPORT_VIEW = "/views/modal/modalCreateReportView.fxml";
 
+    String MODAL_ADD_ROW_COST_VIEW = "/views/modal/cost/modalAddRowCostView.fxml";
+
+    String MODAL_UPDATE_ROW_COST_VIEW = "/views/modal/cost/modalUpdateRowCostView.fxml";
+
+    String MODAL_DELETE_ROW_COST_VIEW = "/views/modal/cost/modalDeleteRowCostView.fxml";
+
 }

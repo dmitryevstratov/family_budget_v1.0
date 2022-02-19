@@ -17,7 +17,7 @@
                                                     <xs:element type="xs:string" name="index"/>
                                                     <xs:element type="xs:string" name="category"/>
                                                     <xs:element type="xs:string" name="type"/>
-                                                    <xs:element type="xs:double" name="sum"/>
+                                                    <xs:element type="xs:double" name="sumFact"/>
                                                 </xs:sequence>
                                             </xs:complexType>
                                         </xs:element>

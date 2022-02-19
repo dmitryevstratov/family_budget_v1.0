@@ -1,8 +1,7 @@
 package com.gmail.shepard1992.familybudgetv1.utils;
 
-import com.gmail.shepard1992.familybudgetv1.model.dto.incomeService.ServiceAddRowDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.incomeService.ServiceDeleteRowDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.incomeService.ServiceUpdateRowDto;
+import com.gmail.shepard1992.familybudgetv1.model.dto.service.ServiceDeleteRowDto;
+import com.gmail.shepard1992.familybudgetv1.model.dto.service.ServiceNewRowDto;
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import org.springframework.stereotype.Component;
@@ -29,7 +28,7 @@ public class ValidationUtil {
         }
     }
 
-    public boolean isInputAddValid(ServiceAddRowDto params) {
+    public boolean isInputAddValid(ServiceNewRowDto params) {
         String errorMessage = "";
         if (params.getCategory() == null || params.getCategory().getText().length() == 0) {
             errorMessage += "Не заполнено поле Категория!\n";
@@ -37,11 +36,20 @@ public class ValidationUtil {
         if (params.getType() == null || params.getType().getText().length() == 0) {
             errorMessage += "Не заполнено поле Тип!\n";
         }
-        if (params.getSum() == null || params.getSum().getText().length() == 0) {
-            errorMessage += "Не заполнено поле Сумма!\n";
+        if (params.getSumFact() == null || params.getSumFact().getText().length() == 0) {
+            errorMessage += "Не заполнено поле Сумма (фактическая)!\n";
         } else {
             try {
-                Double.parseDouble(params.getSum().getText());
+                Double.parseDouble(params.getSumFact().getText());
+            } catch (Exception e) {
+                errorMessage += "Поле Сумма должна содержать только числа!\n";
+            }
+        }
+        if (params.getSumPlan() == null || params.getSumPlan().getText().length() == 0) {
+            errorMessage += "Не заполнено поле Сумма (плановая)!\n";
+        } else {
+            try {
+                Double.parseDouble(params.getSumPlan().getText());
             } catch (Exception e) {
                 errorMessage += "Поле Сумма должна содержать только числа!\n";
             }
@@ -63,18 +71,24 @@ public class ValidationUtil {
         alert.showAndWait();
     }
 
-    public boolean isInputUpdateValid(ServiceUpdateRowDto params) {
+    public boolean isInputUpdateValid(ServiceNewRowDto params) {
         String errorMessage = "";
         if (params.getIndex() == null || params.getIndex().getText().length() == 0) {
             errorMessage += "Не заполнено поле Номер строки!\n";
         }
-        if (params.getSum().getText().length() != 0) {
+        if (params.getSumFact().getText().length() != 0) {
             try {
-                Double.parseDouble(params.getSum().getText());
+                Double.parseDouble(params.getSumFact().getText());
             } catch (Exception e) {
-                errorMessage += "Поле Сумма должна содержать только числа!\n";
+                errorMessage += "Поле Сумма (фактическая) должна содержать только числа!\n";
             }
-        } else {
+        } else if (params.getSumPlan().getText().length() != 0) {
+            try {
+                Double.parseDouble(params.getSumPlan().getText());
+            } catch (Exception e) {
+                errorMessage += "Поле Сумма (плановая) должна содержать только числа!\n";
+            }
+        }else {
             try {
                 Integer.parseInt(params.getIndex().getText());
             } catch (Exception e) {

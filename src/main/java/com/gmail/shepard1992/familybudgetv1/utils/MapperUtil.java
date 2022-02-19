@@ -1,6 +1,8 @@
 package com.gmail.shepard1992.familybudgetv1.utils;
 
+import com.gmail.shepard1992.familybudgetv1.model.Cost;
 import com.gmail.shepard1992.familybudgetv1.model.Income;
+import com.gmail.shepard1992.familybudgetv1.model.dto.CostDto;
 import com.gmail.shepard1992.familybudgetv1.model.dto.IncomeDto;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -26,7 +28,27 @@ public class MapperUtil {
                 .setIndex(income.getIndex())
                 .setCategory(income.getCategory())
                 .setType(income.getType())
-                .setSum(income.getSum())
+                .setSumFact(income.getSumFact())
+                .build();
+    }
+
+    public Cost convertToCost(CostDto costDto) {
+        return new Cost.CostBuilder()
+                .setIndex(costDto.getIndex())
+                .setCategory(costDto.getCategory())
+                .setType(costDto.getType())
+                .setSumPlan(costDto.getSumPlan())
+                .setSumFact(costDto.getSumFact())
+                .build();
+    }
+
+    public CostDto convertToCostDto(Cost cost) {
+        return new CostDto.CostDtoBuilder()
+                .setIndex(cost.getIndex())
+                .setCategory(cost.getCategory())
+                .setType(cost.getType())
+                .setSumPlan(cost.getSumPlan())
+                .setSumFact(cost.getSumFact())
                 .build();
     }
 
