@@ -9,6 +9,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import static com.gmail.shepard1992.familybudgetv1.constants.FilesConstants.FILE_PATH_TEST;
 import static org.junit.Assert.assertFalse;

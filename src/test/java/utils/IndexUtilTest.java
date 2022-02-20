@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 public class IndexUtilTest {
 
     @Autowired
-    public IndexUtil indexUtil;
+    public IndexUtil<IncomeDto> indexUtil;
 
     @Test
     public void test_when_call_incrementIndex_then_return_index() {

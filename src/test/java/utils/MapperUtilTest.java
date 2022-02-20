@@ -1,7 +1,9 @@
 package utils;
 
 import com.gmail.shepard1992.familybudgetv1.config.UtilConfig;
+import com.gmail.shepard1992.familybudgetv1.model.Cost;
 import com.gmail.shepard1992.familybudgetv1.model.Income;
+import com.gmail.shepard1992.familybudgetv1.model.dto.CostDto;
 import com.gmail.shepard1992.familybudgetv1.model.dto.IncomeDto;
 import com.gmail.shepard1992.familybudgetv1.utils.MapperUtil;
 import javafx.collections.ObservableList;
@@ -59,6 +61,42 @@ public class MapperUtilTest {
         ObservableList<Integer> observableListRange = mapperUtil.getObservableListRange(1, 10);
 
         assertEquals(10, observableListRange.size());
+    }
+
+    @Test
+    public void test_mapper_to_cost() {
+        CostDto costDto = new CostDto.CostDtoBuilder()
+                .setIndex("1")
+                .setCategory("Dog")
+                .setType("Type")
+                .setSumFact(1000d)
+                .setSumPlan(1000d)
+                .build();
+        Cost cost = mapperUtil.convertToCost(costDto);
+
+        assertEquals(costDto.getIndex(), cost.getIndex());
+        assertEquals(costDto.getCategory(), cost.getCategory());
+        assertEquals(costDto.getType(), cost.getType());
+        assertEquals(costDto.getSumFact(), cost.getSumFact());
+        assertEquals(costDto.getSumPlan(), cost.getSumPlan());
+    }
+
+    @Test
+    public void test_mapper_to_costDto() {
+        Cost cost = new Cost.CostBuilder()
+                .setIndex("1")
+                .setCategory("Dog")
+                .setType("Type")
+                .setSumFact(1000d)
+                .setSumPlan(1000d)
+                .build();
+        CostDto costDto = mapperUtil.convertToCostDto(cost);
+
+        assertEquals(costDto.getIndex(), cost.getIndex());
+        assertEquals(costDto.getCategory(), cost.getCategory());
+        assertEquals(costDto.getType(), cost.getType());
+        assertEquals(costDto.getSumFact(), cost.getSumFact());
+        assertEquals(costDto.getSumPlan(), cost.getSumPlan());
     }
 
 }
