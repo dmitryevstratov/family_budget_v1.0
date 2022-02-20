@@ -7,11 +7,13 @@ import com.gmail.shepard1992.familybudgetv1.model.dto.IncomeDto;
 import com.gmail.shepard1992.familybudgetv1.repository.api.CreateFileReportRepository;
 import com.gmail.shepard1992.familybudgetv1.repository.api.Repository;
 import com.gmail.shepard1992.familybudgetv1.service.api.CreateReportService;
-import com.gmail.shepard1992.familybudgetv1.service.api.Service;
 import com.gmail.shepard1992.familybudgetv1.service.api.ModalViewService;
+import com.gmail.shepard1992.familybudgetv1.service.api.Service;
+import com.gmail.shepard1992.familybudgetv1.service.api.ViewService;
 import com.gmail.shepard1992.familybudgetv1.service.impl.CostServiceImpl;
 import com.gmail.shepard1992.familybudgetv1.service.impl.CreateReportServiceImpl;
 import com.gmail.shepard1992.familybudgetv1.service.impl.IncomeServiceImpl;
+import com.gmail.shepard1992.familybudgetv1.service.impl.view.ViewServiceImpl;
 import com.gmail.shepard1992.familybudgetv1.service.impl.view.modal.ModalViewServiceImpl;
 import com.gmail.shepard1992.familybudgetv1.utils.IndexUtil;
 import com.gmail.shepard1992.familybudgetv1.utils.MapperUtil;
@@ -42,6 +44,11 @@ public class ServiceConfig {
     @Bean
     public CreateReportService getCreateReportServiceBean(CreateFileReportRepository repository) {
         return new CreateReportServiceImpl(repository);
+    }
+
+    @Bean
+    public ViewService getViewServiceBean(ApplicationContext context, ViewUtil viewUtil) {
+        return new ViewServiceImpl(context, viewUtil);
     }
 
 }

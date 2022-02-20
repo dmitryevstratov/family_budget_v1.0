@@ -3,8 +3,8 @@ package service;
 import com.gmail.shepard1992.familybudgetv1.config.RepositoryConfig;
 import com.gmail.shepard1992.familybudgetv1.config.ServiceConfig;
 import com.gmail.shepard1992.familybudgetv1.config.UtilConfig;
-import com.gmail.shepard1992.familybudgetv1.model.Income;
-import com.gmail.shepard1992.familybudgetv1.model.dto.IncomeDto;
+import com.gmail.shepard1992.familybudgetv1.model.Cost;
+import com.gmail.shepard1992.familybudgetv1.model.dto.CostDto;
 import com.gmail.shepard1992.familybudgetv1.repository.api.Repository;
 import com.gmail.shepard1992.familybudgetv1.service.api.Service;
 import com.gmail.shepard1992.familybudgetv1.service.api.TotalService;
@@ -13,6 +13,7 @@ import config.TotalServiceConfigTest;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
@@ -35,50 +36,51 @@ import static org.mockito.Mockito.*;
         UtilConfig.class,
         TotalServiceConfigTest.class
 })
-public class IncomeServiceTest {
+public class CostServiceTest {
 
     @Autowired
-    public Repository<Income> repository;
+    public Repository<Cost> repository;
 
     @Autowired
-    @Qualifier("getIncomeServiceBean")
-    public Service<IncomeDto> service;
+    @Qualifier("getCostServiceBean")
+    public Service<CostDto> service;
 
     @Autowired
-    @Qualifier("getTotalIncomeServiceBean")
+    @Qualifier("getTotalCostServiceBean")
     public TotalService totalService;
 
     @After
-    public void resetRepositoryMock(){
+    public void resetRepositoryMock() {
         reset(repository);
     }
 
     @Test
     public void test_when_call_getAll_then_return_result() {
-        ArrayList<Income> objects = new ArrayList<>();
-        objects.add(new Income.IncomeBuilder()
+        ArrayList<Cost> objects = new ArrayList<>();
+        objects.add(new Cost.CostBuilder()
                 .setIndex("10")
                 .setCategory("dog")
                 .setType("type")
                 .build());
 
-        when(repository.getAll(any())).thenReturn(objects);
+        Mockito.when(repository.getAll(any())).thenReturn(objects);
 
-        List<IncomeDto> all = service.getAll(any());
+        List<CostDto> all = service.getAll(any());
         assertEquals("10", all.get(0).getIndex());
     }
 
     @Test
     public void test_when_call_setTotalByCategory_then_return_success() {
-        List<Income> incomeList = new ArrayList<>();
-        incomeList.add(new Income.IncomeBuilder()
+        List<Cost> costList = new ArrayList<>();
+        costList.add(new Cost.CostBuilder()
                 .setIndex("1")
                 .setType("cwec")
                 .setCategory("23e32")
-                .setSum(100d)
+                .setSumFact(100d)
+                .setSumPlan(200d)
                 .build());
         when(repository.save(any(), any())).thenReturn(true);
-        when(repository.getAll(any())).thenReturn(incomeList);
+        when(repository.getAll(any())).thenReturn(costList);
 
         totalService.setTotalByCategory(new File(""));
 
@@ -87,15 +89,16 @@ public class IncomeServiceTest {
 
     @Test
     public void test_when_call_setTotalAll_then_return_success() {
-        List<Income> incomeList = new ArrayList<>();
-        incomeList.add(new Income.IncomeBuilder()
+        List<Cost> costList = new ArrayList<>();
+        costList.add(new Cost.CostBuilder()
                 .setIndex("1")
                 .setType("cwec")
                 .setCategory(TOTAL_BY)
-                .setSum(100d)
+                .setSumFact(100d)
+                .setSumPlan(200d)
                 .build());
         when(repository.save(any(), any())).thenReturn(true);
-        when(repository.getAll(any())).thenReturn(incomeList);
+        when(repository.getAll(any())).thenReturn(costList);
 
         totalService.setTotalAll(new File(""));
 
