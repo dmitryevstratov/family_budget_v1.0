@@ -3,23 +3,30 @@ package com.gmail.shepard1992.familybudgetv1.repository.impl;
 import com.gmail.shepard1992.familybudgetv1.model.Income;
 import com.gmail.shepard1992.familybudgetv1.model.IncomeList;
 import com.gmail.shepard1992.familybudgetv1.model.Report;
+import com.gmail.shepard1992.familybudgetv1.model.dto.repository.RepositoryDeleteByCategoryDto;
+import com.gmail.shepard1992.familybudgetv1.model.dto.repository.RepositoryDeleteByIndexDto;
+import com.gmail.shepard1992.familybudgetv1.model.dto.repository.RepositoryUpdateDto;
 import com.gmail.shepard1992.familybudgetv1.repository.api.ReportRepository;
 import com.gmail.shepard1992.familybudgetv1.repository.api.Repository;
+import com.gmail.shepard1992.familybudgetv1.utils.ModelRepositoryUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 @org.springframework.stereotype.Repository
 public class IncomeRepositoryImpl implements Repository<Income> {
 
     private final ReportRepository reportRepository;
+    private final ModelRepositoryUtil facade;
 
     @Autowired
-    public IncomeRepositoryImpl(ReportRepository reportRepository) {
+    public IncomeRepositoryImpl(ReportRepository reportRepository, ModelRepositoryUtil facade) {
         this.reportRepository = reportRepository;
+        this.facade = facade;
     }
 
     @Override
@@ -36,45 +43,21 @@ public class IncomeRepositoryImpl implements Repository<Income> {
         return false;
     }
 
-
     @Override
     public void update(Income element, File file) {
-        List<Income> incomeList = getAll(file);
-        if (incomeList.stream().anyMatch(inc -> inc.getIndex().equals(element.getIndex()))) {
-            for (Income inc : incomeList) {
-                if (inc.getIndex().equals(element.getIndex())) {
-                    if (!element.getCategory().isEmpty()) inc.setIncomeCategory(element.getCategory());
-                    if (!element.getType().isEmpty()) inc.setIncomeType(element.getType());
-                    if (element.getSumFact() != null) inc.setIncomeSum(element.getSumFact());
-                }
-            }
-            clear(file);
-            incomeList.forEach(inc -> save(inc, file));
-        }
+        Consumer<Income> consumer = income -> {
+            if (!element.getCategory().isEmpty()) income.setModelCategory(element.getCategory());
+            if (!element.getType().isEmpty()) income.setModelType(element.getType());
+            if (element.getSumFact() != null) income.setModelSumFact(element.getSumFact());
+        };
+        RepositoryUpdateDto<Income> repositoryUpdateDto = new RepositoryUpdateDto<>(element, file, this, consumer);
+        facade.update(repositoryUpdateDto);
     }
 
     @Override
     public boolean deleteByIndex(Integer index, File file) {
-        List<Income> incomeList = getAll(file);
-        if (incomeList.stream().anyMatch(inc -> inc.getIndex().equals(index.toString()))) {
-            for (int i = 0; i < incomeList.size(); i++) {
-                if (incomeList.get(i).getIndex().equals(index.toString())) {
-                    incomeList.remove(i);
-                    clear(file);
-                    for (int j = 0; j < incomeList.size(); j++) {
-                        Income income = incomeList.get(j);
-                        if (!income.getIndex().equals(j + "")) {
-                            income.setIncomeIndex(j + "");
-                            save(income, file);
-                        } else {
-                            save(income, file);
-                        }
-                    }
-                    return true;
-                }
-            }
-        }
-        return false;
+        RepositoryDeleteByIndexDto<Income> dto = new RepositoryDeleteByIndexDto<>(index, file, this);
+        return facade.deleteByIndex(dto);
     }
 
     @Override
@@ -97,16 +80,8 @@ public class IncomeRepositoryImpl implements Repository<Income> {
 
     @Override
     public void deleteByCategory(String category, File file) {
-        List<Income> incomeList = getAll(file);
-        if (incomeList.stream().anyMatch(inc -> inc.getCategory().equals(category))) {
-            for (int i = 0; i < incomeList.size(); i++) {
-                if (incomeList.get(i).getCategory().equals(category)) {
-                    incomeList.remove(i);
-                    clear(file);
-                    incomeList.forEach((income -> save(income, file)));
-                }
-            }
-        }
+        RepositoryDeleteByCategoryDto<Income> dto = new RepositoryDeleteByCategoryDto<>(category, file, this);
+        facade.deleteByCategory(dto);
     }
 
 }

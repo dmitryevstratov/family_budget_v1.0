@@ -5,12 +5,12 @@ import com.gmail.shepard1992.familybudgetv1.controller.api.modal.cost.ModalAddRo
 import com.gmail.shepard1992.familybudgetv1.controller.api.modal.cost.ModalDeleteCostRowController;
 import com.gmail.shepard1992.familybudgetv1.controller.api.modal.cost.ModalUpdateRowCostController;
 import com.gmail.shepard1992.familybudgetv1.model.dto.CostDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.ModalViewDto;
+import com.gmail.shepard1992.familybudgetv1.model.dto.view.ModalViewDto;
 import com.gmail.shepard1992.familybudgetv1.model.dto.view.DeleteRowModalViewDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.view.ShowDeleteRowModalViewDto;
+import com.gmail.shepard1992.familybudgetv1.model.dto.view.show.ShowDeleteRowModalViewDto;
 import com.gmail.shepard1992.familybudgetv1.model.dto.view.cost.AddRowCostModalViewDto;
 import com.gmail.shepard1992.familybudgetv1.service.api.ModalCostViewService;
-import com.gmail.shepard1992.familybudgetv1.utils.ViewUtil;
+import com.gmail.shepard1992.familybudgetv1.utils.facade.ViewFacade;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -24,19 +24,19 @@ public class ModalCostViewServiceImpl implements ModalCostViewService {
     private Stage primaryStage;
     private final ApplicationContext context;
     private MainApplication mainApp;
-    private final ViewUtil viewUtil;
+    private final ViewFacade viewFacade;
 
     @Autowired
-    public ModalCostViewServiceImpl(ApplicationContext context, ViewUtil viewUtil) {
+    public ModalCostViewServiceImpl(ApplicationContext context, ViewFacade viewFacade) {
         this.context = context;
-        this.viewUtil = viewUtil;
+        this.viewFacade = viewFacade;
     }
 
     @Override
     public void showAddRowCostModalView(AddRowCostModalViewDto dto) {
         try {
             ModalViewDto<ModalAddRowCostController, CostDto> params = new ModalViewDto<>(context, mainApp, primaryStage, dto.getView(), ModalAddRowCostController.class, dto.getCostDto(), dto.getFile());
-            viewUtil.showModalView(params);
+            viewFacade.showModalView(params);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -46,7 +46,7 @@ public class ModalCostViewServiceImpl implements ModalCostViewService {
     public void showUpdateRowCostModalView(AddRowCostModalViewDto dto) {
         try {
             ModalViewDto<ModalUpdateRowCostController, CostDto> params = new ModalViewDto<>(context, mainApp, primaryStage, dto.getView(), ModalUpdateRowCostController.class, dto.getCostDto(), dto.getFile());
-            viewUtil.showModalView(params);
+            viewFacade.showModalView(params);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -54,8 +54,8 @@ public class ModalCostViewServiceImpl implements ModalCostViewService {
 
     @Override
     public void showDeleteRowCostModalView(DeleteRowModalViewDto dto) {
-        ShowDeleteRowModalViewDto<ModalDeleteCostRowController> deleteRowModalViewDto = new ShowDeleteRowModalViewDto<>(dto, context, mainApp, ModalDeleteCostRowController.class, primaryStage, viewUtil);
-        viewUtil.showDeleteRowModalView(deleteRowModalViewDto);
+        ShowDeleteRowModalViewDto<ModalDeleteCostRowController> deleteRowModalViewDto = new ShowDeleteRowModalViewDto<>(dto, context, mainApp, ModalDeleteCostRowController.class, primaryStage, viewFacade);
+        viewFacade.showDeleteRowModalView(deleteRowModalViewDto);
     }
 
     @Override

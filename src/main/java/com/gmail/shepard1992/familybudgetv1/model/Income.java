@@ -1,10 +1,12 @@
 package com.gmail.shepard1992.familybudgetv1.model;
 
+import com.gmail.shepard1992.familybudgetv1.model.api.Model;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlType(propOrder = {"index", "category", "type", "sumFact"})
-public class Income {
+public class Income implements Model {
 
     @XmlElement
     private String index;
@@ -28,6 +30,7 @@ public class Income {
         this.sumFact = incomeBuilder.sum;
     }
 
+    @Override
     public String getCategory() {
         return category;
     }
@@ -40,23 +43,25 @@ public class Income {
         return sumFact;
     }
 
+    @Override
     public String getIndex() {
         return index;
     }
 
-    public void setIncomeIndex(String index) {
+    @Override
+    public void setModelIndex(String index) {
         this.index = index;
     }
 
-    public void setIncomeCategory(String category) {
+    public void setModelCategory(String category) {
         this.category = category;
     }
 
-    public void setIncomeType(String type) {
+    public void setModelType(String type) {
         this.type = type;
     }
 
-    public void setIncomeSum(Double sum) {
+    public void setModelSumFact(Double sum) {
         this.sumFact = sum;
     }
 

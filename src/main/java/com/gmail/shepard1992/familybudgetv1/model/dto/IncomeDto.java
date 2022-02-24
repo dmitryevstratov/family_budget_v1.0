@@ -1,6 +1,6 @@
 package com.gmail.shepard1992.familybudgetv1.model.dto;
 
-import com.gmail.shepard1992.familybudgetv1.model.dto.api.Dto;
+import com.gmail.shepard1992.familybudgetv1.model.api.Dto;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 

@@ -9,16 +9,15 @@ import com.gmail.shepard1992.familybudgetv1.repository.api.Repository;
 import com.gmail.shepard1992.familybudgetv1.service.api.CreateReportService;
 import com.gmail.shepard1992.familybudgetv1.service.api.ModalViewService;
 import com.gmail.shepard1992.familybudgetv1.service.api.Service;
-import com.gmail.shepard1992.familybudgetv1.service.api.ViewService;
 import com.gmail.shepard1992.familybudgetv1.service.impl.CostServiceImpl;
 import com.gmail.shepard1992.familybudgetv1.service.impl.CreateReportServiceImpl;
 import com.gmail.shepard1992.familybudgetv1.service.impl.IncomeServiceImpl;
-import com.gmail.shepard1992.familybudgetv1.service.impl.view.ViewServiceImpl;
 import com.gmail.shepard1992.familybudgetv1.service.impl.view.modal.ModalViewServiceImpl;
 import com.gmail.shepard1992.familybudgetv1.utils.IndexUtil;
 import com.gmail.shepard1992.familybudgetv1.utils.MapperUtil;
+import com.gmail.shepard1992.familybudgetv1.utils.TotalServiceUtil;
 import com.gmail.shepard1992.familybudgetv1.utils.ValidationUtil;
-import com.gmail.shepard1992.familybudgetv1.utils.ViewUtil;
+import com.gmail.shepard1992.familybudgetv1.utils.facade.ViewFacade;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,28 +26,23 @@ import org.springframework.context.annotation.Configuration;
 public class ServiceConfig {
 
     @Bean
-    public Service<IncomeDto> getIncomeServiceBean(ValidationUtil validationUtil, Repository<Income> repository, MapperUtil mapperUtil, IndexUtil<IncomeDto> indexUtil) {
-        return new IncomeServiceImpl(validationUtil, repository, mapperUtil, indexUtil);
+    public Service<IncomeDto> getIncomeServiceBean(ValidationUtil validationUtil, Repository<Income> repository, MapperUtil mapperUtil, IndexUtil<IncomeDto> indexUtil, TotalServiceUtil totalServiceUtil) {
+        return new IncomeServiceImpl(validationUtil, repository, mapperUtil, indexUtil, totalServiceUtil);
     }
 
     @Bean
-    public Service<CostDto> getCostServiceBean(ValidationUtil validationUtil, Repository<Cost> repository, MapperUtil mapperUtil, IndexUtil<CostDto> indexUtil) {
-        return new CostServiceImpl(validationUtil, repository, mapperUtil, indexUtil);
+    public Service<CostDto> getCostServiceBean(ValidationUtil validationUtil, Repository<Cost> repository, MapperUtil mapperUtil, IndexUtil<CostDto> indexUtil, TotalServiceUtil totalServiceUtil) {
+        return new CostServiceImpl(validationUtil, repository, mapperUtil, indexUtil, totalServiceUtil);
     }
 
     @Bean
-    public ModalViewService getModalViewServiceBean(ApplicationContext context, ViewUtil viewUtil) {
-        return new ModalViewServiceImpl(context, viewUtil);
+    public ModalViewService getModalViewServiceBean(ApplicationContext context, ViewFacade viewFacade) {
+        return new ModalViewServiceImpl(context, viewFacade);
     }
 
     @Bean
     public CreateReportService getCreateReportServiceBean(CreateFileReportRepository repository) {
         return new CreateReportServiceImpl(repository);
-    }
-
-    @Bean
-    public ViewService getViewServiceBean(ApplicationContext context, ViewUtil viewUtil) {
-        return new ViewServiceImpl(context, viewUtil);
     }
 
 }

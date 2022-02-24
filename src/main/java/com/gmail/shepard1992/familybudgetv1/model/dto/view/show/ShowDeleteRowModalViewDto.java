@@ -1,7 +1,8 @@
-package com.gmail.shepard1992.familybudgetv1.model.dto.view;
+package com.gmail.shepard1992.familybudgetv1.model.dto.view.show;
 
 import com.gmail.shepard1992.familybudgetv1.MainApplication;
-import com.gmail.shepard1992.familybudgetv1.utils.ViewUtil;
+import com.gmail.shepard1992.familybudgetv1.model.dto.view.DeleteRowModalViewDto;
+import com.gmail.shepard1992.familybudgetv1.utils.facade.ViewFacade;
 import javafx.stage.Stage;
 import org.springframework.context.ApplicationContext;
 
@@ -12,15 +13,15 @@ public class ShowDeleteRowModalViewDto<C> {
     private final MainApplication mainApp;
     private final Class<C> classController;
     private final Stage primaryStage;
-    private final ViewUtil viewUtil;
+    private final ViewFacade viewFacade;
 
-    public ShowDeleteRowModalViewDto(DeleteRowModalViewDto dto, ApplicationContext context, MainApplication mainApp, Class<C> classController, Stage primaryStage, ViewUtil viewUtil) {
+    public ShowDeleteRowModalViewDto(DeleteRowModalViewDto dto, ApplicationContext context, MainApplication mainApp, Class<C> classController, Stage primaryStage, ViewFacade viewFacade) {
         this.dto = dto;
         this.context = context;
         this.mainApp = mainApp;
         this.classController = classController;
         this.primaryStage = primaryStage;
-        this.viewUtil = viewUtil;
+        this.viewFacade = viewFacade;
     }
 
     public DeleteRowModalViewDto getDto() {
@@ -39,8 +40,8 @@ public class ShowDeleteRowModalViewDto<C> {
         return primaryStage;
     }
 
-    public ViewUtil getViewUtil() {
-        return viewUtil;
+    public ViewFacade getViewUtil() {
+        return viewFacade;
     }
 
     public Class<C> getClassController() {

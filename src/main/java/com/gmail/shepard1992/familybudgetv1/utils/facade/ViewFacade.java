@@ -1,11 +1,11 @@
-package com.gmail.shepard1992.familybudgetv1.utils;
+package com.gmail.shepard1992.familybudgetv1.utils.facade;
 
 import com.gmail.shepard1992.familybudgetv1.MainApplication;
 import com.gmail.shepard1992.familybudgetv1.controller.api.modal.ModalDeleteRowController;
 import com.gmail.shepard1992.familybudgetv1.controller.api.modal.ModalNewRowController;
-import com.gmail.shepard1992.familybudgetv1.model.dto.ModalViewDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.ShowViewDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.view.ShowDeleteRowModalViewDto;
+import com.gmail.shepard1992.familybudgetv1.model.dto.view.ModalViewDto;
+import com.gmail.shepard1992.familybudgetv1.model.dto.view.show.ShowDeleteRowModalViewDto;
+import com.gmail.shepard1992.familybudgetv1.model.dto.view.show.ShowViewDto;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -17,7 +17,7 @@ import java.io.IOException;
 import static javafx.stage.Modality.WINDOW_MODAL;
 
 @Component
-public class ViewUtil {
+public class ViewFacade {
 
     public <C> FXMLLoader showView(ShowViewDto<C> showViewDto) throws IOException {
         FXMLLoader loader = new FXMLLoader();

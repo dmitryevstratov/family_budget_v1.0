@@ -1,11 +1,11 @@
 package com.gmail.shepard1992.familybudgetv1;
 
-import com.gmail.shepard1992.familybudgetv1.api.ShowModalViewApi;
-import com.gmail.shepard1992.familybudgetv1.api.ShowViewApi;
-import com.gmail.shepard1992.familybudgetv1.api.cost.CostActionApi;
-import com.gmail.shepard1992.familybudgetv1.api.cost.ShowModalCostViewApi;
-import com.gmail.shepard1992.familybudgetv1.api.income.IncomeActionApi;
-import com.gmail.shepard1992.familybudgetv1.api.income.ShowModalIncomeViewApi;
+import com.gmail.shepard1992.familybudgetv1.api.mainApplication.ShowModalViewApi;
+import com.gmail.shepard1992.familybudgetv1.api.mainApplication.ShowViewApi;
+import com.gmail.shepard1992.familybudgetv1.api.mainApplication.cost.CostActionApi;
+import com.gmail.shepard1992.familybudgetv1.api.mainApplication.cost.ShowModalCostViewApi;
+import com.gmail.shepard1992.familybudgetv1.api.mainApplication.income.IncomeActionApi;
+import com.gmail.shepard1992.familybudgetv1.api.mainApplication.income.ShowModalIncomeViewApi;
 import com.gmail.shepard1992.familybudgetv1.config.AppConfig;
 import com.gmail.shepard1992.familybudgetv1.model.dto.CostDto;
 import com.gmail.shepard1992.familybudgetv1.model.dto.IncomeDto;
@@ -26,6 +26,8 @@ import java.io.File;
 import static com.gmail.shepard1992.familybudgetv1.constants.ViewsPath.*;
 
 public class MainApplication extends Application implements ShowViewApi, IncomeActionApi, ShowModalIncomeViewApi, ShowModalViewApi, CostActionApi, ShowModalCostViewApi {
+
+    //ToDo разбить приложение на view, service, repository
 
     private Stage primaryStage;
     private ViewService viewService;
@@ -56,6 +58,8 @@ public class MainApplication extends Application implements ShowViewApi, IncomeA
         showRootView();
     }
 
+    //Кнопки для таблицы доходов
+
     @Override
     public void addIncomeRow(File file) {
         IncomeDto incomeDto = new IncomeDto.IncomeDtoBuilder().build();
@@ -73,6 +77,28 @@ public class MainApplication extends Application implements ShowViewApi, IncomeA
         String index = "";
         showDeleteRowIncomeModalView(index, file);
     }
+
+    //Кнопки для таблицы расходов
+
+    @Override
+    public void addCostRow(File file) {
+        CostDto costDto = new CostDto.CostDtoBuilder().build();
+        showAddRowIncomeModalView(costDto, file);
+    }
+
+    @Override
+    public void updateCostRow(File file) {
+        CostDto costDto = new CostDto.CostDtoBuilder().build();
+        showUpdateRowCostModalView(costDto, file);
+    }
+
+    @Override
+    public void deleteCostRow(File file) {
+        String index = "";
+        showDeleteRowCostModalView(index, file);
+    }
+
+    //Показать окна
 
     @Override
     public void showRootView() {
@@ -108,24 +134,6 @@ public class MainApplication extends Application implements ShowViewApi, IncomeA
     }
 
     @Override
-    public void addCostRow(File file) {
-        CostDto costDto = new CostDto.CostDtoBuilder().build();
-        showAddRowIncomeModalView(costDto, file);
-    }
-
-    @Override
-    public void updateCostRow(File file) {
-        CostDto costDto = new CostDto.CostDtoBuilder().build();
-        showUpdateRowCostModalView(costDto, file);
-    }
-
-    @Override
-    public void deleteCostRow(File file) {
-        String index = "";
-        showDeleteRowCostModalView(index, file);
-    }
-
-    @Override
     public void showAddRowIncomeModalView(CostDto costDto, File file) {
         AddRowCostModalViewDto addRowCostModalViewDto = new AddRowCostModalViewDto(MODAL_ADD_ROW_COST_VIEW, costDto, file);
         modalCostViewService.showAddRowCostModalView(addRowCostModalViewDto);
@@ -142,4 +150,5 @@ public class MainApplication extends Application implements ShowViewApi, IncomeA
         DeleteRowModalViewDto dto = new DeleteRowModalViewDto(MODAL_DELETE_ROW_COST_VIEW, index, file);
         modalCostViewService.showDeleteRowCostModalView(dto);
     }
+
 }

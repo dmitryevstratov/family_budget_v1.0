@@ -1,6 +1,6 @@
 package com.gmail.shepard1992.familybudgetv1.utils;
 
-import com.gmail.shepard1992.familybudgetv1.model.dto.api.Dto;
+import com.gmail.shepard1992.familybudgetv1.model.api.Dto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

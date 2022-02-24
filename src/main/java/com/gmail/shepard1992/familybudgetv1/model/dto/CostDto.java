@@ -1,6 +1,6 @@
 package com.gmail.shepard1992.familybudgetv1.model.dto;
 
-import com.gmail.shepard1992.familybudgetv1.model.dto.api.Dto;
+import com.gmail.shepard1992.familybudgetv1.model.api.Dto;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -66,18 +66,6 @@ public class CostDto implements Dto {
 
     public StringProperty getIndexProperty() {
         return new SimpleStringProperty(index);
-    }
-
-    public void setCostIndex(String index) {
-        this.index = index;
-    }
-
-    public void setCostCategory(String category) {
-        this.category = category;
-    }
-
-    public void setCostType(String type) {
-        this.type = type;
     }
 
     public void setCostSumPlan(Double sumPlan) {

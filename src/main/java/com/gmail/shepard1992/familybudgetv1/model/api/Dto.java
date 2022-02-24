@@ -1,4 +1,4 @@
-package com.gmail.shepard1992.familybudgetv1.model.dto.api;
+package com.gmail.shepard1992.familybudgetv1.model.api;
 
 public interface Dto {
 

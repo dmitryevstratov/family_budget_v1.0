@@ -7,11 +7,11 @@ import java.io.File;
 
 public class ServiceNewRowDto {
 
-    private TextField index;
+    private final TextField index;
     private final TextField category;
     private final TextField type;
     private final TextField sumFact;
-    private TextField sumPlan;
+    private final TextField sumPlan;
     private final Stage dialogStage;
     private final File file;
 

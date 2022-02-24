@@ -94,16 +94,23 @@ public class ReportControllerImpl implements ReportController {
 
     @FXML
     public void initialize() {
-        indexIncome.setCellValueFactory(cellData -> cellData.getValue().getIndexProperty());
-        categoryIncome.setCellValueFactory(cellData -> cellData.getValue().getCategoryProperty());
-        typeIncome.setCellValueFactory(cellData -> cellData.getValue().getTypeProperty());
-        sumIncome.setCellValueFactory(cellData -> cellData.getValue().getSumFactProperty());
+        initializeIncomeTable();
+        initializeCostTable();
+    }
 
+    private void initializeCostTable() {
         indexCost.setCellValueFactory(cellData -> cellData.getValue().getIndexProperty());
         categoryCost.setCellValueFactory(cellData -> cellData.getValue().getCategoryProperty());
         typeCost.setCellValueFactory(cellData -> cellData.getValue().getTypeProperty());
         sumFactCost.setCellValueFactory(cellData -> cellData.getValue().getSumFactProperty());
         sumPlanCost.setCellValueFactory(cellData -> cellData.getValue().getSumPlanProperty());
+    }
+
+    private void initializeIncomeTable() {
+        indexIncome.setCellValueFactory(cellData -> cellData.getValue().getIndexProperty());
+        categoryIncome.setCellValueFactory(cellData -> cellData.getValue().getCategoryProperty());
+        typeIncome.setCellValueFactory(cellData -> cellData.getValue().getTypeProperty());
+        sumIncome.setCellValueFactory(cellData -> cellData.getValue().getSumFactProperty());
     }
 
     @Override
@@ -148,6 +155,7 @@ public class ReportControllerImpl implements ReportController {
         fileUtil.loadDtoData(loadDto);
     }
 
+    @Override
     public void setFile(File file) {
         this.file = file;
     }

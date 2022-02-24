@@ -10,6 +10,8 @@ import com.gmail.shepard1992.familybudgetv1.repository.impl.CreateFileReportRepo
 import com.gmail.shepard1992.familybudgetv1.repository.impl.IncomeRepositoryImpl;
 import com.gmail.shepard1992.familybudgetv1.repository.impl.ReportRepositoryImpl;
 import com.gmail.shepard1992.familybudgetv1.utils.FileUtil;
+import com.gmail.shepard1992.familybudgetv1.utils.ModelRepositoryUtil;
+import com.gmail.shepard1992.familybudgetv1.utils.facade.ReportRepositoryFacade;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,8 +19,8 @@ import org.springframework.context.annotation.Configuration;
 public class RepositoryConfig {
 
     @Bean
-    public Repository<Income> getIncomeRepositoryBean(ReportRepository reportRepository) {
-        return new IncomeRepositoryImpl(reportRepository);
+    public Repository<Income> getIncomeRepositoryBean(ReportRepository reportRepository, ModelRepositoryUtil modelRepositoryUtil) {
+        return new IncomeRepositoryImpl(reportRepository, modelRepositoryUtil);
     }
 
     @Bean
@@ -27,13 +29,13 @@ public class RepositoryConfig {
     }
 
     @Bean
-    public ReportRepository getReportRepositoryBean(FileUtil fileUtil) {
-        return new ReportRepositoryImpl(fileUtil);
+    public ReportRepository getReportRepositoryBean(FileUtil fileUtil, ReportRepositoryFacade facade) {
+        return new ReportRepositoryImpl(fileUtil, facade);
     }
 
     @Bean
-    public Repository<Cost> getCostRepositoryBean(ReportRepository reportRepository) {
-        return new CostRepositoryImpl(reportRepository);
+    public Repository<Cost> getCostRepositoryBean(ReportRepository reportRepository, ModelRepositoryUtil modelRepositoryUtil) {
+        return new CostRepositoryImpl(reportRepository, modelRepositoryUtil);
     }
 
 }

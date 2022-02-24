@@ -1,4 +1,4 @@
-package com.gmail.shepard1992.familybudgetv1.api.cost;
+package com.gmail.shepard1992.familybudgetv1.api.mainApplication.cost;
 
 import com.gmail.shepard1992.familybudgetv1.model.dto.CostDto;
 

@@ -1,4 +1,4 @@
-package com.gmail.shepard1992.familybudgetv1.model.dto;
+package com.gmail.shepard1992.familybudgetv1.model.dto.view;
 
 import com.gmail.shepard1992.familybudgetv1.MainApplication;
 import javafx.stage.Stage;

@@ -3,7 +3,6 @@ package com.gmail.shepard1992.familybudgetv1.controller.impl.modal.cost;
 import com.gmail.shepard1992.familybudgetv1.MainApplication;
 import com.gmail.shepard1992.familybudgetv1.controller.api.modal.cost.ModalUpdateRowCostController;
 import com.gmail.shepard1992.familybudgetv1.model.dto.CostDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.IncomeDto;
 import com.gmail.shepard1992.familybudgetv1.model.dto.service.ServiceNewRowDto;
 import com.gmail.shepard1992.familybudgetv1.service.api.Service;
 import javafx.fxml.FXML;
