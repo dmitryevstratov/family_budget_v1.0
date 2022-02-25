@@ -1,6 +1,6 @@
 package com.gmail.shepard1992.familybudgetv1.service.api;
 
-import com.gmail.shepard1992.familybudgetv1.model.dto.CreateDirectoryDto;
+import com.gmail.shepard1992.familybudgetv1.view.model.dto.CreateDirectoryDto;
 import javafx.stage.Stage;
 
 import java.io.File;

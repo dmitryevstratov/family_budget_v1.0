@@ -1,11 +1,11 @@
 package com.gmail.shepard1992.familybudgetv1.repository.impl;
 
-import com.gmail.shepard1992.familybudgetv1.model.Cost;
-import com.gmail.shepard1992.familybudgetv1.model.CostList;
-import com.gmail.shepard1992.familybudgetv1.model.Report;
-import com.gmail.shepard1992.familybudgetv1.model.dto.repository.RepositoryDeleteByCategoryDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.repository.RepositoryDeleteByIndexDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.repository.RepositoryUpdateDto;
+import com.gmail.shepard1992.familybudgetv1.service.model.Cost;
+import com.gmail.shepard1992.familybudgetv1.service.model.CostList;
+import com.gmail.shepard1992.familybudgetv1.service.model.Report;
+import com.gmail.shepard1992.familybudgetv1.repository.model.dto.RepositoryDeleteByCategoryDto;
+import com.gmail.shepard1992.familybudgetv1.repository.model.dto.RepositoryDeleteByIndexDto;
+import com.gmail.shepard1992.familybudgetv1.repository.model.dto.RepositoryUpdateDto;
 import com.gmail.shepard1992.familybudgetv1.repository.api.ReportRepository;
 import com.gmail.shepard1992.familybudgetv1.repository.api.Repository;
 import com.gmail.shepard1992.familybudgetv1.utils.ModelRepositoryUtil;

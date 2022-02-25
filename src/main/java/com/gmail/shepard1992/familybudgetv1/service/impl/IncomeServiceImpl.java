@@ -1,11 +1,11 @@
 package com.gmail.shepard1992.familybudgetv1.service.impl;
 
-import com.gmail.shepard1992.familybudgetv1.model.Income;
-import com.gmail.shepard1992.familybudgetv1.model.dto.IncomeDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.service.ServiceDeleteRowDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.service.ServiceNewRowDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.util.TotalServiceByCategoryDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.util.TotalServiceUpdateDto;
+import com.gmail.shepard1992.familybudgetv1.service.model.Income;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.IncomeDto;
+import com.gmail.shepard1992.familybudgetv1.view.model.dto.ServiceDeleteRowDto;
+import com.gmail.shepard1992.familybudgetv1.view.model.dto.ServiceNewRowDto;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.TotalServiceByCategoryDto;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.TotalServiceUpdateDto;
 import com.gmail.shepard1992.familybudgetv1.repository.api.Repository;
 import com.gmail.shepard1992.familybudgetv1.service.api.Service;
 import com.gmail.shepard1992.familybudgetv1.service.api.TotalService;
@@ -22,7 +22,7 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-import static com.gmail.shepard1992.familybudgetv1.constants.ServiceConstants.*;
+import static com.gmail.shepard1992.familybudgetv1.service.constants.ServiceConstants.*;
 
 @org.springframework.stereotype.Service
 public class IncomeServiceImpl implements Service<IncomeDto>, TotalService {

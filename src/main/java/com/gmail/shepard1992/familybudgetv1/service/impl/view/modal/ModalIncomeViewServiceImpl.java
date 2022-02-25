@@ -1,14 +1,14 @@
 package com.gmail.shepard1992.familybudgetv1.service.impl.view.modal;
 
-import com.gmail.shepard1992.familybudgetv1.MainApplication;
-import com.gmail.shepard1992.familybudgetv1.controller.api.modal.income.ModalAddRowIncomeController;
-import com.gmail.shepard1992.familybudgetv1.controller.api.modal.income.ModalDeleteIncomeRowController;
-import com.gmail.shepard1992.familybudgetv1.controller.api.modal.income.ModalUpdateRowIncomeController;
-import com.gmail.shepard1992.familybudgetv1.model.dto.IncomeDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.view.ModalViewDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.view.DeleteRowModalViewDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.view.show.ShowDeleteRowModalViewDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.view.income.AddRowIncomeModalViewDto;
+import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
+import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.income.ModalAddRowIncomeController;
+import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.income.ModalDeleteIncomeRowController;
+import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.income.ModalUpdateRowIncomeController;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.IncomeDto;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.show.ModalViewDto;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.show.DeleteRowModalViewDto;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.show.ShowDeleteRowModalViewDto;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.view.income.AddRowIncomeModalViewDto;
 import com.gmail.shepard1992.familybudgetv1.service.api.ModalIncomeViewService;
 import com.gmail.shepard1992.familybudgetv1.utils.facade.ViewFacade;
 import javafx.stage.Stage;

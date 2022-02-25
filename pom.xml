@@ -138,7 +138,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                com.gmail.shepard1992.familybudgetv1/com.gmail.shepard1992.familybudgetv1.MainApplication
+                                com.gmail.shepard1992.familybudgetv1/com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>

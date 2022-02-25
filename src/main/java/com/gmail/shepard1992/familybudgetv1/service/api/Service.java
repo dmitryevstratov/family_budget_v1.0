@@ -1,7 +1,7 @@
 package com.gmail.shepard1992.familybudgetv1.service.api;
 
-import com.gmail.shepard1992.familybudgetv1.model.dto.service.ServiceDeleteRowDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.service.ServiceNewRowDto;
+import com.gmail.shepard1992.familybudgetv1.view.model.dto.ServiceDeleteRowDto;
+import com.gmail.shepard1992.familybudgetv1.view.model.dto.ServiceNewRowDto;
 
 import java.io.File;
 import java.util.List;

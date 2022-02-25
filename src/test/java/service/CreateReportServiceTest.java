@@ -1,9 +1,9 @@
 package service;
 
-import com.gmail.shepard1992.familybudgetv1.config.RepositoryConfig;
-import com.gmail.shepard1992.familybudgetv1.config.ServiceConfig;
-import com.gmail.shepard1992.familybudgetv1.config.UtilConfig;
-import com.gmail.shepard1992.familybudgetv1.model.dto.CreateDirectoryDto;
+import com.gmail.shepard1992.familybudgetv1.repository.config.RepositoryConfig;
+import com.gmail.shepard1992.familybudgetv1.service.config.ServiceConfig;
+import com.gmail.shepard1992.familybudgetv1.utils.config.UtilConfig;
+import com.gmail.shepard1992.familybudgetv1.view.model.dto.CreateDirectoryDto;
 import com.gmail.shepard1992.familybudgetv1.repository.api.CreateFileReportRepository;
 import com.gmail.shepard1992.familybudgetv1.service.api.CreateReportService;
 import config.RepositoryConfigTest;

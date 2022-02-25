@@ -1,8 +1,8 @@
 package com.gmail.shepard1992.familybudgetv1.utils.facade;
 
-import com.gmail.shepard1992.familybudgetv1.MainApplication;
-import com.gmail.shepard1992.familybudgetv1.model.Report;
-import com.gmail.shepard1992.familybudgetv1.model.xmlWrapper.ReportWrapper;
+import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
+import com.gmail.shepard1992.familybudgetv1.service.model.Report;
+import com.gmail.shepard1992.familybudgetv1.service.model.xmlWrapper.ReportWrapper;
 import com.gmail.shepard1992.familybudgetv1.utils.FileUtil;
 import org.springframework.stereotype.Component;
 import org.xml.sax.SAXException;
@@ -16,7 +16,7 @@ import javax.xml.validation.SchemaFactory;
 import java.io.File;
 import java.net.URL;
 
-import static com.gmail.shepard1992.familybudgetv1.constants.PathXsd.REPORT_PATH_XSD;
+import static com.gmail.shepard1992.familybudgetv1.repository.constants.PathXsd.REPORT_PATH_XSD;
 import static javax.xml.XMLConstants.W3C_XML_SCHEMA_NS_URI;
 import static javax.xml.bind.Marshaller.JAXB_FORMATTED_OUTPUT;
 

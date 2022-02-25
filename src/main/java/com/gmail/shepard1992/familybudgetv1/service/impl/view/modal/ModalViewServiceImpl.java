@@ -1,8 +1,8 @@
 package com.gmail.shepard1992.familybudgetv1.service.impl.view.modal;
 
-import com.gmail.shepard1992.familybudgetv1.MainApplication;
-import com.gmail.shepard1992.familybudgetv1.controller.api.modal.ModalCreateReportController;
-import com.gmail.shepard1992.familybudgetv1.model.dto.view.show.ShowViewDto;
+import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
+import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.ModalCreateReportController;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.show.ShowViewDto;
 import com.gmail.shepard1992.familybudgetv1.service.api.ModalViewService;
 import com.gmail.shepard1992.familybudgetv1.utils.facade.ViewFacade;
 import javafx.fxml.FXMLLoader;

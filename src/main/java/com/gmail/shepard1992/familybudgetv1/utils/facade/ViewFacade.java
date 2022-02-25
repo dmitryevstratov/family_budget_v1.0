@@ -1,11 +1,11 @@
 package com.gmail.shepard1992.familybudgetv1.utils.facade;
 
-import com.gmail.shepard1992.familybudgetv1.MainApplication;
-import com.gmail.shepard1992.familybudgetv1.controller.api.modal.ModalDeleteRowController;
-import com.gmail.shepard1992.familybudgetv1.controller.api.modal.ModalNewRowController;
-import com.gmail.shepard1992.familybudgetv1.model.dto.view.ModalViewDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.view.show.ShowDeleteRowModalViewDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.view.show.ShowViewDto;
+import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
+import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.ModalDeleteRowController;
+import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.ModalNewRowController;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.show.ModalViewDto;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.show.ShowDeleteRowModalViewDto;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.show.ShowViewDto;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;

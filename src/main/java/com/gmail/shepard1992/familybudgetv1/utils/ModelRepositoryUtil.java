@@ -1,15 +1,15 @@
 package com.gmail.shepard1992.familybudgetv1.utils;
 
-import com.gmail.shepard1992.familybudgetv1.model.api.Model;
-import com.gmail.shepard1992.familybudgetv1.model.dto.repository.RepositoryDeleteByCategoryDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.repository.RepositoryDeleteByIndexDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.repository.RepositoryUpdateDto;
+import com.gmail.shepard1992.familybudgetv1.service.model.api.Model;
+import com.gmail.shepard1992.familybudgetv1.repository.model.dto.RepositoryDeleteByCategoryDto;
+import com.gmail.shepard1992.familybudgetv1.repository.model.dto.RepositoryDeleteByIndexDto;
+import com.gmail.shepard1992.familybudgetv1.repository.model.dto.RepositoryUpdateDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.gmail.shepard1992.familybudgetv1.constants.ServiceConstants.EMPTY;
+import static com.gmail.shepard1992.familybudgetv1.service.constants.ServiceConstants.EMPTY;
 
 @Component
 public class ModelRepositoryUtil {
