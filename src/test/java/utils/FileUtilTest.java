@@ -1,6 +1,6 @@
 package utils;
 
-import com.gmail.shepard1992.familybudgetv1.config.UtilConfig;
+import com.gmail.shepard1992.familybudgetv1.utils.config.UtilConfig;
 import com.gmail.shepard1992.familybudgetv1.utils.FileUtil;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,10 +9,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 
-import static com.gmail.shepard1992.familybudgetv1.constants.FilesConstants.FILE_PATH_TEST;
+import static com.gmail.shepard1992.familybudgetv1.view.constants.FilesConstants.FILE_PATH_TEST;
 import static org.junit.Assert.assertFalse;
 
 @RunWith(SpringJUnit4ClassRunner.class)

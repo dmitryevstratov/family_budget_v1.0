@@ -1,10 +1,10 @@
 package utils;
 
-import com.gmail.shepard1992.familybudgetv1.config.UtilConfig;
-import com.gmail.shepard1992.familybudgetv1.model.Cost;
-import com.gmail.shepard1992.familybudgetv1.model.Income;
-import com.gmail.shepard1992.familybudgetv1.model.dto.CostDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.IncomeDto;
+import com.gmail.shepard1992.familybudgetv1.utils.config.UtilConfig;
+import com.gmail.shepard1992.familybudgetv1.service.model.Cost;
+import com.gmail.shepard1992.familybudgetv1.service.model.Income;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.CostDto;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.IncomeDto;
 import com.gmail.shepard1992.familybudgetv1.utils.MapperUtil;
 import javafx.collections.ObservableList;
 import org.junit.Test;

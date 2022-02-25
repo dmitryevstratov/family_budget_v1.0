@@ -1,8 +1,8 @@
 package repository;
 
-import com.gmail.shepard1992.familybudgetv1.config.RepositoryConfig;
-import com.gmail.shepard1992.familybudgetv1.config.UtilConfig;
-import com.gmail.shepard1992.familybudgetv1.model.Cost;
+import com.gmail.shepard1992.familybudgetv1.repository.config.RepositoryConfig;
+import com.gmail.shepard1992.familybudgetv1.utils.config.UtilConfig;
+import com.gmail.shepard1992.familybudgetv1.service.model.Cost;
 import com.gmail.shepard1992.familybudgetv1.repository.api.Repository;
 import org.junit.After;
 import org.junit.Before;
@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import java.io.File;
 import java.util.List;
 
-import static com.gmail.shepard1992.familybudgetv1.constants.FilesConstants.FILE_PATH_TEST;
+import static com.gmail.shepard1992.familybudgetv1.view.constants.FilesConstants.FILE_PATH_TEST;
 import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)

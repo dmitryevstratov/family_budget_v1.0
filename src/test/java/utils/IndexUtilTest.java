@@ -1,8 +1,8 @@
 package utils;
 
-import com.gmail.shepard1992.familybudgetv1.config.*;
-import com.gmail.shepard1992.familybudgetv1.model.dto.IncomeDto;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.IncomeDto;
 import com.gmail.shepard1992.familybudgetv1.utils.IndexUtil;
+import com.gmail.shepard1992.familybudgetv1.utils.config.UtilConfig;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

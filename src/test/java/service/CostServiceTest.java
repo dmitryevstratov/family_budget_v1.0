@@ -1,10 +1,10 @@
 package service;
 
-import com.gmail.shepard1992.familybudgetv1.config.RepositoryConfig;
-import com.gmail.shepard1992.familybudgetv1.config.ServiceConfig;
-import com.gmail.shepard1992.familybudgetv1.config.UtilConfig;
-import com.gmail.shepard1992.familybudgetv1.model.Cost;
-import com.gmail.shepard1992.familybudgetv1.model.dto.CostDto;
+import com.gmail.shepard1992.familybudgetv1.repository.config.RepositoryConfig;
+import com.gmail.shepard1992.familybudgetv1.service.config.ServiceConfig;
+import com.gmail.shepard1992.familybudgetv1.utils.config.UtilConfig;
+import com.gmail.shepard1992.familybudgetv1.service.model.Cost;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.CostDto;
 import com.gmail.shepard1992.familybudgetv1.repository.api.Repository;
 import com.gmail.shepard1992.familybudgetv1.service.api.Service;
 import com.gmail.shepard1992.familybudgetv1.service.api.TotalService;
@@ -23,7 +23,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.gmail.shepard1992.familybudgetv1.constants.ServiceConstants.TOTAL_BY;
+import static com.gmail.shepard1992.familybudgetv1.service.constants.ServiceConstants.TOTAL_BY;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;

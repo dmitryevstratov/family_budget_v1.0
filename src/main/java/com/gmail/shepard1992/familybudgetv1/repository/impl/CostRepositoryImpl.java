@@ -1,25 +1,32 @@
 package com.gmail.shepard1992.familybudgetv1.repository.impl;
 
-import com.gmail.shepard1992.familybudgetv1.model.Cost;
-import com.gmail.shepard1992.familybudgetv1.model.CostList;
-import com.gmail.shepard1992.familybudgetv1.model.Report;
+import com.gmail.shepard1992.familybudgetv1.service.model.Cost;
+import com.gmail.shepard1992.familybudgetv1.service.model.CostList;
+import com.gmail.shepard1992.familybudgetv1.service.model.Report;
+import com.gmail.shepard1992.familybudgetv1.repository.model.dto.RepositoryDeleteByCategoryDto;
+import com.gmail.shepard1992.familybudgetv1.repository.model.dto.RepositoryDeleteByIndexDto;
+import com.gmail.shepard1992.familybudgetv1.repository.model.dto.RepositoryUpdateDto;
 import com.gmail.shepard1992.familybudgetv1.repository.api.ReportRepository;
 import com.gmail.shepard1992.familybudgetv1.repository.api.Repository;
+import com.gmail.shepard1992.familybudgetv1.utils.ModelRepositoryUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Consumer;
 
 @org.springframework.stereotype.Repository
 public class CostRepositoryImpl implements Repository<Cost> {
 
     private final ReportRepository reportRepository;
+    private final ModelRepositoryUtil facade;
 
     @Autowired
-    public CostRepositoryImpl(ReportRepository reportRepository) {
+    public CostRepositoryImpl(ReportRepository reportRepository, ModelRepositoryUtil facade) {
         this.reportRepository = reportRepository;
+        this.facade = facade;
     }
 
     @Override
@@ -38,43 +45,20 @@ public class CostRepositoryImpl implements Repository<Cost> {
 
     @Override
     public void update(Cost element, File file) {
-        List<Cost> costList = getAll(file);
-        if (costList.stream().anyMatch(inc -> inc.getIndex().equals(element.getIndex()))) {
-            for (Cost inc : costList) {
-                if (inc.getIndex().equals(element.getIndex())) {
-                    if (!element.getCategory().isEmpty()) inc.setCostCategory(element.getCategory());
-                    if (!element.getType().isEmpty()) inc.setCostType(element.getType());
-                    if (element.getSumFact() != null) inc.setCostSumFact(element.getSumFact());
-                    if (element.getSumPlan() != null) inc.setCostSumPlan(element.getSumPlan());
-                }
-            }
-            clear(file);
-            costList.forEach(inc -> save(inc, file));
-        }
+        Consumer<Cost> consumer = cost -> {
+            if (!element.getCategory().isEmpty()) cost.setModelCategory(element.getCategory());
+            if (!element.getType().isEmpty()) cost.setModelType(element.getType());
+            if (element.getSumFact() != null) cost.setModelSumFact(element.getSumFact());
+            if (element.getSumPlan() != null) cost.setModelSumPlan(element.getSumPlan());
+        };
+        RepositoryUpdateDto<Cost> repositoryUpdateDto = new RepositoryUpdateDto<>(element, file, this, consumer);
+        facade.update(repositoryUpdateDto);
     }
 
     @Override
     public boolean deleteByIndex(Integer index, File file) {
-        List<Cost> costList = getAll(file);
-        if (costList.stream().anyMatch(inc -> inc.getIndex().equals(index.toString()))) {
-            for (int i = 0; i < costList.size(); i++) {
-                if (costList.get(i).getIndex().equals(index.toString())) {
-                    costList.remove(i);
-                    clear(file);
-                    for (int j = 0; j < costList.size(); j++) {
-                        Cost cost = costList.get(j);
-                        if (!cost.getIndex().equals(j + "")) {
-                            cost.setCostIndex(j + "");
-                            save(cost, file);
-                        } else {
-                            save(cost, file);
-                        }
-                    }
-                    return true;
-                }
-            }
-        }
-        return false;
+        RepositoryDeleteByIndexDto<Cost> dto = new RepositoryDeleteByIndexDto<>(index, file, this);
+        return facade.deleteByIndex(dto);
     }
 
     @Override
@@ -97,16 +81,8 @@ public class CostRepositoryImpl implements Repository<Cost> {
 
     @Override
     public void deleteByCategory(String category, File file) {
-        List<Cost> costList = getAll(file);
-        if (costList.stream().anyMatch(inc -> inc.getCategory().equals(category))) {
-            for (int i = 0; i < costList.size(); i++) {
-                if (costList.get(i).getCategory().equals(category)) {
-                    costList.remove(i);
-                    clear(file);
-                    costList.forEach((cost -> save(cost, file)));
-                }
-            }
-        }
+        RepositoryDeleteByCategoryDto<Cost> dto = new RepositoryDeleteByCategoryDto<>(category, file, this);
+        facade.deleteByCategory(dto);
     }
 
 }

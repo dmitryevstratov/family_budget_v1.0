@@ -1,7 +1,9 @@
 package com.gmail.shepard1992.familybudgetv1.repository.impl;
 
-import com.gmail.shepard1992.familybudgetv1.model.*;
-import com.gmail.shepard1992.familybudgetv1.model.dto.CreateDirectoryDto;
+import com.gmail.shepard1992.familybudgetv1.service.model.CostList;
+import com.gmail.shepard1992.familybudgetv1.service.model.IncomeList;
+import com.gmail.shepard1992.familybudgetv1.service.model.Report;
+import com.gmail.shepard1992.familybudgetv1.view.model.dto.CreateDirectoryDto;
 import com.gmail.shepard1992.familybudgetv1.repository.api.CreateFileReportRepository;
 import com.gmail.shepard1992.familybudgetv1.repository.api.ReportRepository;
 import com.gmail.shepard1992.familybudgetv1.utils.FileUtil;

@@ -1,14 +1,17 @@
 package com.gmail.shepard1992.familybudgetv1.service.impl;
 
-import com.gmail.shepard1992.familybudgetv1.model.Income;
-import com.gmail.shepard1992.familybudgetv1.model.dto.IncomeDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.service.ServiceDeleteRowDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.service.ServiceNewRowDto;
+import com.gmail.shepard1992.familybudgetv1.service.model.Income;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.IncomeDto;
+import com.gmail.shepard1992.familybudgetv1.view.model.dto.ServiceDeleteRowDto;
+import com.gmail.shepard1992.familybudgetv1.view.model.dto.ServiceNewRowDto;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.TotalServiceByCategoryDto;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.TotalServiceUpdateDto;
 import com.gmail.shepard1992.familybudgetv1.repository.api.Repository;
 import com.gmail.shepard1992.familybudgetv1.service.api.Service;
 import com.gmail.shepard1992.familybudgetv1.service.api.TotalService;
 import com.gmail.shepard1992.familybudgetv1.utils.IndexUtil;
 import com.gmail.shepard1992.familybudgetv1.utils.MapperUtil;
+import com.gmail.shepard1992.familybudgetv1.utils.TotalServiceUtil;
 import com.gmail.shepard1992.familybudgetv1.utils.ValidationUtil;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +19,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-import static com.gmail.shepard1992.familybudgetv1.constants.ServiceConstants.*;
+import static com.gmail.shepard1992.familybudgetv1.service.constants.ServiceConstants.*;
 
 @org.springframework.stereotype.Service
 public class IncomeServiceImpl implements Service<IncomeDto>, TotalService {
@@ -27,13 +31,15 @@ public class IncomeServiceImpl implements Service<IncomeDto>, TotalService {
     private final Repository<Income> repository;
     private final MapperUtil mapperUtil;
     private final IndexUtil<IncomeDto> indexUtil;
+    private final TotalServiceUtil totalServiceUtil;
 
     @Autowired
-    public IncomeServiceImpl(ValidationUtil validationUtil, Repository<Income> repository, MapperUtil mapperUtil, IndexUtil<IncomeDto> indexUtil) {
+    public IncomeServiceImpl(ValidationUtil validationUtil, Repository<Income> repository, MapperUtil mapperUtil, IndexUtil<IncomeDto> indexUtil, TotalServiceUtil totalServiceUtil) {
         this.validationUtil = validationUtil;
         this.repository = repository;
         this.mapperUtil = mapperUtil;
         this.indexUtil = indexUtil;
+        this.totalServiceUtil = totalServiceUtil;
     }
 
     @Override
@@ -70,12 +76,6 @@ public class IncomeServiceImpl implements Service<IncomeDto>, TotalService {
         return false;
     }
 
-    private void updateTotal(Stage stage, File file) {
-        stage.close();
-        setTotalByCategory(file);
-        setTotalAll(file);
-    }
-
     @Override
     public boolean deleteRow(ServiceDeleteRowDto params) {
         if (validationUtil.isInputDeleteValid(params)) {
@@ -97,24 +97,18 @@ public class IncomeServiceImpl implements Service<IncomeDto>, TotalService {
 
     @Override
     public void setTotalByCategory(File file) {
-        List<IncomeDto> allIncomes = getAll(file);
-        allIncomes.stream()
-                .filter(dto -> dto.getCategory().contains(TOTAL_BY))
-                .forEachOrdered(incomeDto -> repository.deleteByCategory(incomeDto.getCategory(), file));
-        Map<String, List<IncomeDto>> groupByCategory = allIncomes.stream()
-                .filter(incomeDto -> !incomeDto.getCategory().contains(TOTAL_BY))
-                .filter(incomeDto -> !incomeDto.getCategory().contains(TOTAL_ALL))
-                .collect(Collectors.groupingBy(IncomeDto::getCategory));
-        for (Map.Entry<String, List<IncomeDto>> stringListEntry : groupByCategory.entrySet()) {
-            double sum = stringListEntry.getValue().stream().mapToDouble(IncomeDto::getSum).sum();
+        Consumer<Map.Entry<String, List<IncomeDto>>> consumer = o -> {
+            double sum = o.getValue().stream().mapToDouble(IncomeDto::getSum).sum();
             IncomeDto dto = new IncomeDto.IncomeDtoBuilder()
                     .setIndex(EMPTY)
-                    .setCategory(TOTAL_BY + stringListEntry.getKey())
+                    .setCategory(TOTAL_BY + o.getKey())
                     .setSumFact(sum)
                     .setType(EMPTY)
                     .build();
             repository.save(mapperUtil.convertToIncome(dto), file);
-        }
+        };
+        TotalServiceByCategoryDto<IncomeDto, Income> dto = new TotalServiceByCategoryDto<>(file, this, repository, consumer);
+        totalServiceUtil.setTotalByCategory(dto);
     }
 
     @Override
@@ -138,6 +132,12 @@ public class IncomeServiceImpl implements Service<IncomeDto>, TotalService {
                     .build();
             repository.save(mapperUtil.convertToIncome(dto), file);
         }
+    }
+
+    @Override
+    public void updateTotal(Stage stage, File file) {
+        TotalServiceUpdateDto dto = new TotalServiceUpdateDto(this, stage, file);
+        totalServiceUtil.updateTotal(dto);
     }
 
 }

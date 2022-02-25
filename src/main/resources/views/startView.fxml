@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gmail.shepard1992.familybudgetv1.controller.impl.MainControllerImpl">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gmail.shepard1992.familybudgetv1.view.controller.impl.MainControllerImpl">
     <left>
         <VBox BorderPane.alignment="CENTER">
             <Button fx:id="createReportBtn" mnemonicParsing="false" onAction="#showModalCreateReport" text="Создать отчет" />

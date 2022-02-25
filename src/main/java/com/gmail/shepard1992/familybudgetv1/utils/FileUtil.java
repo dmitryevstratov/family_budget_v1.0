@@ -1,7 +1,7 @@
 package com.gmail.shepard1992.familybudgetv1.utils;
 
-import com.gmail.shepard1992.familybudgetv1.model.dto.CreateDirectoryDto;
-import com.gmail.shepard1992.familybudgetv1.model.dto.LoadDto;
+import com.gmail.shepard1992.familybudgetv1.view.model.dto.CreateDirectoryDto;
+import com.gmail.shepard1992.familybudgetv1.view.model.dto.LoadDto;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.springframework.stereotype.Component;
@@ -14,8 +14,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Objects;
 
-import static com.gmail.shepard1992.familybudgetv1.constants.FilesConstants.DEL;
-import static com.gmail.shepard1992.familybudgetv1.constants.FilesConstants.XML;
+import static com.gmail.shepard1992.familybudgetv1.view.constants.FilesConstants.DEL;
+import static com.gmail.shepard1992.familybudgetv1.view.constants.FilesConstants.XML;
 
 @Component
 public class FileUtil {

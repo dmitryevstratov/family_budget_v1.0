@@ -1,10 +1,10 @@
 package com.gmail.shepard1992.familybudgetv1.service.impl.view.modal;
 
-import com.gmail.shepard1992.familybudgetv1.MainApplication;
-import com.gmail.shepard1992.familybudgetv1.controller.api.modal.ModalCreateReportController;
-import com.gmail.shepard1992.familybudgetv1.model.dto.ShowViewDto;
+import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
+import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.ModalCreateReportController;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.show.ShowViewDto;
 import com.gmail.shepard1992.familybudgetv1.service.api.ModalViewService;
-import com.gmail.shepard1992.familybudgetv1.utils.ViewUtil;
+import com.gmail.shepard1992.familybudgetv1.utils.facade.ViewFacade;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,19 +19,19 @@ public class ModalViewServiceImpl implements ModalViewService {
     private Stage primaryStage;
     private final ApplicationContext context;
     private MainApplication mainApp;
-    private final ViewUtil viewUtil;
+    private final ViewFacade viewFacade;
 
     @Autowired
-    public ModalViewServiceImpl(ApplicationContext context, ViewUtil viewUtil) {
+    public ModalViewServiceImpl(ApplicationContext context, ViewFacade viewFacade) {
         this.context = context;
-        this.viewUtil = viewUtil;
+        this.viewFacade = viewFacade;
     }
 
     @Override
     public void showCreateReportModalView(String view) {
         try {
             ShowViewDto<ModalCreateReportController> dto = new ShowViewDto<>(view, ModalCreateReportController.class, context, primaryStage);
-            FXMLLoader loader = viewUtil.showView(dto);
+            FXMLLoader loader = viewFacade.showView(dto);
             ModalCreateReportController controller = loader.getController();
             controller.setMainApp(mainApp);
         } catch (IOException e) {
