@@ -1,10 +1,10 @@
 package com.gmail.shepard1992.familybudgetv1.view.controller.impl.modal.income;
 
-import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
-import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.income.ModalDeleteIncomeRowController;
-import com.gmail.shepard1992.familybudgetv1.service.model.dto.IncomeDto;
-import com.gmail.shepard1992.familybudgetv1.view.model.dto.ServiceDeleteRowDto;
 import com.gmail.shepard1992.familybudgetv1.service.api.Service;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.IncomeDto;
+import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.income.ModalDeleteIncomeRowController;
+import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
+import com.gmail.shepard1992.familybudgetv1.view.model.dto.ServiceDeleteRowDto;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -40,8 +40,7 @@ public class ModalDeleteRowIncomeControllerImpl implements ModalDeleteIncomeRowC
         ServiceDeleteRowDto params = new ServiceDeleteRowDto(
                 indexField,
                 dialogStage,
-                file
-        );
+                file);
         return incomeService.deleteRow(params);
     }
 
