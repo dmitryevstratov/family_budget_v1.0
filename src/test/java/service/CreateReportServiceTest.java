@@ -1,11 +1,11 @@
 package service;
 
+import com.gmail.shepard1992.familybudgetv1.repository.api.CreateFileReportRepository;
 import com.gmail.shepard1992.familybudgetv1.repository.config.RepositoryConfig;
+import com.gmail.shepard1992.familybudgetv1.service.api.CreateReportService;
 import com.gmail.shepard1992.familybudgetv1.service.config.ServiceConfig;
 import com.gmail.shepard1992.familybudgetv1.utils.config.UtilConfig;
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.CreateDirectoryDto;
-import com.gmail.shepard1992.familybudgetv1.repository.api.CreateFileReportRepository;
-import com.gmail.shepard1992.familybudgetv1.service.api.CreateReportService;
 import config.RepositoryConfigTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,23 +38,11 @@ public class CreateReportServiceTest {
     @Mock
     private CreateDirectoryDto dto;
 
-    @Mock
-    private File dir;
-
     @Test
     public void test_when_call_chooseFile_then_return_file() {
         Mockito.when(repository.chooseFile(any(), any())).thenReturn(new File(""));
 
         File result = service.chooseFile(dto);
-
-        assertNotNull(result);
-    }
-
-    @Test
-    public void test_when_call_createFile_then_return_file() {
-        Mockito.when(repository.createFile(any(), any())).thenReturn(new File(""));
-
-        File result = service.createFile(dir, dto);
 
         assertNotNull(result);
     }

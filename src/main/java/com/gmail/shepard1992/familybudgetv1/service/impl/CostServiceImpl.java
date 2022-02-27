@@ -1,18 +1,19 @@
 package com.gmail.shepard1992.familybudgetv1.service.impl;
 
-import com.gmail.shepard1992.familybudgetv1.service.model.Cost;
-import com.gmail.shepard1992.familybudgetv1.service.model.dto.CostDto;
-import com.gmail.shepard1992.familybudgetv1.view.model.dto.ServiceDeleteRowDto;
-import com.gmail.shepard1992.familybudgetv1.view.model.dto.ServiceNewRowDto;
-import com.gmail.shepard1992.familybudgetv1.service.model.dto.TotalServiceByCategoryDto;
-import com.gmail.shepard1992.familybudgetv1.service.model.dto.TotalServiceUpdateDto;
 import com.gmail.shepard1992.familybudgetv1.repository.api.Repository;
 import com.gmail.shepard1992.familybudgetv1.service.api.Service;
 import com.gmail.shepard1992.familybudgetv1.service.api.TotalService;
+import com.gmail.shepard1992.familybudgetv1.service.model.Cost;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.CostDto;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.TotalServiceByCategoryDto;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.TotalServiceUpdateDto;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.ValidationIndexDto;
 import com.gmail.shepard1992.familybudgetv1.utils.IndexUtil;
 import com.gmail.shepard1992.familybudgetv1.utils.MapperUtil;
 import com.gmail.shepard1992.familybudgetv1.utils.TotalServiceUtil;
 import com.gmail.shepard1992.familybudgetv1.utils.ValidationUtil;
+import com.gmail.shepard1992.familybudgetv1.view.model.dto.ServiceDeleteRowDto;
+import com.gmail.shepard1992.familybudgetv1.view.model.dto.ServiceNewRowDto;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -61,7 +62,13 @@ public class CostServiceImpl implements Service<CostDto>, TotalService {
 
     @Override
     public boolean updateRow(ServiceNewRowDto params) {
-        if (validationUtil.isInputUpdateValid(params)) {
+        ValidationIndexDto<Cost> validationIndexDto = new ValidationIndexDto<>(
+                repository,
+                params.getIndex().getText(),
+                params.getFile(),
+                params.getDialogStage()
+        );
+        if (validationUtil.isInputUpdateValid(params) && validationUtil.isIndexValid(validationIndexDto)) {
             CostDto dto = new CostDto.CostDtoBuilder()
                     .setIndex(params.getIndex().getText())
                     .setCategory(params.getCategory().getText())
@@ -82,7 +89,13 @@ public class CostServiceImpl implements Service<CostDto>, TotalService {
 
     @Override
     public boolean deleteRow(ServiceDeleteRowDto params) {
-        if (validationUtil.isInputDeleteValid(params)) {
+        ValidationIndexDto<Cost> validationIndexDto = new ValidationIndexDto<>(
+                repository,
+                params.getIndexField().getText(),
+                params.getFile(),
+                params.getDialogStage()
+        );
+        if (validationUtil.isInputDeleteValid(params) && validationUtil.isIndexValid(validationIndexDto)) {
             boolean deleteByIndex = repository.deleteByIndex(Integer.parseInt(params.getIndexField().getText()), params.getFile());
             updateTotal(params.getDialogStage(), params.getFile());
             return deleteByIndex;

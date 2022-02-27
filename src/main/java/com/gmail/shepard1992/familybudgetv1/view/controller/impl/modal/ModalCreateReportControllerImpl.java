@@ -1,15 +1,16 @@
 package com.gmail.shepard1992.familybudgetv1.view.controller.impl.modal;
 
-import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
-import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.ModalCreateReportController;
-import com.gmail.shepard1992.familybudgetv1.view.controller.buttons.api.ButtonFileApi;
-import com.gmail.shepard1992.familybudgetv1.view.model.dto.CreateDirectoryDto;
 import com.gmail.shepard1992.familybudgetv1.service.api.CreateReportService;
 import com.gmail.shepard1992.familybudgetv1.utils.MapperUtil;
+import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.ModalCreateReportController;
+import com.gmail.shepard1992.familybudgetv1.view.controller.buttons.api.ButtonFileApi;
+import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
+import com.gmail.shepard1992.familybudgetv1.view.model.dto.CreateDirectoryDto;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.stage.DirectoryChooser;
+import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -23,6 +24,7 @@ public class ModalCreateReportControllerImpl implements ModalCreateReportControl
     private MainApplication mainApp;
     private CreateReportService service;
     private MapperUtil mapperUtil;
+    private Stage dialogStage;
     private final DirectoryChooser directoryChooser = new DirectoryChooser();
     private File dir;
     private CreateDirectoryDto dto;
@@ -50,17 +52,23 @@ public class ModalCreateReportControllerImpl implements ModalCreateReportControl
     @FXML
     @Override
     public void chooseFile() {
-        dto = new CreateDirectoryDto(directoryChooser, chooseDirectoryField, month, year);
+        dto = new CreateDirectoryDto(directoryChooser, chooseDirectoryField, month, year, dialogStage);
         dir = service.chooseFile(dto);
     }
 
     @FXML
     @Override
     public void createReport() {
+        dto = new CreateDirectoryDto(directoryChooser, chooseDirectoryField, month, year, dialogStage);
         File report = service.createFile(dir, dto);
         if (report != null) {
             createReport.click(mainApp, report);
         }
+    }
+
+    @Override
+    public void setDialogStage(Stage dialogStage) {
+        this.dialogStage = dialogStage;
     }
 
     @FXML

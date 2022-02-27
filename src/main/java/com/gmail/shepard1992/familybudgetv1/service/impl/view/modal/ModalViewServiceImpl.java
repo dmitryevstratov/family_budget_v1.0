@@ -34,6 +34,7 @@ public class ModalViewServiceImpl implements ModalViewService {
             FXMLLoader loader = viewFacade.showView(dto);
             ModalCreateReportController controller = loader.getController();
             controller.setMainApp(mainApp);
+            controller.setDialogStage(dto.getPrimaryStage());
         } catch (IOException e) {
             e.printStackTrace();
         }
