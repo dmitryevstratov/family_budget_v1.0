@@ -1,5 +1,6 @@
 package com.gmail.shepard1992.familybudgetv1.utils;
 
+import com.gmail.shepard1992.familybudgetv1.view.model.dto.CreateDirectoryDto;
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.ServiceDeleteRowDto;
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.ServiceNewRowDto;
 import javafx.scene.control.Alert;
@@ -34,6 +35,15 @@ public class ValidationUtil {
                 .append(checkUpdateNumField(params.getSumPlan(), "Сумма (плановая)"));
 
         return checkErrorMessage(errorMessage, params.getDialogStage());
+    }
+
+    public boolean isInputFilePathValid(CreateDirectoryDto dto) {
+        if (dto.getText().getText() == null || dto.getText().getText().isEmpty()) {
+            showAlertModal(dto.getStage(), new StringBuilder("Не заполнено поле Выбрать директорию"));
+            return false;
+        } else {
+            return true;
+        }
     }
 
     private String checkAddTextField(TextField field, String nameField) {

@@ -42,8 +42,8 @@ public class ServiceConfig {
     }
 
     @Bean
-    public CreateReportService getCreateReportServiceBean(CreateFileReportRepository repository) {
-        return new CreateReportServiceImpl(repository);
+    public CreateReportService getCreateReportServiceBean(CreateFileReportRepository repository, ValidationUtil validationUtil) {
+        return new CreateReportServiceImpl(repository, validationUtil);
     }
 
     @Bean
