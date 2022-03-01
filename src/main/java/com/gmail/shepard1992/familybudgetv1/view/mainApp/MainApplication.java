@@ -1,21 +1,22 @@
 package com.gmail.shepard1992.familybudgetv1.view.mainApp;
 
+import com.gmail.shepard1992.familybudgetv1.AppConfig;
+import com.gmail.shepard1992.familybudgetv1.service.api.ModalCostViewService;
+import com.gmail.shepard1992.familybudgetv1.service.api.ModalIncomeViewService;
+import com.gmail.shepard1992.familybudgetv1.service.api.ModalViewService;
+import com.gmail.shepard1992.familybudgetv1.service.api.ViewService;
+import com.gmail.shepard1992.familybudgetv1.service.model.api.AbstractAddRowModalViewDto;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.CostDto;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.IncomeDto;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.show.DeleteRowModalViewDto;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.view.cost.AddRowCostModalViewDto;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.view.income.AddRowIncomeModalViewDto;
 import com.gmail.shepard1992.familybudgetv1.view.mainApp.api.ShowModalViewApi;
 import com.gmail.shepard1992.familybudgetv1.view.mainApp.api.ShowViewApi;
 import com.gmail.shepard1992.familybudgetv1.view.mainApp.api.cost.CostActionApi;
 import com.gmail.shepard1992.familybudgetv1.view.mainApp.api.cost.ShowModalCostViewApi;
 import com.gmail.shepard1992.familybudgetv1.view.mainApp.api.income.IncomeActionApi;
 import com.gmail.shepard1992.familybudgetv1.view.mainApp.api.income.ShowModalIncomeViewApi;
-import com.gmail.shepard1992.familybudgetv1.AppConfig;
-import com.gmail.shepard1992.familybudgetv1.service.model.dto.CostDto;
-import com.gmail.shepard1992.familybudgetv1.service.model.dto.IncomeDto;
-import com.gmail.shepard1992.familybudgetv1.service.model.dto.show.DeleteRowModalViewDto;
-import com.gmail.shepard1992.familybudgetv1.service.model.dto.view.cost.AddRowCostModalViewDto;
-import com.gmail.shepard1992.familybudgetv1.service.model.dto.view.income.AddRowIncomeModalViewDto;
-import com.gmail.shepard1992.familybudgetv1.service.api.ModalCostViewService;
-import com.gmail.shepard1992.familybudgetv1.service.api.ModalIncomeViewService;
-import com.gmail.shepard1992.familybudgetv1.service.api.ModalViewService;
-import com.gmail.shepard1992.familybudgetv1.service.api.ViewService;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import org.springframework.context.ApplicationContext;
@@ -26,8 +27,6 @@ import java.io.File;
 import static com.gmail.shepard1992.familybudgetv1.view.constants.ViewsPath.*;
 
 public class MainApplication extends Application implements ShowViewApi, IncomeActionApi, ShowModalIncomeViewApi, ShowModalViewApi, CostActionApi, ShowModalCostViewApi {
-
-    //ToDo разбить приложение на view, service, repository
 
     private Stage primaryStage;
     private ViewService viewService;
@@ -46,14 +45,14 @@ public class MainApplication extends Application implements ShowViewApi, IncomeA
 
         this.viewService = context.getBean(ViewService.class);
         this.viewService.setMainApp(this);
-        this.viewService.setPrimaryStage(primaryStage);
+        this.viewService.setDialogStage(primaryStage);
 
         this.modalIncomeViewService = context.getBean(ModalIncomeViewService.class);
         this.modalCostViewService = context.getBean(ModalCostViewService.class);
 
         this.modalViewService = context.getBean(ModalViewService.class);
         this.modalViewService.setMainApp(this);
-        this.modalViewService.setPrimaryStage(primaryStage);
+        this.modalViewService.setDialogStage(primaryStage);
 
         showRootView();
     }
@@ -112,13 +111,13 @@ public class MainApplication extends Application implements ShowViewApi, IncomeA
 
     @Override
     public void showAddRowIncomeModalView(IncomeDto incomeDto, File file) {
-        AddRowIncomeModalViewDto dto = new AddRowIncomeModalViewDto(MODAL_ADD_ROW_INCOME_VIEW, incomeDto, file);
+        AbstractAddRowModalViewDto dto = new AddRowIncomeModalViewDto(MODAL_ADD_ROW_INCOME_VIEW, file, incomeDto);
         modalIncomeViewService.showAddRowIncomeModalView(dto);
     }
 
     @Override
     public void showUpdateRowIncomeModalView(IncomeDto incomeDto, File file) {
-        AddRowIncomeModalViewDto dto = new AddRowIncomeModalViewDto(MODAL_UPDATE_ROW_INCOME_VIEW, incomeDto, file);
+        AbstractAddRowModalViewDto dto = new AddRowIncomeModalViewDto(MODAL_UPDATE_ROW_INCOME_VIEW, file, incomeDto);
         modalIncomeViewService.showUpdateRowIncomeModalView(dto);
     }
 
@@ -134,14 +133,19 @@ public class MainApplication extends Application implements ShowViewApi, IncomeA
     }
 
     @Override
+    public void showModalOpenReportView() {
+        modalViewService.showOpenReportModalView(MODAL_OPEN_REPORT_VIEW);
+    }
+
+    @Override
     public void showAddRowIncomeModalView(CostDto costDto, File file) {
-        AddRowCostModalViewDto addRowCostModalViewDto = new AddRowCostModalViewDto(MODAL_ADD_ROW_COST_VIEW, costDto, file);
+        AbstractAddRowModalViewDto addRowCostModalViewDto = new AddRowCostModalViewDto(MODAL_ADD_ROW_COST_VIEW, file, costDto);
         modalCostViewService.showAddRowCostModalView(addRowCostModalViewDto);
     }
 
     @Override
     public void showUpdateRowCostModalView(CostDto costDto, File file) {
-        AddRowCostModalViewDto addRowCostModalViewDto = new AddRowCostModalViewDto(MODAL_UPDATE_ROW_COST_VIEW, costDto, file);
+        AbstractAddRowModalViewDto addRowCostModalViewDto = new AddRowCostModalViewDto(MODAL_UPDATE_ROW_COST_VIEW, file, costDto);
         modalCostViewService.showUpdateRowCostModalView(addRowCostModalViewDto);
     }
 

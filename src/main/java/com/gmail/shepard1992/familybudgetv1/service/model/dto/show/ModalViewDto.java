@@ -1,27 +1,22 @@
 package com.gmail.shepard1992.familybudgetv1.service.model.dto.show;
 
+import com.gmail.shepard1992.familybudgetv1.service.model.api.AbstractDto;
+import com.gmail.shepard1992.familybudgetv1.service.model.api.AbstractModalViewDto;
 import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
 import javafx.stage.Stage;
 import org.springframework.context.ApplicationContext;
 
 import java.io.File;
 
-public class ModalViewDto<C, D> {
+public class ModalViewDto<C> extends AbstractModalViewDto<C> {
 
-    private final ApplicationContext context;
-    private final MainApplication mainApp;
-    private final Stage primaryStage;
     private final String view;
-    private final Class<C> classController;
-    private final D dto;
+    private final AbstractDto dto;
     private final File file;
 
-    public ModalViewDto(ApplicationContext context, MainApplication mainApp, Stage primaryStage, String view, Class<C> classController, D dto, File file) {
-        this.context = context;
-        this.mainApp = mainApp;
-        this.primaryStage = primaryStage;
+    public ModalViewDto(Class<C> classController, ApplicationContext context, MainApplication mainApp, Stage primaryStage, String view, AbstractDto dto, File file) {
+        super(classController, context, mainApp, primaryStage);
         this.view = view;
-        this.classController = classController;
         this.dto = dto;
         this.file = file;
     }
@@ -30,11 +25,7 @@ public class ModalViewDto<C, D> {
         return view;
     }
 
-    public Class<C> getClassController() {
-        return classController;
-    }
-
-    public D getIncome() {
+    public AbstractDto getDto() {
         return dto;
     }
 
@@ -42,15 +33,4 @@ public class ModalViewDto<C, D> {
         return file;
     }
 
-    public ApplicationContext getContext() {
-        return context;
-    }
-
-    public MainApplication getMainApp() {
-        return mainApp;
-    }
-
-    public Stage getPrimaryStage() {
-        return primaryStage;
-    }
 }

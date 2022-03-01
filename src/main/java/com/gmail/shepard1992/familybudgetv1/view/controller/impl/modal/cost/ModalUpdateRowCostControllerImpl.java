@@ -1,10 +1,11 @@
 package com.gmail.shepard1992.familybudgetv1.view.controller.impl.modal.cost;
 
-import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
-import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.cost.ModalUpdateRowCostController;
-import com.gmail.shepard1992.familybudgetv1.service.model.dto.CostDto;
-import com.gmail.shepard1992.familybudgetv1.view.model.dto.ServiceNewRowDto;
 import com.gmail.shepard1992.familybudgetv1.service.api.Service;
+import com.gmail.shepard1992.familybudgetv1.service.model.api.AbstractDto;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.CostDto;
+import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.cost.ModalUpdateRowCostController;
+import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
+import com.gmail.shepard1992.familybudgetv1.view.model.dto.ServiceNewRowDto;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -18,7 +19,7 @@ public class ModalUpdateRowCostControllerImpl implements ModalUpdateRowCostContr
 
     private MainApplication mainApp;
     private Stage dialogStage;
-    private CostDto costDto;
+    private AbstractDto costDto;
     private final Service<CostDto> costService;
     private File file;
 
@@ -53,7 +54,7 @@ public class ModalUpdateRowCostControllerImpl implements ModalUpdateRowCostContr
     }
 
     @Override
-    public void setDto(CostDto costDto) {
+    public void setDto(AbstractDto costDto) {
         this.costDto = costDto;
     }
 

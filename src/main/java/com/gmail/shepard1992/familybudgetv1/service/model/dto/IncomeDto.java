@@ -1,44 +1,28 @@
 package com.gmail.shepard1992.familybudgetv1.service.model.dto;
 
-import com.gmail.shepard1992.familybudgetv1.service.model.api.Dto;
+import com.gmail.shepard1992.familybudgetv1.service.model.api.AbstractDto;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class IncomeDto implements Dto {
-    private final String index;
-    private final String category;
-    private final String type;
+public class IncomeDto extends AbstractDto {
+
     private Double sum;
 
     private IncomeDto(IncomeDtoBuilder incomeDtoBuilder) {
-        this.index = incomeDtoBuilder.index;
-        this.category = incomeDtoBuilder.category;
-        this.type = incomeDtoBuilder.type;
+        super(incomeDtoBuilder.index, incomeDtoBuilder.category, incomeDtoBuilder.type);
         this.sum = incomeDtoBuilder.sum;
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public String getType() {
-        return type;
     }
 
     public Double getSum() {
         return sum;
     }
 
-    public String getIndex() {
-        return index;
-    }
-
     public StringProperty getCategoryProperty() {
-        return new SimpleStringProperty(category);
+        return new SimpleStringProperty(super.getCategory());
     }
 
     public StringProperty getTypeProperty() {
-        return new SimpleStringProperty(type);
+        return new SimpleStringProperty(super.getType());
     }
 
     public StringProperty getSumFactProperty() {
@@ -46,7 +30,7 @@ public class IncomeDto implements Dto {
     }
 
     public StringProperty getIndexProperty() {
-        return new SimpleStringProperty(index);
+        return new SimpleStringProperty(super.getIndex());
     }
 
     public void setIncomeSum(double sum) {
@@ -87,9 +71,9 @@ public class IncomeDto implements Dto {
     @Override
     public String toString() {
         return "Income{" +
-                "index=" + index +
-                ", category='" + category + '\'' +
-                ", type='" + type + '\'' +
+                "index=" + super.getIndex() +
+                ", category='" + super.getCategory() + '\'' +
+                ", type='" + super.getType() + '\'' +
                 ", sum=" + sum +
                 '}';
     }

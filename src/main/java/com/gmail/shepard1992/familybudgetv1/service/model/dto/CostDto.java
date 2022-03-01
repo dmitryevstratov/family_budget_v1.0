@@ -1,39 +1,20 @@
 package com.gmail.shepard1992.familybudgetv1.service.model.dto;
 
-import com.gmail.shepard1992.familybudgetv1.service.model.api.Dto;
+import com.gmail.shepard1992.familybudgetv1.service.model.api.AbstractDto;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class CostDto implements Dto {
-
-    private String index;
-
-    private String category;
-
-    private String type;
+public class CostDto extends AbstractDto {
 
     private Double sumPlan;
 
     private Double sumFact;
 
-    public CostDto() {
-    }
-
     private CostDto(CostDtoBuilder costBuilder) {
-        this.index = costBuilder.index;
-        this.category = costBuilder.category;
-        this.type = costBuilder.type;
+        super(costBuilder.index, costBuilder.category, costBuilder.type);
         this.sumPlan = costBuilder.sumPlan;
         this.sumFact = costBuilder.sumFact;
 
-    }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public String getType() {
-        return type;
     }
 
     public Double getSumPlan() {
@@ -44,16 +25,12 @@ public class CostDto implements Dto {
         return sumFact;
     }
 
-    public String getIndex() {
-        return index;
-    }
-
     public StringProperty getCategoryProperty() {
-        return new SimpleStringProperty(category);
+        return new SimpleStringProperty(super.getCategory());
     }
 
     public StringProperty getTypeProperty() {
-        return new SimpleStringProperty(type);
+        return new SimpleStringProperty(super.getType());
     }
 
     public StringProperty getSumFactProperty() {
@@ -65,7 +42,7 @@ public class CostDto implements Dto {
     }
 
     public StringProperty getIndexProperty() {
-        return new SimpleStringProperty(index);
+        return new SimpleStringProperty(super.getIndex());
     }
 
     public void setCostSumPlan(Double sumPlan) {

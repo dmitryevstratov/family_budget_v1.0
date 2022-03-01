@@ -1,17 +1,20 @@
 package com.gmail.shepard1992.familybudgetv1.view.controller.impl;
 
-import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
 import com.gmail.shepard1992.familybudgetv1.view.controller.api.MainController;
 import com.gmail.shepard1992.familybudgetv1.view.controller.buttons.api.ButtonApi;
+import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
 import javafx.fxml.FXML;
+import javafx.stage.Stage;
 import org.springframework.stereotype.Controller;
 
 @Controller
 public class MainControllerImpl implements MainController {
 
     private MainApplication mainApp;
+    private Stage stage;
 
-    private final ButtonApi btn = MainApplication::showModalCreateReportView;
+    private final ButtonApi btnCreate = MainApplication::showModalCreateReportView;
+    private final ButtonApi btnOpen = MainApplication::showModalOpenReportView;
 
     public MainControllerImpl() {
 
@@ -20,12 +23,23 @@ public class MainControllerImpl implements MainController {
     @FXML
     @Override
     public void showModalCreateReport() {
-        btn.click(mainApp);
+        btnCreate.click(mainApp);
+    }
+
+    @FXML
+    @Override
+    public void showModalOpenReport() {
+        btnOpen.click(mainApp);
     }
 
     @Override
     public void setMainApp(MainApplication mainApp) {
         this.mainApp = mainApp;
+    }
+
+    @Override
+    public void setDialogStage(Stage dialogStage) {
+        this.stage = dialogStage;
     }
 
 }

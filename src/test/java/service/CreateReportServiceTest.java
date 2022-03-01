@@ -40,9 +40,9 @@ public class CreateReportServiceTest {
 
     @Test
     public void test_when_call_chooseFile_then_return_file() {
-        Mockito.when(repository.chooseFile(any(), any())).thenReturn(new File(""));
+        Mockito.when(repository.chooseDirectory(any(), any())).thenReturn(new File(""));
 
-        File result = service.chooseFile(dto);
+        File result = service.chooseDirectory(dto);
 
         assertNotNull(result);
     }

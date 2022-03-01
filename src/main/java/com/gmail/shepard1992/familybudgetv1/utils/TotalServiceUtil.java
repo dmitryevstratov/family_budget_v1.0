@@ -1,6 +1,6 @@
 package com.gmail.shepard1992.familybudgetv1.utils;
 
-import com.gmail.shepard1992.familybudgetv1.service.model.api.Dto;
+import com.gmail.shepard1992.familybudgetv1.service.model.api.AbstractDto;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.TotalServiceByCategoryDto;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.TotalServiceUpdateDto;
 import org.springframework.stereotype.Component;
@@ -15,7 +15,7 @@ import static com.gmail.shepard1992.familybudgetv1.service.constants.ServiceCons
 @Component
 public class TotalServiceUtil {
 
-    public <D extends Dto, E> void setTotalByCategory(TotalServiceByCategoryDto<D, E> totalDto) {
+    public <D extends AbstractDto, E> void setTotalByCategory(TotalServiceByCategoryDto<D, E> totalDto) {
         List<D> all = totalDto.getService().getAll(totalDto.getFile());
         all.stream()
                 .filter(dto -> dto.getCategory().contains(TOTAL_BY))

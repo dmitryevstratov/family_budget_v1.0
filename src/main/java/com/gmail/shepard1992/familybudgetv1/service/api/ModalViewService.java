@@ -7,6 +7,6 @@ public interface ModalViewService extends Controller {
 
     void showCreateReportModalView(String view);
 
-    void setPrimaryStage(Stage primaryStage);
+    void showOpenReportModalView(String view);
 
 }

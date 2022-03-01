@@ -52,14 +52,14 @@ public class ModalCreateReportControllerImpl implements ModalCreateReportControl
     @FXML
     @Override
     public void chooseFile() {
-        dto = new CreateDirectoryDto(directoryChooser, chooseDirectoryField, month, year, dialogStage);
-        dir = service.chooseFile(dto);
+        dto = new CreateDirectoryDto(chooseDirectoryField, dialogStage, directoryChooser, month, year);
+        dir = service.chooseDirectory(dto);
     }
 
     @FXML
     @Override
     public void createReport() {
-        dto = new CreateDirectoryDto(directoryChooser, chooseDirectoryField, month, year, dialogStage);
+        dto = new CreateDirectoryDto(chooseDirectoryField, dialogStage, directoryChooser, month, year);
         File report = service.createFile(dir, dto);
         if (report != null) {
             createReport.click(mainApp, report);

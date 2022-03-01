@@ -1,28 +1,24 @@
 package com.gmail.shepard1992.familybudgetv1.view.model.dto;
 
+import com.gmail.shepard1992.familybudgetv1.view.model.dto.api.AbstractServiceRowDto;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.File;
 
-public class ServiceNewRowDto {
+public class ServiceNewRowDto extends AbstractServiceRowDto {
 
-    private final TextField index;
     private final TextField category;
     private final TextField type;
     private final TextField sumFact;
     private final TextField sumPlan;
-    private final Stage dialogStage;
-    private final File file;
 
     private ServiceNewRowDto(ServiceNewRowDtoBuilder builder) {
-        this.index = builder.index;
+        super(builder.indexField, builder.dialogStage, builder.file);
         this.category = builder.category;
         this.type = builder.type;
         this.sumFact = builder.sumFact;
         this.sumPlan = builder.sumPlan;
-        this.dialogStage = builder.dialogStage;
-        this.file = builder.file;
     }
 
     public TextField getCategory() {
@@ -38,15 +34,15 @@ public class ServiceNewRowDto {
     }
 
     public Stage getDialogStage() {
-        return dialogStage;
+        return super.getDialogStage();
     }
 
     public File getFile() {
-        return file;
+        return super.getFile();
     }
 
     public TextField getIndex() {
-        return index;
+        return super.getIndexField();
     }
 
     public TextField getSumPlan() {
@@ -54,7 +50,7 @@ public class ServiceNewRowDto {
     }
 
     public static class ServiceNewRowDtoBuilder {
-        private TextField index;
+        private TextField indexField;
         private TextField category;
         private TextField type;
         private TextField sumFact;
@@ -62,8 +58,8 @@ public class ServiceNewRowDto {
         private Stage dialogStage;
         private File file;
 
-        public ServiceNewRowDtoBuilder setIndex(TextField index) {
-            this.index = index;
+        public ServiceNewRowDtoBuilder setIndex(TextField indexField) {
+            this.indexField = indexField;
             return this;
         }
 

@@ -7,7 +7,7 @@ import java.io.File;
 
 public interface CreateFileReportRepository {
 
-    File chooseFile(Stage primaryStage, CreateDirectoryDto dto);
+    File chooseDirectory(Stage primaryStage, CreateDirectoryDto dto);
 
     File createFile(File dir, CreateDirectoryDto dto);
 

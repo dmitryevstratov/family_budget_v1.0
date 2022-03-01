@@ -30,4 +30,5 @@ public class ReportRepositoryImpl implements ReportRepository {
     public Report get(File file) {
         return facade.get(file, fileUtil);
     }
+
 }

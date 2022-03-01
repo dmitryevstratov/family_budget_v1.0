@@ -1,14 +1,12 @@
 package com.gmail.shepard1992.familybudgetv1.repository.config;
 
-import com.gmail.shepard1992.familybudgetv1.service.model.Cost;
-import com.gmail.shepard1992.familybudgetv1.service.model.Income;
 import com.gmail.shepard1992.familybudgetv1.repository.api.CreateFileReportRepository;
+import com.gmail.shepard1992.familybudgetv1.repository.api.OpenFileReportRepository;
 import com.gmail.shepard1992.familybudgetv1.repository.api.ReportRepository;
 import com.gmail.shepard1992.familybudgetv1.repository.api.Repository;
-import com.gmail.shepard1992.familybudgetv1.repository.impl.CostRepositoryImpl;
-import com.gmail.shepard1992.familybudgetv1.repository.impl.CreateFileReportRepositoryImpl;
-import com.gmail.shepard1992.familybudgetv1.repository.impl.IncomeRepositoryImpl;
-import com.gmail.shepard1992.familybudgetv1.repository.impl.ReportRepositoryImpl;
+import com.gmail.shepard1992.familybudgetv1.repository.impl.*;
+import com.gmail.shepard1992.familybudgetv1.service.model.Cost;
+import com.gmail.shepard1992.familybudgetv1.service.model.Income;
 import com.gmail.shepard1992.familybudgetv1.utils.FileUtil;
 import com.gmail.shepard1992.familybudgetv1.utils.ModelRepositoryUtil;
 import com.gmail.shepard1992.familybudgetv1.utils.facade.ReportRepositoryFacade;
@@ -36,6 +34,11 @@ public class RepositoryConfig {
     @Bean
     public Repository<Cost> getCostRepositoryBean(ReportRepository reportRepository, ModelRepositoryUtil modelRepositoryUtil) {
         return new CostRepositoryImpl(reportRepository, modelRepositoryUtil);
+    }
+
+    @Bean
+    public OpenFileReportRepository getOpenFileReportRepositoryBean() {
+        return new OpenFileReportRepositoryImpl();
     }
 
 }

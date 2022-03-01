@@ -1,7 +1,9 @@
 package com.gmail.shepard1992.familybudgetv1.view.controller.api.modal;
 
-public interface ModalNewRowController<D> extends ModalController {
+import com.gmail.shepard1992.familybudgetv1.service.model.api.AbstractDto;
 
-    void setDto(D dto);
+public interface ModalNewRowController extends ModalController {
+
+    void setDto(AbstractDto dto);
 
 }

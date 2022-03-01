@@ -4,4 +4,6 @@ public interface ShowModalViewApi {
 
     void showModalCreateReportView();
 
+    void showModalOpenReportView();
+
 }
