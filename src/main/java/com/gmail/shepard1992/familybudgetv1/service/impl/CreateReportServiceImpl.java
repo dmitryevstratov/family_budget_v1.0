@@ -24,8 +24,8 @@ public class CreateReportServiceImpl implements CreateReportService {
     }
 
     @Override
-    public File chooseFile(CreateDirectoryDto dto) {
-        return repository.chooseFile(primaryStage, dto);
+    public File chooseDirectory(CreateDirectoryDto dto) {
+        return repository.chooseDirectory(primaryStage, dto);
     }
 
     @Override

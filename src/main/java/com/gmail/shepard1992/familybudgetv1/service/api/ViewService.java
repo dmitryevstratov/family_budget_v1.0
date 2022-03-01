@@ -11,6 +11,4 @@ public interface ViewService extends Controller {
 
     void showRootView(String view);
 
-    void setPrimaryStage(Stage primaryStage);
-
 }

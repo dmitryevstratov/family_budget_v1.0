@@ -7,7 +7,7 @@ import java.io.File;
 
 public interface CreateReportService {
 
-    File chooseFile(CreateDirectoryDto dto);
+    File chooseDirectory(CreateDirectoryDto dto);
 
     File createFile(File dir, CreateDirectoryDto dto);
 

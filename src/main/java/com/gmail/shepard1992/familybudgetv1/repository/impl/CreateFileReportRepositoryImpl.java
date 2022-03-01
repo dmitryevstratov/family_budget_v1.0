@@ -26,7 +26,7 @@ public class CreateFileReportRepositoryImpl implements CreateFileReportRepositor
     }
 
     @Override
-    public File chooseFile(Stage primaryStage, CreateDirectoryDto dto) {
+    public File chooseDirectory(Stage primaryStage, CreateDirectoryDto dto) {
         File dir = dto.getDirectoryChooser().showDialog(primaryStage);
         if (dir != null) {
             dto.getText().setText(dir.getAbsolutePath());

@@ -1,11 +1,14 @@
 package com.gmail.shepard1992.familybudgetv1.utils.facade;
 
-import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
-import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.ModalDeleteRowController;
-import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.ModalNewRowController;
+import com.gmail.shepard1992.familybudgetv1.service.model.api.AbstractDto;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.show.ModalViewDto;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.show.ShowDeleteRowModalViewDto;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.show.ShowReportModalViewDto;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.show.ShowViewDto;
+import com.gmail.shepard1992.familybudgetv1.view.controller.api.Controller;
+import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.ModalDeleteRowController;
+import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.ModalNewRowController;
+import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
@@ -31,7 +34,7 @@ public class ViewFacade {
         return loader;
     }
 
-    public <D, C extends ModalNewRowController<D>> void showModalView(ModalViewDto<C, D> params) throws IOException {
+    public < C extends ModalNewRowController> void showModalView(ModalViewDto<C> params) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainApplication.class.getResource(params.getView()));
         loader.setControllerFactory(cls -> params.getContext().getBean(params.getClassController()));
@@ -43,7 +46,7 @@ public class ViewFacade {
 
         Stage dialogStage = getStage(rootLayout, params.getPrimaryStage());
         controller.setDialogStage(dialogStage);
-        controller.setDto(params.getIncome());
+        controller.setDto(params.getDto());
 
         dialogStage.showAndWait();
     }
@@ -79,6 +82,18 @@ public class ViewFacade {
                 .getDto().getIndex());
 
         dialogStage.showAndWait();
+    }
+
+    public <C extends Controller> void showReportModalView(ShowReportModalViewDto<C> modalDto) {
+        try {
+            ShowViewDto<C> dto = new ShowViewDto<>(modalDto.getView(), modalDto.getClassController(), modalDto.getContext(), modalDto.getPrimaryStage());
+            FXMLLoader loader = showView(dto);
+            C controller = loader.getController();
+            controller.setMainApp(modalDto.getMainApp());
+            controller.setDialogStage(dto.getPrimaryStage());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

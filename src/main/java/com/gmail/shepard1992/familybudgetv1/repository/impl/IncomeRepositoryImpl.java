@@ -1,13 +1,13 @@
 package com.gmail.shepard1992.familybudgetv1.repository.impl;
 
-import com.gmail.shepard1992.familybudgetv1.service.model.Income;
-import com.gmail.shepard1992.familybudgetv1.service.model.IncomeList;
-import com.gmail.shepard1992.familybudgetv1.service.model.Report;
+import com.gmail.shepard1992.familybudgetv1.repository.api.ReportRepository;
+import com.gmail.shepard1992.familybudgetv1.repository.api.Repository;
 import com.gmail.shepard1992.familybudgetv1.repository.model.dto.RepositoryDeleteByCategoryDto;
 import com.gmail.shepard1992.familybudgetv1.repository.model.dto.RepositoryDeleteByIndexDto;
 import com.gmail.shepard1992.familybudgetv1.repository.model.dto.RepositoryUpdateDto;
-import com.gmail.shepard1992.familybudgetv1.repository.api.ReportRepository;
-import com.gmail.shepard1992.familybudgetv1.repository.api.Repository;
+import com.gmail.shepard1992.familybudgetv1.service.model.Income;
+import com.gmail.shepard1992.familybudgetv1.service.model.IncomeList;
+import com.gmail.shepard1992.familybudgetv1.service.model.Report;
 import com.gmail.shepard1992.familybudgetv1.utils.ModelRepositoryUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -50,13 +50,13 @@ public class IncomeRepositoryImpl implements Repository<Income> {
             if (!element.getType().isEmpty()) income.setModelType(element.getType());
             if (element.getSumFact() != null) income.setModelSumFact(element.getSumFact());
         };
-        RepositoryUpdateDto<Income> repositoryUpdateDto = new RepositoryUpdateDto<>(element, file, this, consumer);
+        RepositoryUpdateDto<Income> repositoryUpdateDto = new RepositoryUpdateDto<>(file, this, element, consumer);
         facade.update(repositoryUpdateDto);
     }
 
     @Override
     public boolean deleteByIndex(Integer index, File file) {
-        RepositoryDeleteByIndexDto<Income> dto = new RepositoryDeleteByIndexDto<>(index, file, this);
+        RepositoryDeleteByIndexDto<Income> dto = new RepositoryDeleteByIndexDto<>(file, this, index);
         return facade.deleteByIndex(dto);
     }
 
@@ -80,7 +80,7 @@ public class IncomeRepositoryImpl implements Repository<Income> {
 
     @Override
     public void deleteByCategory(String category, File file) {
-        RepositoryDeleteByCategoryDto<Income> dto = new RepositoryDeleteByCategoryDto<>(category, file, this);
+        RepositoryDeleteByCategoryDto<Income> dto = new RepositoryDeleteByCategoryDto<>(file, this, category);
         facade.deleteByCategory(dto);
     }
 

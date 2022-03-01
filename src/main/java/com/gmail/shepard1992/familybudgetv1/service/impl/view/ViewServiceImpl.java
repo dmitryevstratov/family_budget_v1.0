@@ -60,7 +60,7 @@ public class ViewServiceImpl implements ViewService {
     }
 
     @Override
-    public void setPrimaryStage(Stage primaryStage) {
+    public void setDialogStage(Stage primaryStage) {
         this.primaryStage = primaryStage;
     }
 }

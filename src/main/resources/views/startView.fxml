@@ -12,7 +12,7 @@
     <left>
         <VBox BorderPane.alignment="CENTER">
             <Button fx:id="createReportBtn" mnemonicParsing="false" onAction="#showModalCreateReport" text="Создать отчет" />
-            <Button mnemonicParsing="false" text="Button" />
+            <Button fx:id="openReportBtn" mnemonicParsing="false" onAction="#showModalOpenReport" text="Открыть отчет" />
             <Button mnemonicParsing="false" text="Button" />
             <Button mnemonicParsing="false" text="Button" />
             <Button mnemonicParsing="false" text="Button" />

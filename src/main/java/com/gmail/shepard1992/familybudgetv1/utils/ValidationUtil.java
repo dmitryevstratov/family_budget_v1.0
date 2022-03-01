@@ -2,9 +2,9 @@ package com.gmail.shepard1992.familybudgetv1.utils;
 
 import com.gmail.shepard1992.familybudgetv1.service.model.api.Model;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.ValidationIndexDto;
-import com.gmail.shepard1992.familybudgetv1.view.model.dto.CreateDirectoryDto;
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.ServiceDeleteRowDto;
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.ServiceNewRowDto;
+import com.gmail.shepard1992.familybudgetv1.view.model.dto.api.AbstractFileDto;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -39,7 +39,7 @@ public class ValidationUtil {
         return checkErrorMessage(errorMessage, params.getDialogStage());
     }
 
-    public boolean isInputFilePathValid(CreateDirectoryDto dto) {
+    public boolean isInputFilePathValid(AbstractFileDto dto) {
         if (dto.getText().getText() == null || dto.getText().getText().isEmpty()) {
             showAlertModal(dto.getStage(), new StringBuilder("Не заполнено поле Выбрать директорию"));
             return false;

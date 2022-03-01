@@ -4,4 +4,6 @@ public interface MainController extends Controller{
 
     void showModalCreateReport();
 
+    void showModalOpenReport();
+
 }

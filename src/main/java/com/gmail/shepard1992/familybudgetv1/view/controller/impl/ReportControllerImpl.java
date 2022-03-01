@@ -1,16 +1,17 @@
 package com.gmail.shepard1992.familybudgetv1.view.controller.impl;
 
-import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
-import com.gmail.shepard1992.familybudgetv1.view.controller.api.ReportController;
-import com.gmail.shepard1992.familybudgetv1.view.controller.buttons.api.ButtonFileApi;
+import com.gmail.shepard1992.familybudgetv1.service.api.Service;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.CostDto;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.IncomeDto;
-import com.gmail.shepard1992.familybudgetv1.view.model.dto.LoadDto;
-import com.gmail.shepard1992.familybudgetv1.service.api.Service;
 import com.gmail.shepard1992.familybudgetv1.utils.FileUtil;
+import com.gmail.shepard1992.familybudgetv1.view.controller.api.ReportController;
+import com.gmail.shepard1992.familybudgetv1.view.controller.buttons.api.ButtonFileApi;
+import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
+import com.gmail.shepard1992.familybudgetv1.view.model.dto.LoadDto;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
@@ -20,6 +21,7 @@ import java.io.File;
 public class ReportControllerImpl implements ReportController {
 
     private MainApplication mainApp;
+    private Stage stage;
     private Service<IncomeDto> incomeService;
     private Service<CostDto> costService;
     private FileUtil fileUtil;
@@ -90,6 +92,11 @@ public class ReportControllerImpl implements ReportController {
 
         fileUtil.loadDtoData(loadIncomeDto);
         fileUtil.loadDtoData(loadCostDto);
+    }
+
+    @Override
+    public void setDialogStage(Stage dialogStage) {
+        this.stage = dialogStage;
     }
 
     @FXML

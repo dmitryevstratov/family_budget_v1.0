@@ -1,6 +1,6 @@
 package com.gmail.shepard1992.familybudgetv1.utils;
 
-import com.gmail.shepard1992.familybudgetv1.service.model.api.Dto;
+import com.gmail.shepard1992.familybudgetv1.service.model.api.AbstractDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 import static com.gmail.shepard1992.familybudgetv1.service.constants.ServiceConstants.*;
 
 @Component
-public class IndexUtil<D extends Dto> {
+public class IndexUtil<D extends AbstractDto> {
 
     public String incrementIndex(List<D> incomeDtoList) {
         if (incomeDtoList.isEmpty()) {

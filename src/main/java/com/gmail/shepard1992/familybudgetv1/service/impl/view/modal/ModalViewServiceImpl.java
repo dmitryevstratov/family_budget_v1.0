@@ -1,17 +1,15 @@
 package com.gmail.shepard1992.familybudgetv1.service.impl.view.modal;
 
-import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
-import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.ModalCreateReportController;
-import com.gmail.shepard1992.familybudgetv1.service.model.dto.show.ShowViewDto;
 import com.gmail.shepard1992.familybudgetv1.service.api.ModalViewService;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.show.ShowReportModalViewDto;
 import com.gmail.shepard1992.familybudgetv1.utils.facade.ViewFacade;
-import javafx.fxml.FXMLLoader;
+import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.ModalCreateReportController;
+import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.ModalOpenReportController;
+import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
 
 @Service
 public class ModalViewServiceImpl implements ModalViewService {
@@ -29,15 +27,14 @@ public class ModalViewServiceImpl implements ModalViewService {
 
     @Override
     public void showCreateReportModalView(String view) {
-        try {
-            ShowViewDto<ModalCreateReportController> dto = new ShowViewDto<>(view, ModalCreateReportController.class, context, primaryStage);
-            FXMLLoader loader = viewFacade.showView(dto);
-            ModalCreateReportController controller = loader.getController();
-            controller.setMainApp(mainApp);
-            controller.setDialogStage(dto.getPrimaryStage());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        ShowReportModalViewDto<ModalCreateReportController> dto = new ShowReportModalViewDto<>(ModalCreateReportController.class, context, mainApp, primaryStage, view);
+        viewFacade.showReportModalView(dto);
+    }
+
+    @Override
+    public void showOpenReportModalView(String view) {
+        ShowReportModalViewDto<ModalOpenReportController> dto = new ShowReportModalViewDto<>(ModalOpenReportController.class, context, mainApp, primaryStage, view);
+        viewFacade.showReportModalView(dto);
     }
 
     @Override
@@ -46,7 +43,9 @@ public class ModalViewServiceImpl implements ModalViewService {
     }
 
     @Override
-    public void setPrimaryStage(Stage primaryStage) {
-        this.primaryStage = primaryStage;
+    public void setDialogStage(Stage dialogStage) {
+        this.primaryStage = dialogStage;
     }
+
+
 }
