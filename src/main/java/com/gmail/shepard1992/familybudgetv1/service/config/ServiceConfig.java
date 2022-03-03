@@ -3,11 +3,9 @@ package com.gmail.shepard1992.familybudgetv1.service.config;
 import com.gmail.shepard1992.familybudgetv1.repository.api.CreateFileReportRepository;
 import com.gmail.shepard1992.familybudgetv1.repository.api.OpenFileReportRepository;
 import com.gmail.shepard1992.familybudgetv1.repository.api.Repository;
+import com.gmail.shepard1992.familybudgetv1.repository.api.TemplateRepository;
 import com.gmail.shepard1992.familybudgetv1.service.api.*;
-import com.gmail.shepard1992.familybudgetv1.service.impl.CostServiceImpl;
-import com.gmail.shepard1992.familybudgetv1.service.impl.CreateReportServiceImpl;
-import com.gmail.shepard1992.familybudgetv1.service.impl.IncomeServiceImpl;
-import com.gmail.shepard1992.familybudgetv1.service.impl.OpenReportServiceImpl;
+import com.gmail.shepard1992.familybudgetv1.service.impl.*;
 import com.gmail.shepard1992.familybudgetv1.service.impl.view.ViewServiceImpl;
 import com.gmail.shepard1992.familybudgetv1.service.impl.view.modal.ModalCostViewServiceImpl;
 import com.gmail.shepard1992.familybudgetv1.service.impl.view.modal.ModalIncomeViewServiceImpl;
@@ -66,6 +64,11 @@ public class ServiceConfig {
     @Bean
     public OpenReportService getOpenReportServiceBean(ValidationUtil validationUtil, OpenFileReportRepository repository) {
         return new OpenReportServiceImpl(validationUtil, repository);
+    }
+
+    @Bean
+    public TemplateService getTemplateServiceBean(TemplateRepository repository) {
+        return new TemplateServiceImpl(repository);
     }
 
 }

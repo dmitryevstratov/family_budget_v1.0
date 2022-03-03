@@ -3,6 +3,7 @@ package config;
 import com.gmail.shepard1992.familybudgetv1.repository.api.CreateFileReportRepository;
 import com.gmail.shepard1992.familybudgetv1.repository.api.OpenFileReportRepository;
 import com.gmail.shepard1992.familybudgetv1.repository.api.Repository;
+import com.gmail.shepard1992.familybudgetv1.repository.api.TemplateRepository;
 import com.gmail.shepard1992.familybudgetv1.service.model.Cost;
 import com.gmail.shepard1992.familybudgetv1.service.model.Income;
 import org.springframework.context.annotation.Bean;
@@ -36,6 +37,12 @@ public class RepositoryConfigTest {
     @Primary
     public OpenFileReportRepository getOpenFileReportRepositoryTestBean() {
         return mock(OpenFileReportRepository.class);
+    }
+
+    @Bean
+    @Primary
+    public TemplateRepository getTemplateRepositoryBean() {
+        return mock(TemplateRepository.class);
     }
 
 }

@@ -16,7 +16,7 @@ import org.springframework.stereotype.Controller;
 
 import java.io.File;
 
-import static com.gmail.shepard1992.familybudgetv1.view.constants.FilesConstants.*;
+import static com.gmail.shepard1992.familybudgetv1.view.constants.ViewConstants.*;
 
 @Controller
 public class ModalCreateReportControllerImpl implements ModalCreateReportController {

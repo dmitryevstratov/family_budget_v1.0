@@ -1,9 +1,6 @@
 package com.gmail.shepard1992.familybudgetv1.repository.config;
 
-import com.gmail.shepard1992.familybudgetv1.repository.api.CreateFileReportRepository;
-import com.gmail.shepard1992.familybudgetv1.repository.api.OpenFileReportRepository;
-import com.gmail.shepard1992.familybudgetv1.repository.api.ReportRepository;
-import com.gmail.shepard1992.familybudgetv1.repository.api.Repository;
+import com.gmail.shepard1992.familybudgetv1.repository.api.*;
 import com.gmail.shepard1992.familybudgetv1.repository.impl.*;
 import com.gmail.shepard1992.familybudgetv1.service.model.Cost;
 import com.gmail.shepard1992.familybudgetv1.service.model.Income;
@@ -39,6 +36,11 @@ public class RepositoryConfig {
     @Bean
     public OpenFileReportRepository getOpenFileReportRepositoryBean() {
         return new OpenFileReportRepositoryImpl();
+    }
+
+    @Bean
+    public TemplateRepository getTemplateRepositoryBean(FileUtil fileUtil) {
+        return new TemplateRepositoryImpl(fileUtil);
     }
 
 }

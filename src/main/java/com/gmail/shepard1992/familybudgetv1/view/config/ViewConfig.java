@@ -3,6 +3,7 @@ package com.gmail.shepard1992.familybudgetv1.view.config;
 import com.gmail.shepard1992.familybudgetv1.service.api.CreateReportService;
 import com.gmail.shepard1992.familybudgetv1.service.api.OpenReportService;
 import com.gmail.shepard1992.familybudgetv1.service.api.Service;
+import com.gmail.shepard1992.familybudgetv1.service.api.TemplateService;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.CostDto;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.IncomeDto;
 import com.gmail.shepard1992.familybudgetv1.utils.FileUtil;
@@ -39,8 +40,8 @@ public class ViewConfig {
     }
 
     @Bean
-    public ReportController getReportControllerBean(Service<IncomeDto> incomeService, Service<CostDto> costService, FileUtil fileUtil) {
-        return new ReportControllerImpl(incomeService, costService, fileUtil);
+    public ReportController getReportControllerBean(Service<IncomeDto> incomeService, Service<CostDto> costService, FileUtil fileUtil, TemplateService templateService) {
+        return new ReportControllerImpl(incomeService, costService, fileUtil, templateService);
     }
 
     @Bean

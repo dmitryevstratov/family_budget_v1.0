@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.File;
 
-import static com.gmail.shepard1992.familybudgetv1.view.constants.FilesConstants.FILE_PATH_TEST;
+import static com.gmail.shepard1992.familybudgetv1.utils.FileConstants.FILE_PATH_TEST;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
