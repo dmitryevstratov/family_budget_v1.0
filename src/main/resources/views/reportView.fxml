@@ -8,8 +8,9 @@
     <top>
         <VBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <MenuBar>
-                <Menu mnemonicParsing="false" text="File">
-                    <MenuItem mnemonicParsing="false" text="Close"/>
+                <Menu mnemonicParsing="false" text="Файл">
+                    <MenuItem mnemonicParsing="false" text="Сохранить шаблон" fx:id="saveTemplate"
+                              onAction="#saveTemplate"/>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Edit">
                     <MenuItem mnemonicParsing="false" text="Delete"/>

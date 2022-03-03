@@ -1,10 +1,12 @@
 package com.gmail.shepard1992.familybudgetv1.view.controller.impl;
 
 import com.gmail.shepard1992.familybudgetv1.service.api.Service;
+import com.gmail.shepard1992.familybudgetv1.service.api.TemplateService;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.CostDto;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.IncomeDto;
 import com.gmail.shepard1992.familybudgetv1.utils.FileUtil;
 import com.gmail.shepard1992.familybudgetv1.view.controller.api.ReportController;
+import com.gmail.shepard1992.familybudgetv1.view.controller.api.SaveTemplate;
 import com.gmail.shepard1992.familybudgetv1.view.controller.buttons.api.ButtonFileApi;
 import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.LoadDto;
@@ -18,12 +20,13 @@ import org.springframework.stereotype.Controller;
 import java.io.File;
 
 @Controller
-public class ReportControllerImpl implements ReportController {
+public class ReportControllerImpl implements ReportController, SaveTemplate {
 
     private MainApplication mainApp;
     private Stage stage;
     private Service<IncomeDto> incomeService;
     private Service<CostDto> costService;
+    private TemplateService templateService;
     private FileUtil fileUtil;
     private File file;
 
@@ -77,10 +80,11 @@ public class ReportControllerImpl implements ReportController {
     }
 
     @Autowired
-    public ReportControllerImpl(Service<IncomeDto> incomeService, Service<CostDto> costService, FileUtil fileUtil) {
+    public ReportControllerImpl(Service<IncomeDto> incomeService, Service<CostDto> costService, FileUtil fileUtil, TemplateService templateService) {
         this.incomeService = incomeService;
         this.costService = costService;
         this.fileUtil = fileUtil;
+        this.templateService = templateService;
     }
 
     @Override
@@ -165,5 +169,10 @@ public class ReportControllerImpl implements ReportController {
     @Override
     public void setFile(File file) {
         this.file = file;
+    }
+
+    @Override
+    public void saveTemplate() {
+        templateService.saveTemplate(file);
     }
 }

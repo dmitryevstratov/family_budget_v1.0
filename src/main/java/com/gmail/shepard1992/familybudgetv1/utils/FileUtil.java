@@ -6,16 +6,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.springframework.stereotype.Component;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
-import static com.gmail.shepard1992.familybudgetv1.view.constants.FilesConstants.DEL;
-import static com.gmail.shepard1992.familybudgetv1.view.constants.FilesConstants.XML;
+import static com.gmail.shepard1992.familybudgetv1.utils.FileConstants.*;
 
 @Component
 public class FileUtil {
@@ -80,6 +79,39 @@ public class FileUtil {
         ObservableList<D> incomesDtoData = FXCollections.observableArrayList();
         incomesDtoData.addAll(dto.getDtoService().getAll(dto.getFile()));
         dto.getTable().setItems(incomesDtoData);
+    }
+
+    public File saveTemplate(File file) {
+        if (file != null) {
+            List<String> list = new ArrayList<>(Arrays.asList(file.getAbsolutePath()
+                    .split(DEL_DIR)));
+            list.add(list.size() - 2, FILE_TEMPLATES_NAME);
+            list.remove(list.size() - 2);
+            String strPath = list.toString()
+                    .replace(COMMA, File.separator)
+                    .replace(XML, "_" + FILE_TEMPLATES_NAME + XML)
+                    .replace("[", "")
+                    .replace("]", "");
+            Path path = Path.of(strPath);
+            if (!Files.exists(path)) {
+                try {
+                    File tmp = Files.createFile(path).toFile();
+
+                    try (FileWriter fileWriter = new FileWriter(tmp, true); FileReader fileReader = new FileReader(file)) {
+                        int c;
+                        while ((c = fileReader.read()) != -1) {
+                            fileWriter.write(c);
+                        }
+                    }
+                    return tmp;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                return new File(strPath);
+            }
+        }
+        return null;
     }
 
 }
