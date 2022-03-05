@@ -24,7 +24,7 @@
                 <RowConstraints maxHeight="254.99996032714841" minHeight="10.0" prefHeight="119.20001220703125"
                                 vgrow="SOMETIMES"/>
             </rowConstraints>
-            <Label text="Выбрать директорию"/>
+            <Label text="Выбрать отчет"/>
             <VBox prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="1">
                 <TextField fx:id="chooseFileField"/>
                 <Button mnemonicParsing="false" onAction="#chooseFile" text="Выбрать"/>

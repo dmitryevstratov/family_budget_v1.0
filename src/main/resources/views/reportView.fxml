@@ -11,6 +11,8 @@
                 <Menu mnemonicParsing="false" text="Файл">
                     <MenuItem mnemonicParsing="false" text="Сохранить шаблон" fx:id="saveTemplate"
                               onAction="#saveTemplate"/>
+                    <MenuItem mnemonicParsing="false" text="Загрузить шаблон" fx:id="loadTemplate"
+                              onAction="#loadTemplate"/>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Edit">
                     <MenuItem mnemonicParsing="false" text="Delete"/>

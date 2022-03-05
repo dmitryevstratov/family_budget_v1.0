@@ -11,6 +11,7 @@ import com.gmail.shepard1992.familybudgetv1.utils.MapperUtil;
 import com.gmail.shepard1992.familybudgetv1.view.controller.api.MainController;
 import com.gmail.shepard1992.familybudgetv1.view.controller.api.ReportController;
 import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.ModalCreateReportController;
+import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.ModalLoadTemplateController;
 import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.ModalOpenReportController;
 import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.cost.ModalAddRowCostController;
 import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.cost.ModalDeleteCostRowController;
@@ -21,6 +22,7 @@ import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.income.Mod
 import com.gmail.shepard1992.familybudgetv1.view.controller.impl.MainControllerImpl;
 import com.gmail.shepard1992.familybudgetv1.view.controller.impl.ReportControllerImpl;
 import com.gmail.shepard1992.familybudgetv1.view.controller.impl.modal.ModalCreateReportControllerImpl;
+import com.gmail.shepard1992.familybudgetv1.view.controller.impl.modal.ModalLoadTemplateControllerImpl;
 import com.gmail.shepard1992.familybudgetv1.view.controller.impl.modal.ModalOpenReportControllerImpl;
 import com.gmail.shepard1992.familybudgetv1.view.controller.impl.modal.cost.ModalAddRowCostControllerImpl;
 import com.gmail.shepard1992.familybudgetv1.view.controller.impl.modal.cost.ModalDeleteRowCostControllerImpl;
@@ -82,6 +84,11 @@ public class ViewConfig {
     @Bean
     public ModalOpenReportController getModalOpenReportControllerBean(OpenReportService service) {
         return new ModalOpenReportControllerImpl(service);
+    }
+
+    @Bean
+    public ModalLoadTemplateController getModalLoadTemplateControllerBean(TemplateService service) {
+        return new ModalLoadTemplateControllerImpl(service);
     }
 
 }

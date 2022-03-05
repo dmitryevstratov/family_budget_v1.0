@@ -5,6 +5,7 @@ import com.gmail.shepard1992.familybudgetv1.service.api.ModalIncomeViewService;
 import com.gmail.shepard1992.familybudgetv1.service.config.ServiceConfig;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.IncomeDto;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.show.DeleteRowModalViewDto;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.show.ModalViewDto;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.view.cost.AddRowCostModalViewDto;
 import com.gmail.shepard1992.familybudgetv1.utils.config.UtilConfig;
 import com.gmail.shepard1992.familybudgetv1.utils.facade.ViewFacade;
@@ -45,7 +46,7 @@ public class ModalIncomeViewServiceTest {
     @Test
     public void test_when_call_showAddRowIncomeModalView_then_return_result() {
         try {
-            doNothing().when(viewFacade).showModalView(any());
+            doNothing().when(viewFacade).showModalView(any(ModalViewDto.class));
 
             modalIncomeViewService.showAddRowIncomeModalView(new AddRowCostModalViewDto("", new File("path"), new IncomeDto.IncomeDtoBuilder()
                     .setCategory("")
@@ -54,7 +55,7 @@ public class ModalIncomeViewServiceTest {
                     .setSumFact(100d)
                     .build()));
 
-            verify(viewFacade, times(1)).showModalView(any());
+            verify(viewFacade, times(1)).showModalView(any(ModalViewDto.class));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -63,7 +64,7 @@ public class ModalIncomeViewServiceTest {
     @Test
     public void test_when_call_showUpdateRowIncomeModalView_then_return_result() {
         try {
-            doNothing().when(viewFacade).showModalView(any());
+            doNothing().when(viewFacade).showModalView(any(ModalViewDto.class));
 
             modalIncomeViewService.showUpdateRowIncomeModalView(new AddRowCostModalViewDto("", new File("path"), new IncomeDto.IncomeDtoBuilder()
                     .setCategory("")
@@ -72,7 +73,7 @@ public class ModalIncomeViewServiceTest {
                     .setSumFact(100d)
                     .build()));
 
-            verify(viewFacade, times(1)).showModalView(any());
+            verify(viewFacade, times(1)).showModalView(any(ModalViewDto.class));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -80,11 +81,19 @@ public class ModalIncomeViewServiceTest {
 
     @Test
     public void test_when_call_showDeleteRowIncomeModalView_then_return_result() {
-        doNothing().when(viewFacade).showDeleteRowModalView(any());
+        try {
+            doNothing().when(viewFacade).showDeleteRowModalView(any());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         modalIncomeViewService.showDeleteRowIncomeModalView(new DeleteRowModalViewDto("", "", new File("")));
 
-        verify(viewFacade, times(1)).showDeleteRowModalView(any());
+        try {
+            verify(viewFacade, times(1)).showDeleteRowModalView(any());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

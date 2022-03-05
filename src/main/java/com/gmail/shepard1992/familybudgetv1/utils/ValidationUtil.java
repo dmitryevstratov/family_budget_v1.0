@@ -2,6 +2,7 @@ package com.gmail.shepard1992.familybudgetv1.utils;
 
 import com.gmail.shepard1992.familybudgetv1.service.model.api.Model;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.ValidationIndexDto;
+import com.gmail.shepard1992.familybudgetv1.view.model.dto.LoadTemplateDto;
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.ServiceDeleteRowDto;
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.ServiceNewRowDto;
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.api.AbstractFileDto;
@@ -41,18 +42,16 @@ public class ValidationUtil {
 
     public boolean isInputFilePathValid(AbstractFileDto dto) {
         if (dto.getText().getText() == null || dto.getText().getText().isEmpty()) {
-            showAlertModal(dto.getStage(), new StringBuilder("Не заполнено поле Выбрать директорию"));
-            return false;
+            return checkErrorMessage(new StringBuilder("Не заполнено поле Выбрать директорию"), dto.getStage());
         } else {
             return true;
         }
     }
 
     public <E extends Model> boolean isIndexValid(ValidationIndexDto<E> dto) {
-        long count = dto.getRepository().getAll(dto.getFile()).stream().filter(e -> e.getIndex().equals(dto.getIndex())).count();
+        long count = dto.getRepositoryData().getAll(dto.getFile()).stream().filter(e -> e.getIndex().equals(dto.getIndex())).count();
         if (count == 0) {
-            showAlertModal(dto.getStage(), new StringBuilder(dto.getIndex() + " - нет такого индеска!"));
-            return false;
+            return checkErrorMessage(new StringBuilder(dto.getIndex() + " - нет такого индеска!"), dto.getStage());
         } else {
             return true;
         }
@@ -99,4 +98,11 @@ public class ValidationUtil {
         }
     }
 
+    public boolean isInputLoadTemplate(LoadTemplateDto dto) {
+        if (dto.getFile() == null || dto.getTmp() == null) {
+            return checkErrorMessage(new StringBuilder("Не заполнено поле Выбрать директорию"), dto.getStage());
+        } else {
+            return true;
+        }
+    }
 }

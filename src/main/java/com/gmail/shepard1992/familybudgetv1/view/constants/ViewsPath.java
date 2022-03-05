@@ -22,4 +22,6 @@ public interface ViewsPath {
 
     String MODAL_DELETE_ROW_COST_VIEW = "/views/modal/cost/modalDeleteRowCostView.fxml";
 
+    String MODAL_LOAD_TEMPLATE_VIEW = "/views/modal/modalLoadTemplateView.fxml";
+
 }

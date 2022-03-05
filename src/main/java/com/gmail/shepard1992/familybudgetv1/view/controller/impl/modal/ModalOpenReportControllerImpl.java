@@ -4,7 +4,7 @@ import com.gmail.shepard1992.familybudgetv1.service.api.OpenReportService;
 import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.ModalOpenReportController;
 import com.gmail.shepard1992.familybudgetv1.view.controller.buttons.api.ButtonFileApi;
 import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
-import com.gmail.shepard1992.familybudgetv1.view.model.dto.OpenFileDto;
+import com.gmail.shepard1992.familybudgetv1.view.model.dto.ChooseFileDto;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
@@ -22,7 +22,7 @@ public class ModalOpenReportControllerImpl implements ModalOpenReportController 
     private Stage dialogStage;
     private final FileChooser fileChooser = new FileChooser();
     private File dir;
-    private OpenFileDto dto;
+    private ChooseFileDto dto;
 
     private final ButtonFileApi openReport = MainApplication::showReportView;
 
@@ -40,14 +40,14 @@ public class ModalOpenReportControllerImpl implements ModalOpenReportController 
     @FXML
     @Override
     public void chooseFile() {
-        dto = new OpenFileDto(chooseFileField, dialogStage, fileChooser);
+        dto = new ChooseFileDto(chooseFileField, dialogStage, fileChooser);
         dir = service.chooseFile(dto);
     }
 
     @FXML
     @Override
     public void openReport() {
-        dto = new OpenFileDto(chooseFileField, dialogStage, fileChooser);
+        dto = new ChooseFileDto(chooseFileField, dialogStage, fileChooser);
         File report = service.openFile(dir, dto);
         if (report != null) {
             openReport.click(mainApp, report);

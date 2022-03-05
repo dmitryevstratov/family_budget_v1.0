@@ -1,6 +1,6 @@
 package com.gmail.shepard1992.familybudgetv1.service.model.dto;
 
-import com.gmail.shepard1992.familybudgetv1.repository.api.Repository;
+import com.gmail.shepard1992.familybudgetv1.repository.api.RepositoryData;
 import com.gmail.shepard1992.familybudgetv1.service.api.Service;
 
 import java.io.File;
@@ -12,13 +12,13 @@ public class TotalServiceByCategoryDto<D, E> {
 
     private final File file;
     private final Service<D> service;
-    private final Repository<E> repository;
+    private final RepositoryData<E> repositoryData;
     private final Consumer<Map.Entry<String, List<D>>> consumer;
 
-    public TotalServiceByCategoryDto(File file, Service<D> service, Repository<E> repository, Consumer<Map.Entry<String, List<D>>> consumer) {
+    public TotalServiceByCategoryDto(File file, Service<D> service, RepositoryData<E> repositoryData, Consumer<Map.Entry<String, List<D>>> consumer) {
         this.file = file;
         this.service = service;
-        this.repository = repository;
+        this.repositoryData = repositoryData;
         this.consumer = consumer;
     }
 
@@ -30,8 +30,8 @@ public class TotalServiceByCategoryDto<D, E> {
         return service;
     }
 
-    public Repository<E> getRepository() {
-        return repository;
+    public RepositoryData<E> getRepositoryData() {
+        return repositoryData;
     }
 
     public Consumer<Map.Entry<String, List<D>>> getConsumer() {

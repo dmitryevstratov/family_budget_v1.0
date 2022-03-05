@@ -1,7 +1,7 @@
 package com.gmail.shepard1992.familybudgetv1.repository.impl;
 
 import com.gmail.shepard1992.familybudgetv1.repository.api.ReportRepository;
-import com.gmail.shepard1992.familybudgetv1.repository.api.Repository;
+import com.gmail.shepard1992.familybudgetv1.repository.api.RepositoryData;
 import com.gmail.shepard1992.familybudgetv1.repository.model.dto.RepositoryDeleteByCategoryDto;
 import com.gmail.shepard1992.familybudgetv1.repository.model.dto.RepositoryDeleteByIndexDto;
 import com.gmail.shepard1992.familybudgetv1.repository.model.dto.RepositoryUpdateDto;
@@ -18,13 +18,13 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 @org.springframework.stereotype.Repository
-public class IncomeRepositoryImpl implements Repository<Income> {
+public class IncomeRepositoryDataImpl implements RepositoryData<Income> {
 
     private final ReportRepository reportRepository;
     private final ModelRepositoryUtil facade;
 
     @Autowired
-    public IncomeRepositoryImpl(ReportRepository reportRepository, ModelRepositoryUtil facade) {
+    public IncomeRepositoryDataImpl(ReportRepository reportRepository, ModelRepositoryUtil facade) {
         this.reportRepository = reportRepository;
         this.facade = facade;
     }

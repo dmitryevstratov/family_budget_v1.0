@@ -1,11 +1,8 @@
 package com.gmail.shepard1992.familybudgetv1.utils.facade;
 
-import com.gmail.shepard1992.familybudgetv1.service.model.api.AbstractDto;
-import com.gmail.shepard1992.familybudgetv1.service.model.dto.show.ModalViewDto;
-import com.gmail.shepard1992.familybudgetv1.service.model.dto.show.ShowDeleteRowModalViewDto;
-import com.gmail.shepard1992.familybudgetv1.service.model.dto.show.ShowReportModalViewDto;
-import com.gmail.shepard1992.familybudgetv1.service.model.dto.show.ShowViewDto;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.show.*;
 import com.gmail.shepard1992.familybudgetv1.view.controller.api.Controller;
+import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.ModalController;
 import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.ModalDeleteRowController;
 import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.ModalNewRowController;
 import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
@@ -34,19 +31,35 @@ public class ViewFacade {
         return loader;
     }
 
-    public < C extends ModalNewRowController> void showModalView(ModalViewDto<C> params) throws IOException {
+    public <C extends ModalNewRowController> void showModalView(ModalViewDto<C> params) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainApplication.class.getResource(params.getView()));
         loader.setControllerFactory(cls -> params.getContext().getBean(params.getClassController()));
         BorderPane rootLayout = loader.load();
 
+        Stage dialogStage = getStage(rootLayout, params.getPrimaryStage());
+
         C controller = loader.getController();
         controller.setFile(params.getFile());
         controller.setMainApp(params.getMainApp());
-
-        Stage dialogStage = getStage(rootLayout, params.getPrimaryStage());
         controller.setDialogStage(dialogStage);
         controller.setDto(params.getDto());
+
+        dialogStage.showAndWait();
+    }
+
+    public <C extends ModalController> void showModalView(ShowModalLoadTemplateDto<C> dto) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainApplication.class.getResource(dto.getView()));
+        loader.setControllerFactory(cls -> dto.getContext().getBean(dto.getClassController()));
+        BorderPane rootLayout = loader.load();
+
+        Stage dialogStage = getStage(rootLayout, dto.getPrimaryStage());
+
+        C controller = loader.getController();
+        controller.setFile(dto.getFile());
+        controller.setMainApp(dto.getMainApp());
+        controller.setDialogStage(dialogStage);
 
         dialogStage.showAndWait();
     }
@@ -60,16 +73,11 @@ public class ViewFacade {
         return dialogStage;
     }
 
-    public <C extends ModalDeleteRowController> void showDeleteRowModalView(ShowDeleteRowModalViewDto<C> deleteRowModalViewDto) {
+    public <C extends ModalDeleteRowController> void showDeleteRowModalView(ShowDeleteRowModalViewDto<C> deleteRowModalViewDto) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainApplication.class.getResource(deleteRowModalViewDto.getDto().getView()));
         loader.setControllerFactory(cls -> deleteRowModalViewDto.getContext().getBean(deleteRowModalViewDto.getClassController()));
-        BorderPane rootLayout = null;
-        try {
-            rootLayout = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        BorderPane rootLayout = loader.load();
 
         ModalDeleteRowController controller = loader.getController();
         controller.setFile(deleteRowModalViewDto.getDto().getFile());

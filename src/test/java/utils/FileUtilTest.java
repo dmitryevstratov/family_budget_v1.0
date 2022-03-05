@@ -10,9 +10,9 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.File;
 
+import static com.gmail.shepard1992.familybudgetv1.utils.FileConstants.FILE_PATH_EMPTY_TEST;
 import static com.gmail.shepard1992.familybudgetv1.utils.FileConstants.FILE_PATH_TEST;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
@@ -33,6 +33,11 @@ public class FileUtilTest {
     @Test
     public void test_when_call_saveTemplate_then_return_success() {
         assertNotNull(fileUtil.saveTemplate(file));
+    }
+
+    @Test
+    public void test_when_call_checkEmptyFile_then_return_success() {
+        assertTrue(fileUtil.checkEmptyFile(new File(FILE_PATH_EMPTY_TEST)));
     }
 
 }

@@ -1,6 +1,6 @@
 package com.gmail.shepard1992.familybudgetv1.service.impl;
 
-import com.gmail.shepard1992.familybudgetv1.repository.api.Repository;
+import com.gmail.shepard1992.familybudgetv1.repository.api.RepositoryData;
 import com.gmail.shepard1992.familybudgetv1.service.api.Service;
 import com.gmail.shepard1992.familybudgetv1.service.api.TotalService;
 import com.gmail.shepard1992.familybudgetv1.service.model.Cost;
@@ -29,15 +29,15 @@ import static com.gmail.shepard1992.familybudgetv1.service.constants.ServiceCons
 public class CostServiceImpl implements Service<CostDto>, TotalService {
 
     private final ValidationUtil validationUtil;
-    private final Repository<Cost> repository;
+    private final RepositoryData<Cost> repositoryData;
     private final MapperUtil mapperUtil;
     private final IndexUtil<CostDto> indexUtil;
     private final TotalServiceUtil totalServiceUtil;
 
     @Autowired
-    public CostServiceImpl(ValidationUtil validationUtil, Repository<Cost> repository, MapperUtil mapperUtil, IndexUtil<CostDto> indexUtil, TotalServiceUtil totalServiceUtil) {
+    public CostServiceImpl(ValidationUtil validationUtil, RepositoryData<Cost> repositoryData, MapperUtil mapperUtil, IndexUtil<CostDto> indexUtil, TotalServiceUtil totalServiceUtil) {
         this.validationUtil = validationUtil;
-        this.repository = repository;
+        this.repositoryData = repositoryData;
         this.mapperUtil = mapperUtil;
         this.indexUtil = indexUtil;
         this.totalServiceUtil = totalServiceUtil;
@@ -52,7 +52,7 @@ public class CostServiceImpl implements Service<CostDto>, TotalService {
                     .setSumFact(Double.parseDouble(params.getSumFact().getText()))
                     .setSumPlan(Double.parseDouble(params.getSumPlan().getText()))
                     .setType(params.getType().getText()).build();
-            repository.save(mapperUtil.convertToCost(dto), params.getFile());
+            repositoryData.save(mapperUtil.convertToCost(dto), params.getFile());
             updateTotal(params.getDialogStage(), params.getFile());
             return true;
         } else {
@@ -63,7 +63,7 @@ public class CostServiceImpl implements Service<CostDto>, TotalService {
     @Override
     public boolean updateRow(ServiceNewRowDto params) {
         ValidationIndexDto<Cost> validationIndexDto = new ValidationIndexDto<>(
-                repository,
+                repositoryData,
                 params.getIndex().getText(),
                 params.getFile(),
                 params.getDialogStage()
@@ -80,7 +80,7 @@ public class CostServiceImpl implements Service<CostDto>, TotalService {
             if (!params.getSumPlan().getText().isEmpty()) {
                 dto.setCostSumPlan(Double.parseDouble(params.getSumPlan().getText()));
             }
-            repository.update(mapperUtil.convertToCost(dto), params.getFile());
+            repositoryData.update(mapperUtil.convertToCost(dto), params.getFile());
             updateTotal(params.getDialogStage(), params.getFile());
             return true;
         }
@@ -90,13 +90,13 @@ public class CostServiceImpl implements Service<CostDto>, TotalService {
     @Override
     public boolean deleteRow(ServiceDeleteRowDto params) {
         ValidationIndexDto<Cost> validationIndexDto = new ValidationIndexDto<>(
-                repository,
+                repositoryData,
                 params.getIndexField().getText(),
                 params.getFile(),
                 params.getDialogStage()
         );
         if (validationUtil.isInputDeleteValid(params) && validationUtil.isIndexValid(validationIndexDto)) {
-            boolean deleteByIndex = repository.deleteByIndex(Integer.parseInt(params.getIndexField().getText()), params.getFile());
+            boolean deleteByIndex = repositoryData.deleteByIndex(Integer.parseInt(params.getIndexField().getText()), params.getFile());
             updateTotal(params.getDialogStage(), params.getFile());
             return deleteByIndex;
         } else {
@@ -106,7 +106,7 @@ public class CostServiceImpl implements Service<CostDto>, TotalService {
 
     @Override
     public List<CostDto> getAll(File file) {
-        return repository.getAll(file)
+        return repositoryData.getAll(file)
                 .stream()
                 .map(mapperUtil::convertToCostDto)
                 .collect(Collectors.toList());
@@ -124,9 +124,9 @@ public class CostServiceImpl implements Service<CostDto>, TotalService {
                     .setSumPlan(sumPlan)
                     .setType(EMPTY)
                     .build();
-            repository.save(mapperUtil.convertToCost(dto), file);
+            repositoryData.save(mapperUtil.convertToCost(dto), file);
         };
-        TotalServiceByCategoryDto<CostDto, Cost> dto = new TotalServiceByCategoryDto<>(file, this, repository, consumer);
+        TotalServiceByCategoryDto<CostDto, Cost> dto = new TotalServiceByCategoryDto<>(file, this, repositoryData, consumer);
         totalServiceUtil.setTotalByCategory(dto);
     }
 
@@ -135,7 +135,7 @@ public class CostServiceImpl implements Service<CostDto>, TotalService {
         List<CostDto> allCosts = getAll(file);
         allCosts.stream()
                 .filter(dto -> dto.getCategory().contains(TOTAL_ALL))
-                .forEachOrdered(dto -> repository.deleteByCategory(dto.getCategory(), file));
+                .forEachOrdered(dto -> repositoryData.deleteByCategory(dto.getCategory(), file));
         double totalFactAll = allCosts.stream()
                 .filter(dto -> dto.getCategory().contains(TOTAL_BY))
                 .collect(Collectors.toList())
@@ -148,16 +148,16 @@ public class CostServiceImpl implements Service<CostDto>, TotalService {
                 .stream()
                 .mapToDouble(CostDto::getSumPlan)
                 .sum();
-        if (totalPlanAll != 0.0 && totalFactAll != 0.0) {
-            CostDto dto = new CostDto.CostDtoBuilder()
-                    .setIndex(EMPTY)
-                    .setCategory(TOTAL_ALL)
-                    .setSumFact(totalFactAll)
-                    .setSumPlan(totalPlanAll)
-                    .setType(EMPTY)
-                    .build();
-            repository.save(mapperUtil.convertToCost(dto), file);
-        }
+
+        CostDto dto = new CostDto.CostDtoBuilder()
+                .setIndex(EMPTY)
+                .setCategory(TOTAL_ALL)
+                .setSumFact(totalFactAll)
+                .setSumPlan(totalPlanAll)
+                .setType(EMPTY)
+                .build();
+        repositoryData.save(mapperUtil.convertToCost(dto), file);
+
     }
 
     @Override

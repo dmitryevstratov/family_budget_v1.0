@@ -1,11 +1,10 @@
-package service;
+package repository;
 
 import com.gmail.shepard1992.familybudgetv1.repository.api.TemplateRepository;
-import com.gmail.shepard1992.familybudgetv1.service.api.TemplateService;
-import com.gmail.shepard1992.familybudgetv1.service.config.ServiceConfig;
+import com.gmail.shepard1992.familybudgetv1.repository.config.RepositoryConfig;
+import com.gmail.shepard1992.familybudgetv1.utils.FileUtil;
 import com.gmail.shepard1992.familybudgetv1.utils.config.UtilConfig;
-import config.RepositoryConfigTest;
-import org.junit.After;
+import config.FileUtilConfigTest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,30 +18,25 @@ import static org.mockito.Mockito.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
-        ServiceConfig.class,
-        UtilConfig.class,
-        RepositoryConfigTest.class
+        FileUtilConfigTest.class,
+        RepositoryConfig.class,
+        UtilConfig.class
 })
-public class TemplateServiceTest {
-
-    @Autowired
-    public TemplateService service;
+public class TemplateControllerRepositoryTest {
 
     @Autowired
     public TemplateRepository repository;
 
-    @After
-    public void resetRepositoryMock() {
-        reset(repository);
-    }
+    @Autowired
+    public FileUtil fileUtil;
 
     @Test
     public void test_when_call_saveTemplate_then_return_success() {
-        doNothing().when(repository).save(any());
+        when(fileUtil.saveTemplate(any())).thenReturn(new File(""));
 
-        service.saveTemplate(new File(""));
+        repository.save(new File(""));
 
-        verify(repository, times(1)).save(any());
+        verify(fileUtil, times(1)).saveTemplate(any());
     }
 
 }

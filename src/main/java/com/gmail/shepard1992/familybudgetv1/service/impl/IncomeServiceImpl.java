@@ -1,6 +1,6 @@
 package com.gmail.shepard1992.familybudgetv1.service.impl;
 
-import com.gmail.shepard1992.familybudgetv1.repository.api.Repository;
+import com.gmail.shepard1992.familybudgetv1.repository.api.RepositoryData;
 import com.gmail.shepard1992.familybudgetv1.service.api.Service;
 import com.gmail.shepard1992.familybudgetv1.service.api.TotalService;
 import com.gmail.shepard1992.familybudgetv1.service.model.Income;
@@ -29,15 +29,15 @@ import static com.gmail.shepard1992.familybudgetv1.service.constants.ServiceCons
 public class IncomeServiceImpl implements Service<IncomeDto>, TotalService {
 
     private final ValidationUtil validationUtil;
-    private final Repository<Income> repository;
+    private final RepositoryData<Income> repositoryData;
     private final MapperUtil mapperUtil;
     private final IndexUtil<IncomeDto> indexUtil;
     private final TotalServiceUtil totalServiceUtil;
 
     @Autowired
-    public IncomeServiceImpl(ValidationUtil validationUtil, Repository<Income> repository, MapperUtil mapperUtil, IndexUtil<IncomeDto> indexUtil, TotalServiceUtil totalServiceUtil) {
+    public IncomeServiceImpl(ValidationUtil validationUtil, RepositoryData<Income> repositoryData, MapperUtil mapperUtil, IndexUtil<IncomeDto> indexUtil, TotalServiceUtil totalServiceUtil) {
         this.validationUtil = validationUtil;
-        this.repository = repository;
+        this.repositoryData = repositoryData;
         this.mapperUtil = mapperUtil;
         this.indexUtil = indexUtil;
         this.totalServiceUtil = totalServiceUtil;
@@ -51,7 +51,7 @@ public class IncomeServiceImpl implements Service<IncomeDto>, TotalService {
                     .setIndex(indexUtil.incrementIndex(getAll(params.getFile())))
                     .setSumFact(Double.parseDouble(params.getSumFact().getText()))
                     .setType(params.getType().getText()).build();
-            repository.save(mapperUtil.convertToIncome(dto), params.getFile());
+            repositoryData.save(mapperUtil.convertToIncome(dto), params.getFile());
             updateTotal(params.getDialogStage(), params.getFile());
             return true;
         } else {
@@ -62,7 +62,7 @@ public class IncomeServiceImpl implements Service<IncomeDto>, TotalService {
     @Override
     public boolean updateRow(ServiceNewRowDto params) {
         ValidationIndexDto<Income> validationIndexDto = new ValidationIndexDto<>(
-                repository,
+                repositoryData,
                 params.getIndex().getText(),
                 params.getFile(),
                 params.getDialogStage()
@@ -76,7 +76,7 @@ public class IncomeServiceImpl implements Service<IncomeDto>, TotalService {
             if (!params.getSumFact().getText().isEmpty()) {
                 dto.setIncomeSum(Double.parseDouble(params.getSumFact().getText()));
             }
-            repository.update(mapperUtil.convertToIncome(dto), params.getFile());
+            repositoryData.update(mapperUtil.convertToIncome(dto), params.getFile());
             updateTotal(params.getDialogStage(), params.getFile());
             return true;
         }
@@ -86,13 +86,13 @@ public class IncomeServiceImpl implements Service<IncomeDto>, TotalService {
     @Override
     public boolean deleteRow(ServiceDeleteRowDto params) {
         ValidationIndexDto<Income> validationIndexDto = new ValidationIndexDto<>(
-                repository,
+                repositoryData,
                 params.getIndexField().getText(),
                 params.getFile(),
                 params.getDialogStage()
         );
         if (validationUtil.isInputDeleteValid(params) && validationUtil.isIndexValid(validationIndexDto)) {
-            boolean deleteByIndex = repository.deleteByIndex(Integer.parseInt(params.getIndexField().getText()), params.getFile());
+            boolean deleteByIndex = repositoryData.deleteByIndex(Integer.parseInt(params.getIndexField().getText()), params.getFile());
             updateTotal(params.getDialogStage(), params.getFile());
             return deleteByIndex;
         } else {
@@ -102,7 +102,7 @@ public class IncomeServiceImpl implements Service<IncomeDto>, TotalService {
 
     @Override
     public List<IncomeDto> getAll(File file) {
-        return repository.getAll(file)
+        return repositoryData.getAll(file)
                 .stream()
                 .map(mapperUtil::convertToIncomeDto)
                 .collect(Collectors.toList());
@@ -118,9 +118,9 @@ public class IncomeServiceImpl implements Service<IncomeDto>, TotalService {
                     .setSumFact(sum)
                     .setType(EMPTY)
                     .build();
-            repository.save(mapperUtil.convertToIncome(dto), file);
+            repositoryData.save(mapperUtil.convertToIncome(dto), file);
         };
-        TotalServiceByCategoryDto<IncomeDto, Income> dto = new TotalServiceByCategoryDto<>(file, this, repository, consumer);
+        TotalServiceByCategoryDto<IncomeDto, Income> dto = new TotalServiceByCategoryDto<>(file, this, repositoryData, consumer);
         totalServiceUtil.setTotalByCategory(dto);
     }
 
@@ -129,7 +129,7 @@ public class IncomeServiceImpl implements Service<IncomeDto>, TotalService {
         List<IncomeDto> allIncomes = getAll(file);
         allIncomes.stream()
                 .filter(dto -> dto.getCategory().contains(TOTAL_ALL))
-                .forEachOrdered(dto -> repository.deleteByCategory(dto.getCategory(), file));
+                .forEachOrdered(dto -> repositoryData.deleteByCategory(dto.getCategory(), file));
         double totalAll = allIncomes.stream()
                 .filter(dto -> dto.getCategory().contains(TOTAL_BY))
                 .collect(Collectors.toList())
@@ -143,7 +143,7 @@ public class IncomeServiceImpl implements Service<IncomeDto>, TotalService {
                     .setSumFact(totalAll)
                     .setType(EMPTY)
                     .build();
-            repository.save(mapperUtil.convertToIncome(dto), file);
+            repositoryData.save(mapperUtil.convertToIncome(dto), file);
         }
     }
 
