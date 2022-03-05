@@ -14,8 +14,8 @@ import org.springframework.context.annotation.Configuration;
 public class RepositoryConfig {
 
     @Bean
-    public Repository<Income> getIncomeRepositoryBean(ReportRepository reportRepository, ModelRepositoryUtil modelRepositoryUtil) {
-        return new IncomeRepositoryImpl(reportRepository, modelRepositoryUtil);
+    public RepositoryData<Income> getIncomeRepositoryBean(ReportRepository reportRepository, ModelRepositoryUtil modelRepositoryUtil) {
+        return new IncomeRepositoryDataImpl(reportRepository, modelRepositoryUtil);
     }
 
     @Bean
@@ -29,13 +29,13 @@ public class RepositoryConfig {
     }
 
     @Bean
-    public Repository<Cost> getCostRepositoryBean(ReportRepository reportRepository, ModelRepositoryUtil modelRepositoryUtil) {
-        return new CostRepositoryImpl(reportRepository, modelRepositoryUtil);
+    public RepositoryData<Cost> getCostRepositoryBean(ReportRepository reportRepository, ModelRepositoryUtil modelRepositoryUtil) {
+        return new CostRepositoryDataImpl(reportRepository, modelRepositoryUtil);
     }
 
     @Bean
-    public OpenFileReportRepository getOpenFileReportRepositoryBean() {
-        return new OpenFileReportRepositoryImpl();
+    public OpenFileReportRepository getOpenFileReportRepositoryBean(FileUtil fileUtil) {
+        return new OpenFileReportRepositoryImpl(fileUtil);
     }
 
     @Bean

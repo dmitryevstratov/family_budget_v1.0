@@ -54,7 +54,11 @@ public class ModalIncomeViewServiceImpl implements ModalIncomeViewService {
     @Override
     public void showDeleteRowIncomeModalView(DeleteRowModalViewDto dto) {
         ShowDeleteRowModalViewDto<ModalDeleteIncomeRowController> deleteRowModalViewDto = new ShowDeleteRowModalViewDto<>(ModalDeleteIncomeRowController.class, context, mainApp, primaryStage, dto, viewFacade);
-        viewFacade.showDeleteRowModalView(deleteRowModalViewDto);
+        try {
+            viewFacade.showDeleteRowModalView(deleteRowModalViewDto);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

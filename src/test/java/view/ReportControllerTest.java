@@ -8,7 +8,7 @@ import com.gmail.shepard1992.familybudgetv1.service.model.dto.CostDto;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.IncomeDto;
 import com.gmail.shepard1992.familybudgetv1.utils.FileUtil;
 import com.gmail.shepard1992.familybudgetv1.utils.config.UtilConfig;
-import com.gmail.shepard1992.familybudgetv1.view.controller.api.SaveTemplate;
+import com.gmail.shepard1992.familybudgetv1.view.controller.api.TemplateController;
 import com.gmail.shepard1992.familybudgetv1.view.controller.impl.ReportControllerImpl;
 import config.ServiceConfigTest;
 import org.junit.After;
@@ -51,7 +51,7 @@ public class ReportControllerTest {
 
     @Test
     public void test_when_call_saveTemplate_then_return_success() {
-        SaveTemplate controller = new ReportControllerImpl(
+        TemplateController controller = new ReportControllerImpl(
                 incomeService,
                 costService,
                 fileUtil,

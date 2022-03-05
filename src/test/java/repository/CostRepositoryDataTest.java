@@ -1,9 +1,9 @@
 package repository;
 
-import com.gmail.shepard1992.familybudgetv1.repository.config.*;
-import com.gmail.shepard1992.familybudgetv1.service.model.Income;
-import com.gmail.shepard1992.familybudgetv1.repository.api.Repository;
+import com.gmail.shepard1992.familybudgetv1.repository.config.RepositoryConfig;
 import com.gmail.shepard1992.familybudgetv1.utils.config.UtilConfig;
+import com.gmail.shepard1992.familybudgetv1.service.model.Cost;
+import com.gmail.shepard1992.familybudgetv1.repository.api.RepositoryData;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,30 +23,31 @@ import static org.junit.Assert.*;
         RepositoryConfig.class,
         UtilConfig.class
 })
-public class IncomeRepositoryTest {
+public class CostRepositoryDataTest {
 
     @Autowired
-    public Repository<Income> repository;
+    public RepositoryData<Cost> repositoryData;
 
     private final File file = new File(FILE_PATH_TEST);
 
     @After
     @Before
     public void clearFile() {
-        repository.clear(file);
+        repositoryData.clear(file);
     }
 
     @Test
     public void test_when_call_save_then_success() {
-        Income income = new Income.IncomeBuilder()
+        Cost cost = new Cost.CostBuilder()
                 .setIndex("10")
-                .setSum(200d)
+                .setSumFact(200d)
+                .setSumPlan(100d)
                 .setType("Type")
                 .setCategory("Category")
                 .build();
 
-        repository.save(income, file);
-        List<Income> all = repository.getAll(file);
+        repositoryData.save(cost, file);
+        List<Cost> all = repositoryData.getAll(file);
 
         assertEquals(1, all.size());
         assertFalse(all.isEmpty());
@@ -57,28 +58,30 @@ public class IncomeRepositoryTest {
 
     @Test
     public void test_when_call_clear_then_file_empty() {
-        repository.clear(file);
-        List<Income> all = repository.getAll(file);
+        repositoryData.clear(file);
+        List<Cost> all = repositoryData.getAll(file);
         assertTrue(all.isEmpty());
     }
 
     @Test
     public void test_when_call_deleteByCategory_then_success() {
-        repository.save(new Income.IncomeBuilder()
+        repositoryData.save(new Cost.CostBuilder()
                 .setIndex("4")
                 .setCategory("Dog")
                 .setType("Dog")
-                .setSum(100d)
+                .setSumFact(100d)
+                .setSumPlan(100d)
                 .build(), file);
-        repository.save(new Income.IncomeBuilder()
+        repositoryData.save(new Cost.CostBuilder()
                 .setIndex("10")
                 .setCategory("Cat")
                 .setType("Dog")
-                .setSum(100d)
+                .setSumFact(100d)
+                .setSumPlan(100d)
                 .build(), file);
 
-        repository.deleteByCategory("Dog", file);
-        List<Income> all = repository.getAll(file);
+        repositoryData.deleteByCategory("Dog", file);
+        List<Cost> all = repositoryData.getAll(file);
 
         assertFalse(all.isEmpty());
         assertEquals("10", all.get(0).getIndex());
@@ -87,22 +90,24 @@ public class IncomeRepositoryTest {
 
     @Test
     public void test_when_call_deleteByIndex_then_success() {
-        repository.save(new Income.IncomeBuilder()
+        repositoryData.save(new Cost.CostBuilder()
                 .setIndex("1")
                 .setCategory("Dog")
                 .setType("Dog")
-                .setSum(100d)
+                .setSumFact(100d)
+                .setSumPlan(100d)
                 .build(), file);
-        repository.save(new Income.IncomeBuilder()
+        repositoryData.save(new Cost.CostBuilder()
                 .setIndex("3")
                 .setCategory("Cat")
                 .setType("Dog")
-                .setSum(100d)
+                .setSumFact(100d)
+                .setSumPlan(100d)
                 .build(), file);
 
-        repository.deleteByIndex(3, file);
-        repository.deleteByIndex(23, file);
-        List<Income> all = repository.getAll(file);
+        repositoryData.deleteByIndex(3, file);
+        repositoryData.deleteByIndex(23, file);
+        List<Cost> all = repositoryData.getAll(file);
 
         assertFalse(all.isEmpty());
         assertEquals("0", all.get(0).getIndex());
@@ -111,40 +116,44 @@ public class IncomeRepositoryTest {
 
     @Test
     public void test_when_call_update_then_success() {
-        repository.save(new Income.IncomeBuilder()
+        repositoryData.save(new Cost.CostBuilder()
                 .setIndex("0")
                 .setCategory("Dog")
                 .setType("Dog")
-                .setSum(100d)
+                .setSumPlan(100d)
+                .setSumFact(200d)
                 .build(), file);
 
-        repository.update(new Income.IncomeBuilder()
+        repositoryData.update(new Cost.CostBuilder()
                 .setIndex("0")
                 .setCategory("")
                 .setType("")
-                .setSum(300d)
+                .setSumPlan(100d)
+                .setSumFact(300d)
                 .build(), file);
-        List<Income> all = repository.getAll(file);
+        List<Cost> all = repositoryData.getAll(file);
 
         assertFalse(all.isEmpty());
         assertEquals("300.0", all.get(0).getSumFact().toString());
     }
 
     @Test
-    public void test_when_call_getAll_then_return_list(){
-        repository.save(new Income.IncomeBuilder()
+    public void test_when_call_getAll_then_return_list() {
+        repositoryData.save(new Cost.CostBuilder()
                 .setIndex("1")
                 .setCategory("Dog")
                 .setType("Dog")
-                .setSum(100d)
+                .setSumPlan(100d)
+                .setSumFact(200d)
                 .build(), file);
-        repository.save(new Income.IncomeBuilder()
+        repositoryData.save(new Cost.CostBuilder()
                 .setIndex("2")
                 .setCategory("Cat")
                 .setType("Dog")
-                .setSum(100d)
+                .setSumPlan(100d)
+                .setSumFact(200d)
                 .build(), file);
-        List<Income> all = repository.getAll(file);
+        List<Cost> all = repositoryData.getAll(file);
 
         assertNotNull(all);
         assertEquals(2, all.size());

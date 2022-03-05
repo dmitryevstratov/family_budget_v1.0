@@ -5,11 +5,11 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class OpenFileDto extends AbstractFileDto {
+public class ChooseFileDto extends AbstractFileDto {
 
     private final FileChooser fileChooser;
 
-    public OpenFileDto(TextField text, Stage stage, FileChooser fileChooser) {
+    public ChooseFileDto(TextField text, Stage stage, FileChooser fileChooser) {
         super(text, stage);
         this.fileChooser = fileChooser;
     }

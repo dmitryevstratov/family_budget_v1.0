@@ -199,6 +199,7 @@
                         <exclude>**/controller/**</exclude>
                         <exclude>**/constants/**</exclude>
                         <exclude>**/model/**</exclude>
+                        <exclude>**/mainApp/**</exclude>
                     </excludes>
                 </configuration>
             </plugin>

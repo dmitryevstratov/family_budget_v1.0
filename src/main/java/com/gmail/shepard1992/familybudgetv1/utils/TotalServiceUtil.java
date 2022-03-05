@@ -19,7 +19,7 @@ public class TotalServiceUtil {
         List<D> all = totalDto.getService().getAll(totalDto.getFile());
         all.stream()
                 .filter(dto -> dto.getCategory().contains(TOTAL_BY))
-                .forEachOrdered(dto -> totalDto.getRepository().deleteByCategory(dto.getCategory(), totalDto.getFile()));
+                .forEachOrdered(dto -> totalDto.getRepositoryData().deleteByCategory(dto.getCategory(), totalDto.getFile()));
         Map<String, List<D>> groupByCategory = all.stream()
                 .filter(dto -> !dto.getCategory().contains(TOTAL_BY))
                 .filter(dto -> !dto.getCategory().contains(TOTAL_ALL))

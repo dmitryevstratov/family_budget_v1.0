@@ -2,7 +2,7 @@ package config;
 
 import com.gmail.shepard1992.familybudgetv1.repository.api.CreateFileReportRepository;
 import com.gmail.shepard1992.familybudgetv1.repository.api.OpenFileReportRepository;
-import com.gmail.shepard1992.familybudgetv1.repository.api.Repository;
+import com.gmail.shepard1992.familybudgetv1.repository.api.RepositoryData;
 import com.gmail.shepard1992.familybudgetv1.repository.api.TemplateRepository;
 import com.gmail.shepard1992.familybudgetv1.service.model.Cost;
 import com.gmail.shepard1992.familybudgetv1.service.model.Income;
@@ -17,8 +17,8 @@ public class RepositoryConfigTest {
 
     @Bean
     @Primary
-    public Repository<Income> getIncomeRepositoryTestBean() {
-        return mock(Repository.class);
+    public RepositoryData<Income> getIncomeRepositoryTestBean() {
+        return mock(RepositoryData.class);
     }
 
     @Bean
@@ -29,8 +29,8 @@ public class RepositoryConfigTest {
 
     @Bean
     @Primary
-    public Repository<Cost> getCostRepositoryTestBean() {
-        return mock(Repository.class);
+    public RepositoryData<Cost> getCostRepositoryTestBean() {
+        return mock(RepositoryData.class);
     }
 
     @Bean

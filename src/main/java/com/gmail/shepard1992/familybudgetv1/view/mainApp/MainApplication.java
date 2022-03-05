@@ -1,10 +1,7 @@
 package com.gmail.shepard1992.familybudgetv1.view.mainApp;
 
 import com.gmail.shepard1992.familybudgetv1.AppConfig;
-import com.gmail.shepard1992.familybudgetv1.service.api.ModalCostViewService;
-import com.gmail.shepard1992.familybudgetv1.service.api.ModalIncomeViewService;
-import com.gmail.shepard1992.familybudgetv1.service.api.ModalViewService;
-import com.gmail.shepard1992.familybudgetv1.service.api.ViewService;
+import com.gmail.shepard1992.familybudgetv1.service.api.*;
 import com.gmail.shepard1992.familybudgetv1.service.model.api.AbstractAddRowModalViewDto;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.CostDto;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.IncomeDto;
@@ -13,6 +10,7 @@ import com.gmail.shepard1992.familybudgetv1.service.model.dto.view.cost.AddRowCo
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.view.income.AddRowIncomeModalViewDto;
 import com.gmail.shepard1992.familybudgetv1.view.mainApp.api.ShowModalViewApi;
 import com.gmail.shepard1992.familybudgetv1.view.mainApp.api.ShowViewApi;
+import com.gmail.shepard1992.familybudgetv1.view.mainApp.api.TemplateApi;
 import com.gmail.shepard1992.familybudgetv1.view.mainApp.api.cost.CostActionApi;
 import com.gmail.shepard1992.familybudgetv1.view.mainApp.api.cost.ShowModalCostViewApi;
 import com.gmail.shepard1992.familybudgetv1.view.mainApp.api.income.IncomeActionApi;
@@ -26,13 +24,14 @@ import java.io.File;
 
 import static com.gmail.shepard1992.familybudgetv1.view.constants.ViewsPath.*;
 
-public class MainApplication extends Application implements ShowViewApi, IncomeActionApi, ShowModalIncomeViewApi, ShowModalViewApi, CostActionApi, ShowModalCostViewApi {
+public class MainApplication extends Application implements ShowViewApi, IncomeActionApi, ShowModalIncomeViewApi, ShowModalViewApi, CostActionApi, ShowModalCostViewApi, TemplateApi {
 
     private Stage primaryStage;
     private ViewService viewService;
     private ModalIncomeViewService modalIncomeViewService;
     private ModalCostViewService modalCostViewService;
     private ModalViewService modalViewService;
+    private ModalTemplateViewService modalTemplateViewService;
 
     public static void main(String[] args) {
         launch(args);
@@ -53,6 +52,10 @@ public class MainApplication extends Application implements ShowViewApi, IncomeA
         this.modalViewService = context.getBean(ModalViewService.class);
         this.modalViewService.setMainApp(this);
         this.modalViewService.setDialogStage(primaryStage);
+
+        this.modalTemplateViewService = context.getBean(ModalTemplateViewService.class);
+        this.modalTemplateViewService.setMainApp(this);
+        this.modalTemplateViewService.setDialogStage(primaryStage);
 
         showRootView();
     }
@@ -95,6 +98,13 @@ public class MainApplication extends Application implements ShowViewApi, IncomeA
     public void deleteCostRow(File file) {
         String index = "";
         showDeleteRowCostModalView(index, file);
+    }
+
+    //Работа с шаблонами
+
+    @Override
+    public void loadTemplate(File file) {
+        showModalLoadTemplateView(file);
     }
 
     //Показать окна
@@ -155,4 +165,8 @@ public class MainApplication extends Application implements ShowViewApi, IncomeA
         modalCostViewService.showDeleteRowCostModalView(dto);
     }
 
+    @Override
+    public void showModalLoadTemplateView(File file) {
+        modalTemplateViewService.showModalLoadTemplateView(MODAL_LOAD_TEMPLATE_VIEW, file);
+    }
 }

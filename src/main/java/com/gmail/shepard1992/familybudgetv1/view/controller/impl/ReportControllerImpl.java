@@ -2,11 +2,12 @@ package com.gmail.shepard1992.familybudgetv1.view.controller.impl;
 
 import com.gmail.shepard1992.familybudgetv1.service.api.Service;
 import com.gmail.shepard1992.familybudgetv1.service.api.TemplateService;
+import com.gmail.shepard1992.familybudgetv1.service.model.api.AbstractDto;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.CostDto;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.IncomeDto;
 import com.gmail.shepard1992.familybudgetv1.utils.FileUtil;
 import com.gmail.shepard1992.familybudgetv1.view.controller.api.ReportController;
-import com.gmail.shepard1992.familybudgetv1.view.controller.api.SaveTemplate;
+import com.gmail.shepard1992.familybudgetv1.view.controller.api.TemplateController;
 import com.gmail.shepard1992.familybudgetv1.view.controller.buttons.api.ButtonFileApi;
 import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.LoadDto;
@@ -20,7 +21,7 @@ import org.springframework.stereotype.Controller;
 import java.io.File;
 
 @Controller
-public class ReportControllerImpl implements ReportController, SaveTemplate {
+public class ReportControllerImpl implements ReportController, TemplateController {
 
     private MainApplication mainApp;
     private Stage stage;
@@ -37,6 +38,8 @@ public class ReportControllerImpl implements ReportController, SaveTemplate {
     private final ButtonFileApi addCostBtn = MainApplication::addCostRow;
     private final ButtonFileApi updateCostBtn = MainApplication::updateCostRow;
     private final ButtonFileApi deleteCostBtn = MainApplication::deleteCostRow;
+
+    private final ButtonFileApi loadTemplateBtn = MainApplication::loadTemplate;
 
     //Таблица доходов
 
@@ -91,11 +94,8 @@ public class ReportControllerImpl implements ReportController, SaveTemplate {
     public void setMainApp(MainApplication mainApp) {
         this.mainApp = mainApp;
 
-        LoadDto<IncomeDto> loadIncomeDto = new LoadDto<>(incomeService, tableIncome, file);
-        LoadDto<CostDto> loadCostDto = new LoadDto<>(costService, tableCost, file);
-
-        fileUtil.loadDtoData(loadIncomeDto);
-        fileUtil.loadDtoData(loadCostDto);
+        loadDtoData(incomeService, tableIncome);
+        loadDtoData(costService, tableCost);
     }
 
     @Override
@@ -127,43 +127,49 @@ public class ReportControllerImpl implements ReportController, SaveTemplate {
     @Override
     public void addIncomeRow() {
         addIncomeBtn.click(mainApp, file);
-        LoadDto<IncomeDto> loadDto = new LoadDto<>(incomeService, tableIncome, file);
-        fileUtil.loadDtoData(loadDto);
+        loadDtoData(incomeService, tableIncome);
     }
 
     @Override
     public void updateIncomeRow() {
         updateIncomeBtn.click(mainApp, file);
-        LoadDto<IncomeDto> loadDto = new LoadDto<>(incomeService, tableIncome, file);
-        fileUtil.loadDtoData(loadDto);
+        loadDtoData(incomeService, tableIncome);
     }
 
     @Override
     public void deleteIncomeRow() {
         deleteIncomeBtn.click(mainApp, file);
-        LoadDto<IncomeDto> loadDto = new LoadDto<>(incomeService, tableIncome, file);
-        fileUtil.loadDtoData(loadDto);
+        loadDtoData(incomeService, tableIncome);
     }
 
     @Override
     public void addCostRow() {
         addCostBtn.click(mainApp, file);
-        LoadDto<CostDto> loadDto = new LoadDto<>(costService, tableCost, file);
-        fileUtil.loadDtoData(loadDto);
+        loadDtoData(costService, tableCost);
     }
 
     @Override
     public void updateCostRow() {
         updateCostBtn.click(mainApp, file);
-        LoadDto<CostDto> loadDto = new LoadDto<>(costService, tableCost, file);
-        fileUtil.loadDtoData(loadDto);
+        loadDtoData(costService, tableCost);
     }
 
     @Override
     public void deleteCostRow() {
         deleteCostBtn.click(mainApp, file);
-        LoadDto<CostDto> loadDto = new LoadDto<>(costService, tableCost, file);
-        fileUtil.loadDtoData(loadDto);
+        loadDtoData(costService, tableCost);
+    }
+
+    @Override
+    public void saveTemplate() {
+        templateService.saveTemplate(file);
+    }
+
+    @Override
+    public void loadTemplate() {
+        loadTemplateBtn.click(mainApp, file);
+        loadDtoData(incomeService, tableIncome);
+        loadDtoData(costService, tableCost);
     }
 
     @Override
@@ -171,8 +177,9 @@ public class ReportControllerImpl implements ReportController, SaveTemplate {
         this.file = file;
     }
 
-    @Override
-    public void saveTemplate() {
-        templateService.saveTemplate(file);
+    private <D extends AbstractDto> void loadDtoData(Service<D> service, TableView<D> tableView) {
+        LoadDto<D> loadDto = new LoadDto<>(service, tableView, file);
+        fileUtil.loadDtoData(loadDto);
     }
+
 }

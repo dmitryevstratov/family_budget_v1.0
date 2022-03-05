@@ -5,7 +5,7 @@ import com.gmail.shepard1992.familybudgetv1.service.config.ServiceConfig;
 import com.gmail.shepard1992.familybudgetv1.utils.config.UtilConfig;
 import com.gmail.shepard1992.familybudgetv1.service.model.Cost;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.CostDto;
-import com.gmail.shepard1992.familybudgetv1.repository.api.Repository;
+import com.gmail.shepard1992.familybudgetv1.repository.api.RepositoryData;
 import com.gmail.shepard1992.familybudgetv1.service.api.Service;
 import com.gmail.shepard1992.familybudgetv1.service.api.TotalService;
 import config.RepositoryConfigTest;
@@ -39,7 +39,7 @@ import static org.mockito.Mockito.*;
 public class CostServiceTest {
 
     @Autowired
-    public Repository<Cost> repository;
+    public RepositoryData<Cost> repositoryData;
 
     @Autowired
     @Qualifier("getCostServiceBean")
@@ -51,7 +51,7 @@ public class CostServiceTest {
 
     @After
     public void resetRepositoryMock() {
-        reset(repository);
+        reset(repositoryData);
     }
 
     @Test
@@ -63,7 +63,7 @@ public class CostServiceTest {
                 .setType("type")
                 .build());
 
-        Mockito.when(repository.getAll(any())).thenReturn(objects);
+        Mockito.when(repositoryData.getAll(any())).thenReturn(objects);
 
         List<CostDto> all = service.getAll(any());
         assertEquals("10", all.get(0).getIndex());
@@ -79,12 +79,12 @@ public class CostServiceTest {
                 .setSumFact(100d)
                 .setSumPlan(200d)
                 .build());
-        when(repository.save(any(), any())).thenReturn(true);
-        when(repository.getAll(any())).thenReturn(costList);
+        when(repositoryData.save(any(), any())).thenReturn(true);
+        when(repositoryData.getAll(any())).thenReturn(costList);
 
         totalService.setTotalByCategory(new File(""));
 
-        verify(repository, times(1)).save(any(), any());
+        verify(repositoryData, times(1)).save(any(), any());
     }
 
     @Test
@@ -97,12 +97,12 @@ public class CostServiceTest {
                 .setSumFact(100d)
                 .setSumPlan(200d)
                 .build());
-        when(repository.save(any(), any())).thenReturn(true);
-        when(repository.getAll(any())).thenReturn(costList);
+        when(repositoryData.save(any(), any())).thenReturn(true);
+        when(repositoryData.getAll(any())).thenReturn(costList);
 
         totalService.setTotalAll(new File(""));
 
-        verify(repository, times(1)).save(any(), any());
+        verify(repositoryData, times(1)).save(any(), any());
     }
 
 }

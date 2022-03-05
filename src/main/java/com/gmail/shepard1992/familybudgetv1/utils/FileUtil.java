@@ -1,9 +1,11 @@
 package com.gmail.shepard1992.familybudgetv1.utils;
 
+import com.gmail.shepard1992.familybudgetv1.view.model.dto.ChooseFileDto;
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.CreateDirectoryDto;
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.LoadDto;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.stage.Stage;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
@@ -76,40 +78,61 @@ public class FileUtil {
     }
 
     public <D> void loadDtoData(LoadDto<D> dto) {
-        ObservableList<D> incomesDtoData = FXCollections.observableArrayList();
-        incomesDtoData.addAll(dto.getDtoService().getAll(dto.getFile()));
-        dto.getTable().setItems(incomesDtoData);
+        ObservableList<D> dtoData = FXCollections.observableArrayList();
+        dtoData.addAll(dto.getDtoService().getAll(dto.getFile()));
+        dto.getTable().setItems(dtoData);
     }
 
     public File saveTemplate(File file) {
         if (file != null) {
-            List<String> list = new ArrayList<>(Arrays.asList(file.getAbsolutePath()
-                    .split(DEL_DIR)));
-            list.add(list.size() - 2, FILE_TEMPLATES_NAME);
-            list.remove(list.size() - 2);
-            String strPath = list.toString()
-                    .replace(COMMA, File.separator)
-                    .replace(XML, "_" + FILE_TEMPLATES_NAME + XML)
-                    .replace("[", "")
-                    .replace("]", "");
-            Path path = Path.of(strPath);
-            if (!Files.exists(path)) {
-                try {
-                    File tmp = Files.createFile(path).toFile();
-
-                    try (FileWriter fileWriter = new FileWriter(tmp, true); FileReader fileReader = new FileReader(file)) {
-                        int c;
-                        while ((c = fileReader.read()) != -1) {
-                            fileWriter.write(c);
-                        }
+            String strPath = getStringPath(file);
+            Path path = Path.of(getStringPath(file));
+            try {
+                if (Files.deleteIfExists(path)) {
+                    try {
+                        return fileRW(file, Files.createFile(path).toFile());
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-                    return tmp;
-                } catch (IOException e) {
-                    e.printStackTrace();
+                } else {
+                    return fileRW(file, new File(strPath));
                 }
-            } else {
-                return new File(strPath);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+        }
+        return null;
+    }
+
+    private File fileRW(File fileR, File fileW) throws IOException {
+        try (FileWriter fileWriter = new FileWriter(fileW, true); FileReader fileReader = new FileReader(fileR)) {
+            int c;
+            while ((c = fileReader.read()) != -1) {
+                fileWriter.write(c);
+            }
+        }
+        return fileW;
+    }
+
+    private String getStringPath(File file) {
+        List<String> list = new ArrayList<>(Arrays.asList(file.getAbsolutePath()
+                .split(DEL_DIR)));
+        list.add(list.size() - 2, FILE_TEMPLATES_NAME);
+        list.remove(list.size() - 2);
+        return list.toString()
+                .replace(COMMA, File.separator)
+                .replace(XML, "_" + FILE_TEMPLATES_NAME + XML)
+                .replace("[", "")
+                .replace("]", "");
+    }
+
+    public File chooseFile(Stage primaryStage, ChooseFileDto dto) {
+        File dir = dto.getFileChooser().showOpenDialog(primaryStage);
+        if (dir != null) {
+            dto.getText().setText(dir.getAbsolutePath());
+            return dir;
+        } else {
+            dto.getText().setText(null);
         }
         return null;
     }

@@ -1,26 +1,26 @@
 package com.gmail.shepard1992.familybudgetv1.service.model.dto;
 
-import com.gmail.shepard1992.familybudgetv1.repository.api.Repository;
+import com.gmail.shepard1992.familybudgetv1.repository.api.RepositoryData;
 import javafx.stage.Stage;
 
 import java.io.File;
 
 public class ValidationIndexDto<E> {
 
-    private final Repository<E> repository;
+    private final RepositoryData<E> repositoryData;
     private final String index;
     private final File file;
     private final Stage stage;
 
-    public ValidationIndexDto(Repository<E> repository, String index, File file, Stage stage) {
-        this.repository = repository;
+    public ValidationIndexDto(RepositoryData<E> repositoryData, String index, File file, Stage stage) {
+        this.repositoryData = repositoryData;
         this.index = index;
         this.file = file;
         this.stage = stage;
     }
 
-    public Repository<E> getRepository() {
-        return repository;
+    public RepositoryData<E> getRepositoryData() {
+        return repositoryData;
     }
 
     public String getIndex() {

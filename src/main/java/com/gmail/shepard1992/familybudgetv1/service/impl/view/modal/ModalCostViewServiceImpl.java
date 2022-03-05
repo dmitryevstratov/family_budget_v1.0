@@ -54,7 +54,11 @@ public class ModalCostViewServiceImpl implements ModalCostViewService {
     @Override
     public void showDeleteRowCostModalView(DeleteRowModalViewDto dto) {
         ShowDeleteRowModalViewDto<ModalDeleteCostRowController> deleteRowModalViewDto = new ShowDeleteRowModalViewDto<>(ModalDeleteCostRowController.class, context, mainApp, primaryStage, dto, viewFacade);
-        viewFacade.showDeleteRowModalView(deleteRowModalViewDto);
+        try {
+            viewFacade.showDeleteRowModalView(deleteRowModalViewDto);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

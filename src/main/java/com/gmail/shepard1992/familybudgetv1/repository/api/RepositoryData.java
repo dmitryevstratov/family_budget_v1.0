@@ -3,7 +3,7 @@ package com.gmail.shepard1992.familybudgetv1.repository.api;
 import java.io.File;
 import java.util.List;
 
-public interface Repository<E> {
+public interface RepositoryData<E> {
 
     boolean save(E element, File file);
 

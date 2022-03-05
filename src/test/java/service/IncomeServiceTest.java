@@ -5,7 +5,7 @@ import com.gmail.shepard1992.familybudgetv1.service.config.ServiceConfig;
 import com.gmail.shepard1992.familybudgetv1.utils.config.UtilConfig;
 import com.gmail.shepard1992.familybudgetv1.service.model.Income;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.IncomeDto;
-import com.gmail.shepard1992.familybudgetv1.repository.api.Repository;
+import com.gmail.shepard1992.familybudgetv1.repository.api.RepositoryData;
 import com.gmail.shepard1992.familybudgetv1.service.api.Service;
 import com.gmail.shepard1992.familybudgetv1.service.api.TotalService;
 import config.RepositoryConfigTest;
@@ -38,7 +38,7 @@ import static org.mockito.Mockito.*;
 public class IncomeServiceTest {
 
     @Autowired
-    public Repository<Income> repository;
+    public RepositoryData<Income> repositoryData;
 
     @Autowired
     @Qualifier("getIncomeServiceBean")
@@ -50,7 +50,7 @@ public class IncomeServiceTest {
 
     @After
     public void resetRepositoryMock(){
-        reset(repository);
+        reset(repositoryData);
     }
 
     @Test
@@ -62,7 +62,7 @@ public class IncomeServiceTest {
                 .setType("type")
                 .build());
 
-        when(repository.getAll(any())).thenReturn(objects);
+        when(repositoryData.getAll(any())).thenReturn(objects);
 
         List<IncomeDto> all = service.getAll(any());
         assertEquals("10", all.get(0).getIndex());
@@ -77,12 +77,12 @@ public class IncomeServiceTest {
                 .setCategory("23e32")
                 .setSum(100d)
                 .build());
-        when(repository.save(any(), any())).thenReturn(true);
-        when(repository.getAll(any())).thenReturn(incomeList);
+        when(repositoryData.save(any(), any())).thenReturn(true);
+        when(repositoryData.getAll(any())).thenReturn(incomeList);
 
         totalService.setTotalByCategory(new File(""));
 
-        verify(repository, times(1)).save(any(), any());
+        verify(repositoryData, times(1)).save(any(), any());
     }
 
     @Test
@@ -94,12 +94,12 @@ public class IncomeServiceTest {
                 .setCategory(TOTAL_BY)
                 .setSum(100d)
                 .build());
-        when(repository.save(any(), any())).thenReturn(true);
-        when(repository.getAll(any())).thenReturn(incomeList);
+        when(repositoryData.save(any(), any())).thenReturn(true);
+        when(repositoryData.getAll(any())).thenReturn(incomeList);
 
         totalService.setTotalAll(new File(""));
 
-        verify(repository, times(1)).save(any(), any());
+        verify(repositoryData, times(1)).save(any(), any());
     }
 
 }
