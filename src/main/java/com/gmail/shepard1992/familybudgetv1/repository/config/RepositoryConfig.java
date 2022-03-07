@@ -43,4 +43,9 @@ public class RepositoryConfig {
         return new TemplateRepositoryImpl(fileUtil);
     }
 
+    @Bean
+    public OpenYearReportRepository getOpenYearReportRepositoryBean(FileUtil fileUtil){
+        return new OpenYearReportRepositoryImpl(fileUtil);
+    }
+
 }

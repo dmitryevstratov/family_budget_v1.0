@@ -11,6 +11,8 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.springframework.stereotype.Component;
 
+import java.io.File;
+
 @Component
 public class ValidationUtil {
 
@@ -98,9 +100,18 @@ public class ValidationUtil {
         }
     }
 
-    public boolean isInputLoadTemplate(LoadTemplateDto dto) {
+    public boolean isInputLoadTemplateValid(LoadTemplateDto dto) {
         if (dto.getFile() == null || dto.getTmp() == null) {
             return checkErrorMessage(new StringBuilder("Не заполнено поле Выбрать директорию"), dto.getStage());
+        } else {
+            return true;
+        }
+    }
+
+    public boolean isInputReportYearValid(File[] files, Stage stage) {
+        //ToDo test
+        if (files == null) {
+            return checkErrorMessage(new StringBuilder("Не заполнено поле Выбрать год"), stage);
         } else {
             return true;
         }

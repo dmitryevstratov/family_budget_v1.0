@@ -1,6 +1,7 @@
 package com.gmail.shepard1992.familybudgetv1.utils;
 
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.ChooseFileDto;
+import com.gmail.shepard1992.familybudgetv1.view.model.dto.ChooseFilesDto;
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.CreateDirectoryDto;
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.LoadDto;
 import javafx.collections.FXCollections;
@@ -137,4 +138,25 @@ public class FileUtil {
         return null;
     }
 
+    public File chooseDirectory(Stage primaryStage, CreateDirectoryDto dto) {
+        File dir = dto.getDirectoryChooser().showDialog(primaryStage);
+        if (dir != null) {
+            dto.getText().setText(dir.getAbsolutePath());
+            return dir;
+        } else {
+            dto.getText().setText(null);
+        }
+        return null;
+    }
+
+    public File[] chooseFiles(Stage primaryStage, ChooseFilesDto dto) {
+        File dir = dto.getDirectoryChooser().showDialog(primaryStage);
+        if (dir != null) {
+            dto.getText().setText(dir.getAbsolutePath());
+            return dir.listFiles();
+        } else {
+            dto.getText().setText(null);
+        }
+        return null;
+    }
 }

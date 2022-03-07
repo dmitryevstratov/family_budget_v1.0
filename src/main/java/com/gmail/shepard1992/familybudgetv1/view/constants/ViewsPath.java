@@ -24,4 +24,8 @@ public interface ViewsPath {
 
     String MODAL_LOAD_TEMPLATE_VIEW = "/views/modal/modalLoadTemplateView.fxml";
 
+    String MODAL_OPEN_YEAR_REPORT_VIEW = "/views/modal/modalOpenYearReportView.fxml";
+
+    String YEAR_REPORT_VIEW = "/views/yearReportView.fxml";
+
 }

@@ -11,4 +11,6 @@ public interface ViewService extends Controller {
 
     void showRootView(String view);
 
+    void showYearReport(String view, File[] files);
+
 }

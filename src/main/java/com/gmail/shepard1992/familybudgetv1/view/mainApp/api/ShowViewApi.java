@@ -8,4 +8,6 @@ public interface ShowViewApi {
 
     void showReportView(File file);
 
+    void showYearReportView(File[] files);
+
 }

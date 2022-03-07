@@ -1,5 +1,6 @@
 package com.gmail.shepard1992.familybudgetv1.service.impl.view;
 
+import com.gmail.shepard1992.familybudgetv1.view.controller.api.YearReportController;
 import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
 import com.gmail.shepard1992.familybudgetv1.view.controller.api.MainController;
 import com.gmail.shepard1992.familybudgetv1.view.controller.api.ReportController;
@@ -17,6 +18,8 @@ import java.io.IOException;
 
 @Service
 public class ViewServiceImpl implements ViewService {
+
+    //ToDo рефакторинг
 
     private Stage primaryStage;
     private final ApplicationContext context;
@@ -36,6 +39,19 @@ public class ViewServiceImpl implements ViewService {
             FXMLLoader loader = viewFacade.showView(dto);
             MainController mainController = loader.getController();
             mainController.setMainApp(mainApp);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showYearReport(String view, File[] files) {
+        try {
+            ShowViewDto<YearReportController> dto = new ShowViewDto<>(view, YearReportController.class, context, primaryStage);
+            FXMLLoader loader = viewFacade.showView(dto);
+            YearReportController reportController = loader.getController();
+            reportController.setFiles(files);
+            reportController.setMainApp(mainApp);
         } catch (IOException e) {
             e.printStackTrace();
         }
