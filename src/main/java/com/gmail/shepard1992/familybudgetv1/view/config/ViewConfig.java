@@ -31,6 +31,7 @@ import com.gmail.shepard1992.familybudgetv1.view.controller.impl.modal.cost.Moda
 import com.gmail.shepard1992.familybudgetv1.view.controller.impl.modal.income.ModalAddRowIncomeControllerImpl;
 import com.gmail.shepard1992.familybudgetv1.view.controller.impl.modal.income.ModalDeleteRowIncomeControllerImpl;
 import com.gmail.shepard1992.familybudgetv1.view.controller.impl.modal.income.ModalUpdateRowIncomeControllerImpl;
+import com.gmail.shepard1992.familybudgetv1.view.model.dto.MonthReportDto;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -98,8 +99,8 @@ public class ViewConfig {
     }
 
     @Bean
-    public YearReportController getYearReportControllerBean() {
-        return new YearReportControllerImpl();
+    public YearReportController getYearReportControllerBean(MonthReportService service) {
+        return new YearReportControllerImpl(service);
     }
 
 }

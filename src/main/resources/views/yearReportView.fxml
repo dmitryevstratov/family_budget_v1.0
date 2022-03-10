@@ -33,6 +33,7 @@
                         <TableColumn fx:id="cost" maxWidth="264.00006103515625" prefWidth="122.39996337890625"
                                      text="Расход, руб"/>
                         <TableColumn fx:id="total" prefWidth="100.0" text="Итого, руб"/>
+                        <TableColumn fx:id="totalPercent" prefWidth="75.0" text="Итого, %"/>
                         <TableColumn fx:id="majorPurchases" prefWidth="294.39996337890625" text="Крупные покупки"/>
                     </columns>
                 </TableView>

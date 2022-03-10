@@ -35,6 +35,10 @@ public class Report {
         return costList;
     }
 
+    public Integer getMonth() {
+        return month;
+    }
+
     public void setReportIncomeList(IncomeList incomes) {
         this.incomeList = incomes;
     }

@@ -12,10 +12,7 @@ import com.gmail.shepard1992.familybudgetv1.service.model.Cost;
 import com.gmail.shepard1992.familybudgetv1.service.model.Income;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.CostDto;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.IncomeDto;
-import com.gmail.shepard1992.familybudgetv1.utils.IndexUtil;
-import com.gmail.shepard1992.familybudgetv1.utils.MapperUtil;
-import com.gmail.shepard1992.familybudgetv1.utils.TotalServiceUtil;
-import com.gmail.shepard1992.familybudgetv1.utils.ValidationUtil;
+import com.gmail.shepard1992.familybudgetv1.utils.*;
 import com.gmail.shepard1992.familybudgetv1.utils.facade.ViewFacade;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -77,6 +74,11 @@ public class ServiceConfig {
     @Bean
     public OpenYearReportService getOpenYearReportServiceBean(ValidationUtil validationUtil, OpenYearReportRepository reportRepository) {
         return new OpenYearReportServiceImpl(validationUtil, reportRepository);
+    }
+
+    @Bean
+    MonthReportService getMonthReportServiceBean(ReportRepository repository, FileUtil fileUtil) {
+        return new MonthReportServiceImpl(repository, fileUtil);
     }
 
 }

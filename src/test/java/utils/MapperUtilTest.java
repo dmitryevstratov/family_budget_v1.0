@@ -99,4 +99,9 @@ public class MapperUtilTest {
         assertEquals(costDto.getSumPlan(), cost.getSumPlan());
     }
 
+    @Test
+    public void test_mapper_getNameMonthByNumber(){
+        assertEquals("Фер", mapperUtil.getNameMonthByNumber(2));
+    }
+
 }

@@ -1,9 +1,6 @@
 package config;
 
-import com.gmail.shepard1992.familybudgetv1.repository.api.CreateFileReportRepository;
-import com.gmail.shepard1992.familybudgetv1.repository.api.OpenFileReportRepository;
-import com.gmail.shepard1992.familybudgetv1.repository.api.RepositoryData;
-import com.gmail.shepard1992.familybudgetv1.repository.api.TemplateRepository;
+import com.gmail.shepard1992.familybudgetv1.repository.api.*;
 import com.gmail.shepard1992.familybudgetv1.service.model.Cost;
 import com.gmail.shepard1992.familybudgetv1.service.model.Income;
 import org.springframework.context.annotation.Bean;
@@ -23,7 +20,7 @@ public class RepositoryConfigTest {
 
     @Bean
     @Primary
-    public CreateFileReportRepository getCreateReportRepositoryBean() {
+    public CreateFileReportRepository getCreateReportRepositoryTestBean() {
         return mock(CreateFileReportRepository.class);
     }
 
@@ -41,8 +38,20 @@ public class RepositoryConfigTest {
 
     @Bean
     @Primary
-    public TemplateRepository getTemplateRepositoryBean() {
+    public TemplateRepository getTemplateRepositoryTestBean() {
         return mock(TemplateRepository.class);
+    }
+
+    @Bean
+    @Primary
+    public OpenYearReportRepository getOpenYearReportRepositoryTestBean(){
+        return mock(OpenYearReportRepository.class);
+    }
+
+    @Bean
+    @Primary
+    public ReportRepository getReportRepositoryTestBean(){
+        return mock(ReportRepository.class);
     }
 
 }

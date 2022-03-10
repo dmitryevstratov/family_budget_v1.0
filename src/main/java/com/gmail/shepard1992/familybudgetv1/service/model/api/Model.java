@@ -6,6 +6,8 @@ public interface Model {
 
     String getCategory();
 
+    Double getSumFact();
+
     void setModelIndex(String index);
 
 }

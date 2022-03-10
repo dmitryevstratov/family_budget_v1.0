@@ -1,12 +1,12 @@
 package com.gmail.shepard1992.familybudgetv1.utils;
 
-import com.gmail.shepard1992.familybudgetv1.view.model.dto.ChooseFileDto;
-import com.gmail.shepard1992.familybudgetv1.view.model.dto.ChooseFilesDto;
-import com.gmail.shepard1992.familybudgetv1.view.model.dto.CreateDirectoryDto;
-import com.gmail.shepard1992.familybudgetv1.view.model.dto.LoadDto;
+import com.gmail.shepard1992.familybudgetv1.service.model.Report;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.LoadMonthReportDto;
+import com.gmail.shepard1992.familybudgetv1.view.model.dto.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
@@ -21,6 +21,15 @@ import static com.gmail.shepard1992.familybudgetv1.utils.FileConstants.*;
 
 @Component
 public class FileUtil {
+
+    private final ValueUtil valueUtil;
+    private final MapperUtil mapperUtil;
+
+    @Autowired
+    public FileUtil(ValueUtil valueUtil, MapperUtil mapperUtil) {
+        this.valueUtil = valueUtil;
+        this.mapperUtil = mapperUtil;
+    }
 
     public File getFile(CreateDirectoryDto dto, File dir) {
         if (dir != null) {
@@ -159,4 +168,27 @@ public class FileUtil {
         }
         return null;
     }
+
+    public void loadDtoData(LoadMonthReportDto loadDto) {
+        ObservableList<MonthReportDto> dtoData = FXCollections.observableArrayList();
+        for (File file : loadDto.getFiles()) {
+            Report report = loadDto.getRepository().get(file);
+            Double incomeSum = valueUtil.getSumByModelList(report.getIncomeList().getIncome());
+            Double costSum = valueUtil.getSumByModelList(report.getCostList().getCost());
+            double totalSum = incomeSum - costSum;
+            String totalPercent = valueUtil.getTotalPercent(totalSum, incomeSum);
+            MonthReportDto dto = new MonthReportDto.MonthReportDtoBuilder()
+                    .setMonth(mapperUtil.getNameMonthByNumber(report.getMonth()))
+                    .setIncome(incomeSum)
+                    .setCost(costSum)
+                    .setTotal(totalSum)
+                    .setTotalPercent(totalPercent)
+                    .setMajorPurchases("")
+                    .build();
+            dtoData.add(dto);
+        }
+        dtoData.add(valueUtil.getTotal(dtoData));
+        loadDto.getTableView().setItems(dtoData);
+    }
+
 }
