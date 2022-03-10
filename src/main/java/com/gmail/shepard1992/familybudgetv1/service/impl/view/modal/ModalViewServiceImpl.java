@@ -5,6 +5,7 @@ import com.gmail.shepard1992.familybudgetv1.service.model.dto.show.ShowReportMod
 import com.gmail.shepard1992.familybudgetv1.utils.facade.ViewFacade;
 import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.ModalCreateReportController;
 import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.ModalOpenReportController;
+import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.ModalOpenYearReportController;
 import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,12 @@ public class ModalViewServiceImpl implements ModalViewService {
     @Override
     public void showOpenReportModalView(String view) {
         ShowReportModalViewDto<ModalOpenReportController> dto = new ShowReportModalViewDto<>(ModalOpenReportController.class, context, mainApp, primaryStage, view);
+        viewFacade.showReportModalView(dto);
+    }
+
+    @Override
+    public void showModalOpenYearReportView(String view) {
+        ShowReportModalViewDto<ModalOpenYearReportController> dto = new ShowReportModalViewDto<>(ModalOpenYearReportController.class, context, mainApp, primaryStage, view);
         viewFacade.showReportModalView(dto);
     }
 

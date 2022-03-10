@@ -4,10 +4,13 @@ import com.gmail.shepard1992.familybudgetv1.service.model.Cost;
 import com.gmail.shepard1992.familybudgetv1.service.model.Income;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.CostDto;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.IncomeDto;
+import com.gmail.shepard1992.familybudgetv1.utils.constants.Month;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -54,6 +57,14 @@ public class MapperUtil {
 
     public ObservableList<Integer> getObservableListRange(Integer start, Integer end) {
         return FXCollections.observableArrayList(IntStream.rangeClosed(start, end).boxed().collect(Collectors.toList()));
+    }
+
+    public String getNameMonthByNumber(Integer integer) {
+        return Objects.requireNonNull(Arrays.stream(Month.values())
+                .filter(month -> month.getNum().equals(integer))
+                .findFirst()
+                .orElse(null))
+                .getName();
     }
 
 }

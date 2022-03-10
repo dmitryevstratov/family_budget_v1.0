@@ -13,8 +13,8 @@ import org.springframework.context.annotation.Scope;
 public class UtilConfig {
 
     @Bean
-    public FileUtil getFileUtilBean() {
-        return new FileUtil();
+    public FileUtil getFileUtilBean(ValueUtil valueUtil, MapperUtil mapperUtil) {
+        return new FileUtil(valueUtil, mapperUtil);
     }
 
     @Bean
@@ -57,6 +57,11 @@ public class UtilConfig {
     @Bean
     public TotalServiceUtil getTotalServiceUtilBean() {
         return new TotalServiceUtil();
+    }
+
+    @Bean
+    public ValueUtil getValueUtilBean() {
+        return new ValueUtil();
     }
 
 }

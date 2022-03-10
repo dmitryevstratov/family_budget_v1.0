@@ -120,6 +120,11 @@ public class MainApplication extends Application implements ShowViewApi, IncomeA
     }
 
     @Override
+    public void showYearReportView(File[] files) {
+        viewService.showYearReport(YEAR_REPORT_VIEW, files);
+    }
+
+    @Override
     public void showAddRowIncomeModalView(IncomeDto incomeDto, File file) {
         AbstractAddRowModalViewDto dto = new AddRowIncomeModalViewDto(MODAL_ADD_ROW_INCOME_VIEW, file, incomeDto);
         modalIncomeViewService.showAddRowIncomeModalView(dto);
@@ -168,5 +173,10 @@ public class MainApplication extends Application implements ShowViewApi, IncomeA
     @Override
     public void showModalLoadTemplateView(File file) {
         modalTemplateViewService.showModalLoadTemplateView(MODAL_LOAD_TEMPLATE_VIEW, file);
+    }
+
+    @Override
+    public void showModalOpenYearReportView() {
+        modalViewService.showModalOpenYearReportView(MODAL_OPEN_YEAR_REPORT_VIEW);
     }
 }

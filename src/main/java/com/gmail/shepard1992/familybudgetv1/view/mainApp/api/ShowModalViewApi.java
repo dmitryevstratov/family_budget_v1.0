@@ -10,4 +10,6 @@ public interface ShowModalViewApi {
 
     void showModalLoadTemplateView(File file);
 
+    void showModalOpenYearReportView();
+
 }

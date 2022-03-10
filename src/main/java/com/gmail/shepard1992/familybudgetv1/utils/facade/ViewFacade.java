@@ -49,6 +49,7 @@ public class ViewFacade {
     }
 
     public <C extends ModalController> void showModalView(ShowModalLoadTemplateDto<C> dto) throws IOException {
+        //ToDo рефаткоринг
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainApplication.class.getResource(dto.getView()));
         loader.setControllerFactory(cls -> dto.getContext().getBean(dto.getClassController()));

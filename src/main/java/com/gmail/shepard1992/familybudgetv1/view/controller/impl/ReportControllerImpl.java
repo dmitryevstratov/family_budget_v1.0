@@ -25,10 +25,10 @@ public class ReportControllerImpl implements ReportController, TemplateControlle
 
     private MainApplication mainApp;
     private Stage stage;
-    private Service<IncomeDto> incomeService;
-    private Service<CostDto> costService;
-    private TemplateService templateService;
-    private FileUtil fileUtil;
+    private final Service<IncomeDto> incomeService;
+    private final Service<CostDto> costService;
+    private final TemplateService templateService;
+    private final FileUtil fileUtil;
     private File file;
 
     private final ButtonFileApi addIncomeBtn = MainApplication::addIncomeRow;
@@ -77,10 +77,6 @@ public class ReportControllerImpl implements ReportController, TemplateControlle
 
     @FXML
     private TableColumn<CostDto, String> sumFactCost;
-
-    public ReportControllerImpl() {
-
-    }
 
     @Autowired
     public ReportControllerImpl(Service<IncomeDto> incomeService, Service<CostDto> costService, FileUtil fileUtil, TemplateService templateService) {

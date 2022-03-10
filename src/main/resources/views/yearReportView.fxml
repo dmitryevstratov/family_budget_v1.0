@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
+            prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.gmail.shepard1992.familybudgetv1.view.controller.impl.YearReportControllerImpl">
+    <top>
+        <VBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+            <MenuBar>
+                <Menu mnemonicParsing="false" text="Файл">
+                </Menu>
+                <Menu mnemonicParsing="false" text="Edit">
+                    <MenuItem mnemonicParsing="false" text="Delete"/>
+                </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                    <MenuItem mnemonicParsing="false" text="About"/>
+                </Menu>
+            </MenuBar>
+            <Label alignment="TOP_CENTER" contentDisplay="CENTER" text="Отчет за год"/>
+        </VBox>
+    </top>
+    <bottom>
+        <Label text="Разработанно by Евстратов" BorderPane.alignment="CENTER"/>
+    </bottom>
+    <center>
+        <SplitPane prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                <TableView fx:id="table" layoutY="14.0" prefHeight="190.0" prefWidth="800.0">
+                    <columns>
+                        <TableColumn fx:id="month" prefWidth="124.80001449584961" text="Месяц"/>
+                        <TableColumn fx:id="income" minWidth="0.0" prefWidth="127.20002746582031" text="Доход, руб"/>
+                        <TableColumn fx:id="cost" maxWidth="264.00006103515625" prefWidth="122.39996337890625"
+                                     text="Расход, руб"/>
+                        <TableColumn fx:id="total" prefWidth="100.0" text="Итого, руб"/>
+                        <TableColumn fx:id="totalPercent" prefWidth="75.0" text="Итого, %"/>
+                        <TableColumn fx:id="majorPurchases" prefWidth="294.39996337890625" text="Крупные покупки"/>
+                    </columns>
+                </TableView>
+            </AnchorPane>
+        </SplitPane>
+    </center>
+</BorderPane>

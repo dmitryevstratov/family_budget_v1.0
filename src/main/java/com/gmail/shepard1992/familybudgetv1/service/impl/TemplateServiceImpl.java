@@ -37,7 +37,7 @@ public class TemplateServiceImpl implements TemplateService {
 
     @Override
     public boolean loadTemplate(LoadTemplateDto dto) {
-        if (validationUtil.isInputLoadTemplate(dto)) {
+        if (validationUtil.isInputLoadTemplateValid(dto)) {
             incomeRepositoryData.clear(dto.getFile());
             costRepositoryData.clear(dto.getFile());
 

@@ -15,6 +15,7 @@ public class MainControllerImpl implements MainController {
 
     private final ButtonApi btnCreate = MainApplication::showModalCreateReportView;
     private final ButtonApi btnOpen = MainApplication::showModalOpenReportView;
+    private final ButtonApi btnOpenYearReport = MainApplication::showModalOpenYearReportView;
 
     public MainControllerImpl() {
 
@@ -30,6 +31,11 @@ public class MainControllerImpl implements MainController {
     @Override
     public void showModalOpenReport() {
         btnOpen.click(mainApp);
+    }
+
+    @Override
+    public void showModalOpenYearReport() {
+        btnOpenYearReport.click(mainApp);
     }
 
     @Override
