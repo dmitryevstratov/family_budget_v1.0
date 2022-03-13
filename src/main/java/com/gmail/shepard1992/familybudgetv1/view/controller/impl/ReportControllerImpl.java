@@ -8,6 +8,8 @@ import com.gmail.shepard1992.familybudgetv1.service.model.dto.IncomeDto;
 import com.gmail.shepard1992.familybudgetv1.utils.FileUtil;
 import com.gmail.shepard1992.familybudgetv1.view.controller.api.ReportController;
 import com.gmail.shepard1992.familybudgetv1.view.controller.api.TemplateController;
+import com.gmail.shepard1992.familybudgetv1.view.controller.buttons.api.ButtonApi;
+import com.gmail.shepard1992.familybudgetv1.view.controller.buttons.api.ButtonBackToMainViewApi;
 import com.gmail.shepard1992.familybudgetv1.view.controller.buttons.api.ButtonFileApi;
 import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.LoadDto;
@@ -21,7 +23,7 @@ import org.springframework.stereotype.Controller;
 import java.io.File;
 
 @Controller
-public class ReportControllerImpl implements ReportController, TemplateController {
+public class ReportControllerImpl implements ReportController, TemplateController, ButtonBackToMainViewApi {
 
     private MainApplication mainApp;
     private Stage stage;
@@ -40,6 +42,7 @@ public class ReportControllerImpl implements ReportController, TemplateControlle
     private final ButtonFileApi deleteCostBtn = MainApplication::deleteCostRow;
 
     private final ButtonFileApi loadTemplateBtn = MainApplication::loadTemplate;
+    private final ButtonApi backToMainView = MainApplication::showRootView;
 
     //Таблица доходов
 
@@ -166,6 +169,12 @@ public class ReportControllerImpl implements ReportController, TemplateControlle
         loadTemplateBtn.click(mainApp, file);
         loadDtoData(incomeService, tableIncome);
         loadDtoData(costService, tableCost);
+    }
+
+    @FXML
+    @Override
+    public void backToMainView() {
+        backToMainView.click(mainApp);
     }
 
     @Override

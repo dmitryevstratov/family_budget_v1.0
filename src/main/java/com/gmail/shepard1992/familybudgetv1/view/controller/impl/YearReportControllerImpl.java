@@ -2,6 +2,8 @@ package com.gmail.shepard1992.familybudgetv1.view.controller.impl;
 
 import com.gmail.shepard1992.familybudgetv1.service.api.MonthReportService;
 import com.gmail.shepard1992.familybudgetv1.view.controller.api.YearReportController;
+import com.gmail.shepard1992.familybudgetv1.view.controller.buttons.api.ButtonApi;
+import com.gmail.shepard1992.familybudgetv1.view.controller.buttons.api.ButtonBackToMainViewApi;
 import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.MonthReportDto;
 import javafx.fxml.FXML;
@@ -14,12 +16,14 @@ import org.springframework.stereotype.Controller;
 import java.io.File;
 
 @Controller
-public class YearReportControllerImpl implements YearReportController {
+public class YearReportControllerImpl implements YearReportController, ButtonBackToMainViewApi {
 
     private File[] files;
     private MainApplication mainApp;
     private Stage stage;
     private final MonthReportService service;
+
+    private final ButtonApi backToMainView = MainApplication::showRootView;
 
     //Таблица
 
@@ -47,6 +51,11 @@ public class YearReportControllerImpl implements YearReportController {
     @Autowired
     public YearReportControllerImpl(MonthReportService service) {
         this.service = service;
+    }
+
+    @Override
+    public void backToMainView() {
+        backToMainView.click(mainApp);
     }
 
     @FXML

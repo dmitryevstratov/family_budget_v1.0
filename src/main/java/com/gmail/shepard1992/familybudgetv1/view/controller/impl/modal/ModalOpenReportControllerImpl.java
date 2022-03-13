@@ -2,6 +2,8 @@ package com.gmail.shepard1992.familybudgetv1.view.controller.impl.modal;
 
 import com.gmail.shepard1992.familybudgetv1.service.api.OpenReportService;
 import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.ModalOpenReportController;
+import com.gmail.shepard1992.familybudgetv1.view.controller.buttons.api.ButtonApi;
+import com.gmail.shepard1992.familybudgetv1.view.controller.buttons.api.ButtonBackToMainViewApi;
 import com.gmail.shepard1992.familybudgetv1.view.controller.buttons.api.ButtonFileApi;
 import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.ChooseFileDto;
@@ -15,7 +17,7 @@ import org.springframework.stereotype.Controller;
 import java.io.File;
 
 @Controller
-public class ModalOpenReportControllerImpl implements ModalOpenReportController {
+public class ModalOpenReportControllerImpl implements ModalOpenReportController, ButtonBackToMainViewApi {
 
     private MainApplication mainApp;
     private OpenReportService service;
@@ -25,6 +27,7 @@ public class ModalOpenReportControllerImpl implements ModalOpenReportController 
     private ChooseFileDto dto;
 
     private final ButtonFileApi openReport = MainApplication::showReportView;
+    private final ButtonApi backToMainView = MainApplication::showRootView;
 
     @FXML
     private TextField chooseFileField;
@@ -52,6 +55,12 @@ public class ModalOpenReportControllerImpl implements ModalOpenReportController 
         if (report != null) {
             openReport.click(mainApp, report);
         }
+    }
+
+    @FXML
+    @Override
+    public void backToMainView() {
+        backToMainView.click(mainApp);
     }
 
     @Override

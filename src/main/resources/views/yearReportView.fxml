@@ -9,12 +9,10 @@
         <VBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <MenuBar>
                 <Menu mnemonicParsing="false" text="Файл">
+                    <MenuItem mnemonicParsing="false" onAction="#backToMainView" text="Главное меню" />
                 </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                    <MenuItem mnemonicParsing="false" text="Delete"/>
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                    <MenuItem mnemonicParsing="false" text="About"/>
+                <Menu mnemonicParsing="false" text="Помощь">
+                    <MenuItem mnemonicParsing="false" text="Годовой отчет"/>
                 </Menu>
             </MenuBar>
             <Label alignment="TOP_CENTER" contentDisplay="CENTER" text="Отчет за год"/>

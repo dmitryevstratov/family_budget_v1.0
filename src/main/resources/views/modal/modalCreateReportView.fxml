@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
@@ -37,7 +38,10 @@
             </VBox>
         </GridPane>
     </center>
-    <bottom>
-        <Button mnemonicParsing="false" onAction="#createReport" text="Создать" BorderPane.alignment="CENTER" />
-    </bottom>
+   <bottom>
+       <HBox alignment="CENTER" prefHeight="2.0" prefWidth="300.0" BorderPane.alignment="CENTER">
+           <Button mnemonicParsing="false" onAction="#backToMainView" text="Назад" />
+           <Button mnemonicParsing="false" onAction="#createReport" text="Создать" />
+       </HBox>
+   </bottom>
 </BorderPane>

@@ -3,6 +3,8 @@ package com.gmail.shepard1992.familybudgetv1.view.controller.impl.modal;
 import com.gmail.shepard1992.familybudgetv1.service.api.CreateReportService;
 import com.gmail.shepard1992.familybudgetv1.utils.MapperUtil;
 import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.ModalCreateReportController;
+import com.gmail.shepard1992.familybudgetv1.view.controller.buttons.api.ButtonApi;
+import com.gmail.shepard1992.familybudgetv1.view.controller.buttons.api.ButtonBackToMainViewApi;
 import com.gmail.shepard1992.familybudgetv1.view.controller.buttons.api.ButtonFileApi;
 import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.CreateDirectoryDto;
@@ -19,7 +21,7 @@ import java.io.File;
 import static com.gmail.shepard1992.familybudgetv1.view.constants.ViewConstants.*;
 
 @Controller
-public class ModalCreateReportControllerImpl implements ModalCreateReportController {
+public class ModalCreateReportControllerImpl implements ModalCreateReportController, ButtonBackToMainViewApi {
 
     private MainApplication mainApp;
     private CreateReportService service;
@@ -30,6 +32,7 @@ public class ModalCreateReportControllerImpl implements ModalCreateReportControl
     private CreateDirectoryDto dto;
 
     private final ButtonFileApi createReport = MainApplication::showReportView;
+    private final ButtonApi backToMainView = MainApplication::showRootView;
 
     @FXML
     private TextField chooseDirectoryField;
@@ -64,6 +67,12 @@ public class ModalCreateReportControllerImpl implements ModalCreateReportControl
         if (report != null) {
             createReport.click(mainApp, report);
         }
+    }
+
+    @FXML
+    @Override
+    public void backToMainView() {
+        backToMainView.click(mainApp);
     }
 
     @Override

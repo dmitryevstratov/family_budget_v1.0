@@ -1,40 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.VBox?>
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gmail.shepard1992.familybudgetv1.view.controller.impl.MainControllerImpl">
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
+            prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.gmail.shepard1992.familybudgetv1.view.controller.impl.MainControllerImpl">
     <left>
         <VBox BorderPane.alignment="CENTER">
-            <Button fx:id="createReportBtn" mnemonicParsing="false" onAction="#showModalCreateReport" text="Создать отчет" />
-            <Button fx:id="openReportBtn" mnemonicParsing="false" onAction="#showModalOpenReport" text="Открыть отчет" />
-            <Button fx:id="yearReportBtn" mnemonicParsing="false" onAction="#showModalOpenYearReport" text="Годовой отчет" />
-            <Button mnemonicParsing="false" text="Button" />
-            <Button mnemonicParsing="false" text="Button" />
+            <Button fx:id="createReportBtn" mnemonicParsing="false" onAction="#showModalCreateReport"
+                    text="Создать отчет"/>
+            <Button fx:id="openReportBtn" mnemonicParsing="false" onAction="#showModalOpenReport" text="Открыть отчет"/>
+            <Button fx:id="yearReportBtn" mnemonicParsing="false" onAction="#showModalOpenYearReport"
+                    text="Годовой отчет"/>
         </VBox>
     </left>
     <bottom>
-        <Label text="Разработанно by Евстратов" BorderPane.alignment="CENTER" />
+        <Label text="Разработанно by Евстратов" BorderPane.alignment="CENTER"/>
     </bottom>
     <top>
         <VBox alignment="TOP_CENTER" prefHeight="41.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <MenuBar>
-                <Menu mnemonicParsing="false" text="File">
-                    <MenuItem mnemonicParsing="false" text="Close" />
+                <Menu mnemonicParsing="false" text="Файл">
+                    <MenuItem mnemonicParsing="false" onAction="#showModalCreateReport" text="Создать отчет"/>
+                    <MenuItem mnemonicParsing="false" onAction="#showModalOpenReport" text="Открыть отчет"/>
+                    <MenuItem mnemonicParsing="false" onAction="#showModalOpenYearReport" text="Годовой отчет"/>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
-                    <MenuItem mnemonicParsing="false" text="Delete" />
-                </Menu>
-                <Menu mnemonicParsing="false" text="Help">
-                    <MenuItem mnemonicParsing="false" text="About" />
+                <Menu mnemonicParsing="false" text="Помощь">
+                    <MenuItem mnemonicParsing="false" text="Описание приложения"/>
                 </Menu>
             </MenuBar>
-            <Label text="Семейный бюджет v1.0" />
+            <Label text="Семейный бюджет v1.0"/>
         </VBox>
     </top>
 </BorderPane>
