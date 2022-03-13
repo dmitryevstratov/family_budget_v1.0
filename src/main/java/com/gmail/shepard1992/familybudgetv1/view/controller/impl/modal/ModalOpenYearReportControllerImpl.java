@@ -2,6 +2,8 @@ package com.gmail.shepard1992.familybudgetv1.view.controller.impl.modal;
 
 import com.gmail.shepard1992.familybudgetv1.service.api.OpenYearReportService;
 import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.ModalOpenYearReportController;
+import com.gmail.shepard1992.familybudgetv1.view.controller.buttons.api.ButtonApi;
+import com.gmail.shepard1992.familybudgetv1.view.controller.buttons.api.ButtonBackToMainViewApi;
 import com.gmail.shepard1992.familybudgetv1.view.controller.buttons.api.ButtonFilesApi;
 import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.ChooseFilesDto;
@@ -15,7 +17,7 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 
 @Service
-public class ModalOpenYearReportControllerImpl implements ModalOpenYearReportController {
+public class ModalOpenYearReportControllerImpl implements ModalOpenYearReportController, ButtonBackToMainViewApi {
 
     private MainApplication mainApp;
     private Stage dialogStage;
@@ -25,6 +27,7 @@ public class ModalOpenYearReportControllerImpl implements ModalOpenYearReportCon
     private ChooseFilesDto dto;
 
     private final ButtonFilesApi openYearReport = MainApplication::showYearReportView;
+    private final ButtonApi backToMainView = MainApplication::showRootView;
 
     @FXML
     private TextField chooseFileField;
@@ -49,6 +52,12 @@ public class ModalOpenYearReportControllerImpl implements ModalOpenYearReportCon
         }
     }
 
+    @FXML
+    @Override
+    public void backToMainView() {
+        backToMainView.click(mainApp);
+    }
+
     @Override
     public void setMainApp(MainApplication mainApp) {
         this.mainApp = mainApp;
@@ -58,4 +67,5 @@ public class ModalOpenYearReportControllerImpl implements ModalOpenYearReportCon
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
+
 }
