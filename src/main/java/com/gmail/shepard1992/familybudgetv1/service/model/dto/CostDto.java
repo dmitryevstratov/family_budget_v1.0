@@ -90,5 +90,9 @@ public class CostDto extends AbstractDto {
         }
     }
 
-
+    @Override
+    public String toString() {
+        return super.toString() + ", sumPla - " + sumPlan +
+                ", sumFact=" + sumFact;
+    }
 }

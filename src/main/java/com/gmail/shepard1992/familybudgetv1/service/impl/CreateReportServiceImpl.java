@@ -5,10 +5,13 @@ import com.gmail.shepard1992.familybudgetv1.service.api.CreateReportService;
 import com.gmail.shepard1992.familybudgetv1.utils.ValidationUtil;
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.CreateDirectoryDto;
 import javafx.stage.Stage;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+
+import static com.gmail.shepard1992.familybudgetv1.service.constants.Logs.SERVICE_LOGS;
 
 @Service
 public class CreateReportServiceImpl implements CreateReportService {
@@ -16,6 +19,7 @@ public class CreateReportServiceImpl implements CreateReportService {
     private final CreateFileReportRepository repository;
     private Stage primaryStage;
     private final ValidationUtil validationUtil;
+    private static final Logger log = Logger.getLogger(CreateReportServiceImpl.class.getName());
 
     @Autowired
     public CreateReportServiceImpl(CreateFileReportRepository repository, ValidationUtil validationUtil) {
@@ -31,8 +35,10 @@ public class CreateReportServiceImpl implements CreateReportService {
     @Override
     public File createFile(File dir, CreateDirectoryDto dto) {
         if (validationUtil.isInputFilePathValid(dto)) {
+            log.debug(SERVICE_LOGS + "создать файл с именем " + dir.getName());
             return repository.createFile(dir, dto);
         } else {
+            log.debug(SERVICE_LOGS + "файл не создан " + dir.getName());
             return null;
         }
     }

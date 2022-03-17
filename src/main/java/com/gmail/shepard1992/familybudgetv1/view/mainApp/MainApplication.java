@@ -17,6 +17,8 @@ import com.gmail.shepard1992.familybudgetv1.view.mainApp.api.income.IncomeAction
 import com.gmail.shepard1992.familybudgetv1.view.mainApp.api.income.ShowModalIncomeViewApi;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import org.apache.log4j.Logger;
+import org.apache.log4j.xml.DOMConfigurator;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -32,9 +34,13 @@ public class MainApplication extends Application implements ShowViewApi, IncomeA
     private ModalCostViewService modalCostViewService;
     private ModalViewService modalViewService;
     private ModalTemplateViewService modalTemplateViewService;
+    private static final Logger log = Logger.getLogger(MainApplication.class.getName());
 
     public static void main(String[] args) {
+        DOMConfigurator.configure("src\\main\\resources\\log4j.xml");
+        log.info("Старт приложения");
         launch(args);
+        log.info("Завершение работы приложения");
     }
 
     @Override

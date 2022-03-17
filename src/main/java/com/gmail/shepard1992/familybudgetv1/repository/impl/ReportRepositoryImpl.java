@@ -4,6 +4,7 @@ import com.gmail.shepard1992.familybudgetv1.service.model.Report;
 import com.gmail.shepard1992.familybudgetv1.repository.api.ReportRepository;
 import com.gmail.shepard1992.familybudgetv1.utils.FileUtil;
 import com.gmail.shepard1992.familybudgetv1.utils.facade.ReportRepositoryFacade;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 

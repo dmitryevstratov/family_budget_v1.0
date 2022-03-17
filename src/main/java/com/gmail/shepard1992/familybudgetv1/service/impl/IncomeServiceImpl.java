@@ -15,6 +15,7 @@ import com.gmail.shepard1992.familybudgetv1.utils.ValidationUtil;
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.ServiceDeleteRowDto;
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.ServiceNewRowDto;
 import javafx.stage.Stage;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
@@ -23,6 +24,7 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
+import static com.gmail.shepard1992.familybudgetv1.service.constants.Logs.SERVICE_LOGS;
 import static com.gmail.shepard1992.familybudgetv1.service.constants.ServiceConstants.*;
 
 @org.springframework.stereotype.Service
@@ -33,6 +35,7 @@ public class IncomeServiceImpl implements Service<IncomeDto>, TotalService {
     private final MapperUtil mapperUtil;
     private final IndexUtil<IncomeDto> indexUtil;
     private final TotalServiceUtil totalServiceUtil;
+    private static final Logger log = Logger.getLogger(IncomeServiceImpl.class.getName());
 
     @Autowired
     public IncomeServiceImpl(ValidationUtil validationUtil, RepositoryData<Income> repositoryData, MapperUtil mapperUtil, IndexUtil<IncomeDto> indexUtil, TotalServiceUtil totalServiceUtil) {
@@ -53,8 +56,10 @@ public class IncomeServiceImpl implements Service<IncomeDto>, TotalService {
                     .setType(params.getType().getText()).build();
             repositoryData.save(mapperUtil.convertToIncome(dto), params.getFile());
             updateTotal(params.getDialogStage(), params.getFile());
+            log.debug(SERVICE_LOGS + "добавить запись " + dto.toString());
             return true;
         } else {
+            log.debug(SERVICE_LOGS + "запись не добавлена");
             return false;
         }
     }
@@ -78,8 +83,10 @@ public class IncomeServiceImpl implements Service<IncomeDto>, TotalService {
             }
             repositoryData.update(mapperUtil.convertToIncome(dto), params.getFile());
             updateTotal(params.getDialogStage(), params.getFile());
+            log.debug(SERVICE_LOGS + "редактировать запись " + dto.toString());
             return true;
         }
+        log.debug(SERVICE_LOGS + "запись не редактирована");
         return false;
     }
 
@@ -94,8 +101,10 @@ public class IncomeServiceImpl implements Service<IncomeDto>, TotalService {
         if (validationUtil.isInputDeleteValid(params) && validationUtil.isIndexValid(validationIndexDto)) {
             boolean deleteByIndex = repositoryData.deleteByIndex(Integer.parseInt(params.getIndexField().getText()), params.getFile());
             updateTotal(params.getDialogStage(), params.getFile());
+            log.debug(SERVICE_LOGS + "удалить запись " + params.getIndexField().getText());
             return deleteByIndex;
         } else {
+            log.debug(SERVICE_LOGS + "не удалена запись " + params.getIndexField().getText());
             return false;
         }
     }

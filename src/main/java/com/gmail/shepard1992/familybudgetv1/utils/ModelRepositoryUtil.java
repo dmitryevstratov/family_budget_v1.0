@@ -1,18 +1,23 @@
 package com.gmail.shepard1992.familybudgetv1.utils;
 
+import com.gmail.shepard1992.familybudgetv1.repository.impl.CostRepositoryDataImpl;
 import com.gmail.shepard1992.familybudgetv1.service.model.api.Model;
 import com.gmail.shepard1992.familybudgetv1.repository.model.dto.RepositoryDeleteByCategoryDto;
 import com.gmail.shepard1992.familybudgetv1.repository.model.dto.RepositoryDeleteByIndexDto;
 import com.gmail.shepard1992.familybudgetv1.repository.model.dto.RepositoryUpdateDto;
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static com.gmail.shepard1992.familybudgetv1.repository.constants.Logs.REPOSITORY_LOGS;
 import static com.gmail.shepard1992.familybudgetv1.service.constants.ServiceConstants.EMPTY;
 
 @Component
 public class ModelRepositoryUtil {
+
+    private static final Logger log = Logger.getLogger(ModelRepositoryUtil.class.getName());
 
     public <E extends Model> void update(RepositoryUpdateDto<E> dto) {
         List<E> list = dto.getRepositoryData().getAll(dto.getFile());
@@ -24,7 +29,9 @@ public class ModelRepositoryUtil {
             }
             dto.getRepositoryData().clear(dto.getFile());
             list.forEach(inc -> dto.getRepositoryData().save(inc, dto.getFile()));
+            log.debug(REPOSITORY_LOGS + "редактирование модели " + dto.getElement().toString());
         }
+        log.debug(REPOSITORY_LOGS + "модель не редактировалась " + dto.getElement().toString());
     }
 
     public <E extends Model> boolean deleteByIndex(RepositoryDeleteByIndexDto<E> dto) {
@@ -41,8 +48,10 @@ public class ModelRepositoryUtil {
                 }
                 dto.getRepositoryData().save(element, dto.getFile());
             }
+            log.debug(REPOSITORY_LOGS + "удаление модели по индексу " + dto.getIndex());
             return true;
         }
+        log.debug(REPOSITORY_LOGS + "модель по индексу не удалена " + dto.getIndex());
         return false;
     }
 

@@ -8,10 +8,13 @@ import com.gmail.shepard1992.familybudgetv1.service.model.Income;
 import com.gmail.shepard1992.familybudgetv1.utils.ValidationUtil;
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.ChooseFileDto;
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.LoadTemplateDto;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+
+import static com.gmail.shepard1992.familybudgetv1.service.constants.Logs.SERVICE_LOGS;
 
 @Service
 public class TemplateServiceImpl implements TemplateService {
@@ -20,6 +23,7 @@ public class TemplateServiceImpl implements TemplateService {
     private final RepositoryData<Income> incomeRepositoryData;
     private final RepositoryData<Cost> costRepositoryData;
     private final ValidationUtil validationUtil;
+    private static final Logger log = Logger.getLogger(TemplateServiceImpl.class.getName());
 
 
     @Autowired
@@ -32,6 +36,7 @@ public class TemplateServiceImpl implements TemplateService {
 
     @Override
     public void saveTemplate(File file) {
+        log.debug(SERVICE_LOGS + "сохранить шаблон " + file.getName());
         repository.save(file);
     }
 
@@ -43,8 +48,10 @@ public class TemplateServiceImpl implements TemplateService {
 
             incomeRepositoryData.getAll(dto.getTmp()).forEach(income -> incomeRepositoryData.save(income, dto.getFile()));
             costRepositoryData.getAll(dto.getTmp()).forEach(cost -> costRepositoryData.save(cost, dto.getFile()));
+            log.debug(SERVICE_LOGS + "загрузить шаблон " + dto.getFile().getName());
             return true;
         }
+        log.debug(SERVICE_LOGS + "шаблон не загружен " + dto.getFile().getName());
         return false;
     }
 

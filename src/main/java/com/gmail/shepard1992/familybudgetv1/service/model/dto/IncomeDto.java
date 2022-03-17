@@ -70,11 +70,6 @@ public class IncomeDto extends AbstractDto {
 
     @Override
     public String toString() {
-        return "Income{" +
-                "index=" + super.getIndex() +
-                ", category='" + super.getCategory() + '\'' +
-                ", type='" + super.getType() + '\'' +
-                ", sum=" + sum +
-                '}';
+        return super.toString() + ", sumFact=" + sum;
     }
 }

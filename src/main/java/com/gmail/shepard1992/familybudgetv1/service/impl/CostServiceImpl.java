@@ -8,13 +8,11 @@ import com.gmail.shepard1992.familybudgetv1.service.model.dto.CostDto;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.TotalServiceByCategoryDto;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.TotalServiceUpdateDto;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.ValidationIndexDto;
-import com.gmail.shepard1992.familybudgetv1.utils.IndexUtil;
-import com.gmail.shepard1992.familybudgetv1.utils.MapperUtil;
-import com.gmail.shepard1992.familybudgetv1.utils.TotalServiceUtil;
-import com.gmail.shepard1992.familybudgetv1.utils.ValidationUtil;
+import com.gmail.shepard1992.familybudgetv1.utils.*;
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.ServiceDeleteRowDto;
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.ServiceNewRowDto;
 import javafx.stage.Stage;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
@@ -23,6 +21,7 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
+import static com.gmail.shepard1992.familybudgetv1.service.constants.Logs.SERVICE_LOGS;
 import static com.gmail.shepard1992.familybudgetv1.service.constants.ServiceConstants.*;
 
 @org.springframework.stereotype.Service
@@ -33,6 +32,7 @@ public class CostServiceImpl implements Service<CostDto>, TotalService {
     private final MapperUtil mapperUtil;
     private final IndexUtil<CostDto> indexUtil;
     private final TotalServiceUtil totalServiceUtil;
+    private static final Logger log = Logger.getLogger(CostServiceImpl.class.getName());
 
     @Autowired
     public CostServiceImpl(ValidationUtil validationUtil, RepositoryData<Cost> repositoryData, MapperUtil mapperUtil, IndexUtil<CostDto> indexUtil, TotalServiceUtil totalServiceUtil) {
@@ -54,8 +54,10 @@ public class CostServiceImpl implements Service<CostDto>, TotalService {
                     .setType(params.getType().getText()).build();
             repositoryData.save(mapperUtil.convertToCost(dto), params.getFile());
             updateTotal(params.getDialogStage(), params.getFile());
+            log.debug(SERVICE_LOGS + "добавить запись " + dto.toString());
             return true;
         } else {
+            log.debug(SERVICE_LOGS + "запись не добавлена");
             return false;
         }
     }
@@ -82,8 +84,10 @@ public class CostServiceImpl implements Service<CostDto>, TotalService {
             }
             repositoryData.update(mapperUtil.convertToCost(dto), params.getFile());
             updateTotal(params.getDialogStage(), params.getFile());
+            log.debug(SERVICE_LOGS + "редактировать запись " + dto.toString());
             return true;
         }
+        log.debug(SERVICE_LOGS + "запись не редактирована");
         return false;
     }
 
@@ -98,8 +102,10 @@ public class CostServiceImpl implements Service<CostDto>, TotalService {
         if (validationUtil.isInputDeleteValid(params) && validationUtil.isIndexValid(validationIndexDto)) {
             boolean deleteByIndex = repositoryData.deleteByIndex(Integer.parseInt(params.getIndexField().getText()), params.getFile());
             updateTotal(params.getDialogStage(), params.getFile());
+            log.debug(SERVICE_LOGS + "удалить запись " + params.getIndexField().getText());
             return deleteByIndex;
         } else {
+            log.debug(SERVICE_LOGS + "не удалена запись " + params.getIndexField().getText());
             return false;
         }
     }
