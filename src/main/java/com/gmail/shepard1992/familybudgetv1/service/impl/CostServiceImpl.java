@@ -4,17 +4,12 @@ import com.gmail.shepard1992.familybudgetv1.repository.api.RepositoryData;
 import com.gmail.shepard1992.familybudgetv1.service.api.Service;
 import com.gmail.shepard1992.familybudgetv1.service.api.TotalService;
 import com.gmail.shepard1992.familybudgetv1.service.model.Cost;
-import com.gmail.shepard1992.familybudgetv1.service.model.dto.CostDto;
-import com.gmail.shepard1992.familybudgetv1.service.model.dto.TotalServiceByCategoryDto;
-import com.gmail.shepard1992.familybudgetv1.service.model.dto.TotalServiceUpdateDto;
-import com.gmail.shepard1992.familybudgetv1.service.model.dto.ValidationIndexDto;
-import com.gmail.shepard1992.familybudgetv1.utils.IndexUtil;
-import com.gmail.shepard1992.familybudgetv1.utils.MapperUtil;
-import com.gmail.shepard1992.familybudgetv1.utils.TotalServiceUtil;
-import com.gmail.shepard1992.familybudgetv1.utils.ValidationUtil;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.*;
+import com.gmail.shepard1992.familybudgetv1.utils.*;
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.ServiceDeleteRowDto;
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.ServiceNewRowDto;
 import javafx.stage.Stage;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
@@ -23,6 +18,7 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
+import static com.gmail.shepard1992.familybudgetv1.service.constants.Logs.SERVICE_LOGS;
 import static com.gmail.shepard1992.familybudgetv1.service.constants.ServiceConstants.*;
 
 @org.springframework.stereotype.Service
@@ -33,14 +29,17 @@ public class CostServiceImpl implements Service<CostDto>, TotalService {
     private final MapperUtil mapperUtil;
     private final IndexUtil<CostDto> indexUtil;
     private final TotalServiceUtil totalServiceUtil;
+    private final DeleteRowUtil<Cost> deleteRowUtil;
+    private static final Logger log = Logger.getLogger(CostServiceImpl.class.getName());
 
     @Autowired
-    public CostServiceImpl(ValidationUtil validationUtil, RepositoryData<Cost> repositoryData, MapperUtil mapperUtil, IndexUtil<CostDto> indexUtil, TotalServiceUtil totalServiceUtil) {
+    public CostServiceImpl(ValidationUtil validationUtil, RepositoryData<Cost> repositoryData, MapperUtil mapperUtil, IndexUtil<CostDto> indexUtil, TotalServiceUtil totalServiceUtil, DeleteRowUtil<Cost> deleteRowUtil) {
         this.validationUtil = validationUtil;
         this.repositoryData = repositoryData;
         this.mapperUtil = mapperUtil;
         this.indexUtil = indexUtil;
         this.totalServiceUtil = totalServiceUtil;
+        this.deleteRowUtil = deleteRowUtil;
     }
 
     @Override
@@ -54,8 +53,10 @@ public class CostServiceImpl implements Service<CostDto>, TotalService {
                     .setType(params.getType().getText()).build();
             repositoryData.save(mapperUtil.convertToCost(dto), params.getFile());
             updateTotal(params.getDialogStage(), params.getFile());
+            log.debug(SERVICE_LOGS + "добавить запись " + dto.toString());
             return true;
         } else {
+            log.debug(SERVICE_LOGS + "запись не добавлена");
             return false;
         }
     }
@@ -82,8 +83,10 @@ public class CostServiceImpl implements Service<CostDto>, TotalService {
             }
             repositoryData.update(mapperUtil.convertToCost(dto), params.getFile());
             updateTotal(params.getDialogStage(), params.getFile());
+            log.debug(SERVICE_LOGS + "редактировать запись " + dto.toString());
             return true;
         }
+        log.debug(SERVICE_LOGS + "запись не редактирована");
         return false;
     }
 
@@ -95,13 +98,11 @@ public class CostServiceImpl implements Service<CostDto>, TotalService {
                 params.getFile(),
                 params.getDialogStage()
         );
-        if (validationUtil.isInputDeleteValid(params) && validationUtil.isIndexValid(validationIndexDto)) {
-            boolean deleteByIndex = repositoryData.deleteByIndex(Integer.parseInt(params.getIndexField().getText()), params.getFile());
-            updateTotal(params.getDialogStage(), params.getFile());
-            return deleteByIndex;
-        } else {
-            return false;
-        }
+        DeleteRowDto<Cost> deleteRowDto = new DeleteRowDto<>(params,
+                validationIndexDto,
+                c -> c.updateTotal(params.getDialogStage(), params.getFile()),
+                this);
+        return deleteRowUtil.deleteRow(deleteRowDto);
     }
 
     @Override
@@ -148,16 +149,16 @@ public class CostServiceImpl implements Service<CostDto>, TotalService {
                 .stream()
                 .mapToDouble(CostDto::getSumPlan)
                 .sum();
-
-        CostDto dto = new CostDto.CostDtoBuilder()
-                .setIndex(EMPTY)
-                .setCategory(TOTAL_ALL)
-                .setSumFact(totalFactAll)
-                .setSumPlan(totalPlanAll)
-                .setType(EMPTY)
-                .build();
-        repositoryData.save(mapperUtil.convertToCost(dto), file);
-
+        if (getAll(file).size() > 0) {
+            CostDto dto = new CostDto.CostDtoBuilder()
+                    .setIndex(EMPTY)
+                    .setCategory(TOTAL_ALL)
+                    .setSumFact(totalFactAll)
+                    .setSumPlan(totalPlanAll)
+                    .setType(EMPTY)
+                    .build();
+            repositoryData.save(mapperUtil.convertToCost(dto), file);
+        }
     }
 
     @Override

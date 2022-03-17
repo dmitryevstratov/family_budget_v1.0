@@ -5,10 +5,15 @@ import com.gmail.shepard1992.familybudgetv1.service.api.OpenYearReportService;
 import com.gmail.shepard1992.familybudgetv1.utils.ValidationUtil;
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.ChooseFilesDto;
 import javafx.stage.Stage;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.stream.Collectors;
+
+import static com.gmail.shepard1992.familybudgetv1.service.constants.Logs.SERVICE_LOGS;
 
 @Repository
 public class OpenYearReportServiceImpl implements OpenYearReportService {
@@ -16,6 +21,7 @@ public class OpenYearReportServiceImpl implements OpenYearReportService {
     private Stage primaryStage;
     private final ValidationUtil validationUtil;
     private final OpenYearReportRepository reportRepository;
+    private static final Logger log = Logger.getLogger(OpenYearReportServiceImpl.class.getName());
 
     @Autowired
     public OpenYearReportServiceImpl(ValidationUtil validationUtil, OpenYearReportRepository reportRepository) {
@@ -30,6 +36,9 @@ public class OpenYearReportServiceImpl implements OpenYearReportService {
 
     @Override
     public boolean openReportYear(File[] files, Stage stage) {
+        if (files != null) {
+            log.debug(SERVICE_LOGS + " загрузить годовой отчет по месяцам: " + Arrays.stream(files).map(File::getName).collect(Collectors.joining(", ")));
+        }
         return validationUtil.isInputReportYearValid(files, stage);
     }
 

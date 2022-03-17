@@ -22,13 +22,13 @@ import org.springframework.context.annotation.Configuration;
 public class ServiceConfig {
 
     @Bean
-    public Service<IncomeDto> getIncomeServiceBean(ValidationUtil validationUtil, RepositoryData<Income> repositoryData, MapperUtil mapperUtil, IndexUtil<IncomeDto> indexUtil, TotalServiceUtil totalServiceUtil) {
-        return new IncomeServiceImpl(validationUtil, repositoryData, mapperUtil, indexUtil, totalServiceUtil);
+    public Service<IncomeDto> getIncomeServiceBean(ValidationUtil validationUtil, RepositoryData<Income> repositoryData, MapperUtil mapperUtil, IndexUtil<IncomeDto> indexUtil, TotalServiceUtil totalServiceUtil, DeleteRowUtil<Income> deleteRowUtil) {
+        return new IncomeServiceImpl(validationUtil, repositoryData, mapperUtil, indexUtil, totalServiceUtil, deleteRowUtil);
     }
 
     @Bean
-    public Service<CostDto> getCostServiceBean(ValidationUtil validationUtil, RepositoryData<Cost> repositoryData, MapperUtil mapperUtil, IndexUtil<CostDto> indexUtil, TotalServiceUtil totalServiceUtil) {
-        return new CostServiceImpl(validationUtil, repositoryData, mapperUtil, indexUtil, totalServiceUtil);
+    public Service<CostDto> getCostServiceBean(ValidationUtil validationUtil, RepositoryData<Cost> repositoryData, MapperUtil mapperUtil, IndexUtil<CostDto> indexUtil, TotalServiceUtil totalServiceUtil, DeleteRowUtil<Cost> deleteRowUtil) {
+        return new CostServiceImpl(validationUtil, repositoryData, mapperUtil, indexUtil, totalServiceUtil, deleteRowUtil);
     }
 
     @Bean

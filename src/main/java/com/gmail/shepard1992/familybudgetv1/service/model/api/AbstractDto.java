@@ -25,4 +25,9 @@ public abstract class AbstractDto {
     public String getType() {
         return type;
     }
+
+    @Override
+    public String toString() {
+        return "index - " + index + ", category - " + category + ", type - " + type;
+    }
 }

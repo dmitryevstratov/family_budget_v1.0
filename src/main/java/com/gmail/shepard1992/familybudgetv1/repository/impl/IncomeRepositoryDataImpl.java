@@ -9,6 +9,7 @@ import com.gmail.shepard1992.familybudgetv1.service.model.Income;
 import com.gmail.shepard1992.familybudgetv1.service.model.IncomeList;
 import com.gmail.shepard1992.familybudgetv1.service.model.Report;
 import com.gmail.shepard1992.familybudgetv1.utils.ModelRepositoryUtil;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
@@ -17,11 +18,14 @@ import java.util.List;
 import java.util.Objects;
 import java.util.function.Consumer;
 
+import static com.gmail.shepard1992.familybudgetv1.repository.constants.Logs.REPOSITORY_LOGS;
+
 @org.springframework.stereotype.Repository
 public class IncomeRepositoryDataImpl implements RepositoryData<Income> {
 
     private final ReportRepository reportRepository;
     private final ModelRepositoryUtil facade;
+    private static final Logger log = Logger.getLogger(IncomeRepositoryDataImpl.class.getName());
 
     @Autowired
     public IncomeRepositoryDataImpl(ReportRepository reportRepository, ModelRepositoryUtil facade) {
@@ -38,8 +42,10 @@ public class IncomeRepositoryDataImpl implements RepositoryData<Income> {
             incomeList.add(income);
             list.setIncome(incomeList);
             report.setReportIncomeList(list);
+            log.debug(REPOSITORY_LOGS + "сохранить модель в файл " + file.getName());
             return reportRepository.save(report, file);
         }
+        log.debug(REPOSITORY_LOGS + "не сохранил модель в файл " + file.getName());
         return false;
     }
 
