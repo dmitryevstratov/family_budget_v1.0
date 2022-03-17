@@ -1,5 +1,6 @@
 package utils;
 
+import com.gmail.shepard1992.familybudgetv1.repository.config.RepositoryConfig;
 import com.gmail.shepard1992.familybudgetv1.service.model.Cost;
 import com.gmail.shepard1992.familybudgetv1.service.model.CostList;
 import com.gmail.shepard1992.familybudgetv1.utils.ValueUtil;
@@ -21,7 +22,8 @@ import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
-        UtilConfig.class
+        UtilConfig.class,
+        RepositoryConfig.class
 })
 public class ValueUtilTest {
 

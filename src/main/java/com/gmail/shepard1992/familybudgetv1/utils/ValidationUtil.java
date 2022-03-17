@@ -1,5 +1,6 @@
 package com.gmail.shepard1992.familybudgetv1.utils;
 
+import com.gmail.shepard1992.familybudgetv1.repository.exception.RepositoryException;
 import com.gmail.shepard1992.familybudgetv1.service.model.api.Model;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.ValidationIndexDto;
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.LoadTemplateDto;
@@ -50,7 +51,7 @@ public class ValidationUtil {
         }
     }
 
-    public <E extends Model> boolean isIndexValid(ValidationIndexDto<E> dto) {
+    public <E extends Model> boolean isIndexValid(ValidationIndexDto<E> dto) throws RepositoryException {
         long count = dto.getRepositoryData().getAll(dto.getFile()).stream().filter(e -> e.getIndex().equals(dto.getIndex())).count();
         if (count == 0) {
             return checkErrorMessage(new StringBuilder(dto.getIndex() + " - нет такого индеска!"), dto.getStage());

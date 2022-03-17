@@ -2,6 +2,7 @@ package com.gmail.shepard1992.familybudgetv1.repository.impl;
 
 import com.gmail.shepard1992.familybudgetv1.repository.api.ReportRepository;
 import com.gmail.shepard1992.familybudgetv1.repository.api.RepositoryData;
+import com.gmail.shepard1992.familybudgetv1.repository.exception.RepositoryException;
 import com.gmail.shepard1992.familybudgetv1.repository.model.dto.RepositoryDeleteByCategoryDto;
 import com.gmail.shepard1992.familybudgetv1.repository.model.dto.RepositoryDeleteByIndexDto;
 import com.gmail.shepard1992.familybudgetv1.repository.model.dto.RepositoryUpdateDto;
@@ -34,7 +35,7 @@ public class IncomeRepositoryDataImpl implements RepositoryData<Income> {
     }
 
     @Override
-    public boolean save(Income income, File file) {
+    public boolean save(Income income, File file) throws RepositoryException {
         List<Income> incomeList = getAll(file);
         IncomeList list = new IncomeList();
         Report report = reportRepository.get(file);
@@ -50,7 +51,7 @@ public class IncomeRepositoryDataImpl implements RepositoryData<Income> {
     }
 
     @Override
-    public void update(Income element, File file) {
+    public void update(Income element, File file) throws RepositoryException {
         Consumer<Income> consumer = income -> {
             if (!element.getCategory().isEmpty()) income.setModelCategory(element.getCategory());
             if (!element.getType().isEmpty()) income.setModelType(element.getType());
@@ -61,13 +62,13 @@ public class IncomeRepositoryDataImpl implements RepositoryData<Income> {
     }
 
     @Override
-    public boolean deleteByIndex(Integer index, File file) {
+    public boolean deleteByIndex(Integer index, File file) throws RepositoryException {
         RepositoryDeleteByIndexDto<Income> dto = new RepositoryDeleteByIndexDto<>(file, this, index);
         return facade.deleteByIndex(dto);
     }
 
     @Override
-    public List<Income> getAll(File file) {
+    public List<Income> getAll(File file) throws RepositoryException {
         Report report = reportRepository.get(file);
         if (report == null) {
             return new ArrayList<>();
@@ -77,7 +78,7 @@ public class IncomeRepositoryDataImpl implements RepositoryData<Income> {
     }
 
     @Override
-    public void clear(File file) {
+    public void clear(File file) throws RepositoryException {
         Report report = reportRepository.get(file);
         report.setReportIncomeList(new IncomeList());
         report.getIncomeList().setIncome(new ArrayList<>());
@@ -85,7 +86,7 @@ public class IncomeRepositoryDataImpl implements RepositoryData<Income> {
     }
 
     @Override
-    public void deleteByCategory(String category, File file) {
+    public void deleteByCategory(String category, File file) throws RepositoryException {
         RepositoryDeleteByCategoryDto<Income> dto = new RepositoryDeleteByCategoryDto<>(file, this, category);
         facade.deleteByCategory(dto);
     }

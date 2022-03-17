@@ -1,6 +1,7 @@
 package repository;
 
 import com.gmail.shepard1992.familybudgetv1.repository.config.RepositoryConfig;
+import com.gmail.shepard1992.familybudgetv1.repository.exception.RepositoryException;
 import com.gmail.shepard1992.familybudgetv1.utils.config.UtilConfig;
 import com.gmail.shepard1992.familybudgetv1.service.model.Cost;
 import com.gmail.shepard1992.familybudgetv1.repository.api.RepositoryData;
@@ -32,12 +33,12 @@ public class CostRepositoryDataTest {
 
     @After
     @Before
-    public void clearFile() {
+    public void clearFile() throws RepositoryException {
         repositoryData.clear(file);
     }
 
     @Test
-    public void test_when_call_save_then_success() {
+    public void test_when_call_save_then_success() throws RepositoryException {
         Cost cost = new Cost.CostBuilder()
                 .setIndex("10")
                 .setSumFact(200d)
@@ -57,14 +58,14 @@ public class CostRepositoryDataTest {
     }
 
     @Test
-    public void test_when_call_clear_then_file_empty() {
+    public void test_when_call_clear_then_file_empty() throws RepositoryException {
         repositoryData.clear(file);
         List<Cost> all = repositoryData.getAll(file);
         assertTrue(all.isEmpty());
     }
 
     @Test
-    public void test_when_call_deleteByCategory_then_success() {
+    public void test_when_call_deleteByCategory_then_success() throws RepositoryException {
         repositoryData.save(new Cost.CostBuilder()
                 .setIndex("4")
                 .setCategory("Dog")
@@ -89,7 +90,7 @@ public class CostRepositoryDataTest {
     }
 
     @Test
-    public void test_when_call_deleteByIndex_then_success() {
+    public void test_when_call_deleteByIndex_then_success() throws RepositoryException {
         repositoryData.save(new Cost.CostBuilder()
                 .setIndex("1")
                 .setCategory("Dog")
@@ -115,7 +116,7 @@ public class CostRepositoryDataTest {
     }
 
     @Test
-    public void test_when_call_update_then_success() {
+    public void test_when_call_update_then_success() throws RepositoryException {
         repositoryData.save(new Cost.CostBuilder()
                 .setIndex("0")
                 .setCategory("Dog")
@@ -138,7 +139,7 @@ public class CostRepositoryDataTest {
     }
 
     @Test
-    public void test_when_call_getAll_then_return_list() {
+    public void test_when_call_getAll_then_return_list() throws RepositoryException {
         repositoryData.save(new Cost.CostBuilder()
                 .setIndex("1")
                 .setCategory("Dog")

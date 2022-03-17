@@ -1,6 +1,7 @@
 package service;
 
 import com.gmail.shepard1992.familybudgetv1.repository.api.TemplateRepository;
+import com.gmail.shepard1992.familybudgetv1.repository.exception.RepositoryException;
 import com.gmail.shepard1992.familybudgetv1.service.api.TemplateService;
 import com.gmail.shepard1992.familybudgetv1.service.config.ServiceConfig;
 import com.gmail.shepard1992.familybudgetv1.utils.config.UtilConfig;
@@ -38,7 +39,7 @@ public class TemplateControllerServiceTest {
     }
 
     @Test
-    public void test_when_call_saveTemplate_then_return_success() {
+    public void test_when_call_saveTemplate_then_return_success() throws RepositoryException {
         doNothing().when(repository).save(any());
 
         service.saveTemplate(new File(""));

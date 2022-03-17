@@ -1,6 +1,7 @@
 package com.gmail.shepard1992.familybudgetv1.service.impl;
 
 import com.gmail.shepard1992.familybudgetv1.repository.api.CreateFileReportRepository;
+import com.gmail.shepard1992.familybudgetv1.repository.exception.RepositoryException;
 import com.gmail.shepard1992.familybudgetv1.service.api.CreateReportService;
 import com.gmail.shepard1992.familybudgetv1.utils.ValidationUtil;
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.CreateDirectoryDto;
@@ -36,7 +37,13 @@ public class CreateReportServiceImpl implements CreateReportService {
     public File createFile(File dir, CreateDirectoryDto dto) {
         if (validationUtil.isInputFilePathValid(dto)) {
             log.debug(SERVICE_LOGS + "создать файл с именем " + dir.getName());
-            return repository.createFile(dir, dto);
+            try {
+                return repository.createFile(dir, dto);
+            } catch (RepositoryException e) {
+                log.error(e.getMessage());
+                log.error(e.getStackTrace());
+                return null;
+            }
         } else {
             log.debug(SERVICE_LOGS + "файл не создан ");
             return null;

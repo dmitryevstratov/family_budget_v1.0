@@ -1,6 +1,7 @@
 package com.gmail.shepard1992.familybudgetv1.utils;
 
 import com.gmail.shepard1992.familybudgetv1.repository.api.RepositoryData;
+import com.gmail.shepard1992.familybudgetv1.repository.exception.RepositoryException;
 import com.gmail.shepard1992.familybudgetv1.service.model.api.Model;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.DeleteRowDto;
 import org.apache.log4j.Logger;
@@ -23,13 +24,19 @@ public class DeleteRowUtil<M extends Model> {
     }
 
     public boolean deleteRow(DeleteRowDto<M> deleteRowDto) {
-        if (validationUtil.isInputDeleteValid(deleteRowDto.getParams()) && validationUtil.isIndexValid(deleteRowDto.getValidationIndexDto())) {
-            boolean deleteByIndex = repositoryData.deleteByIndex(Integer.parseInt(deleteRowDto.getParams().getIndexField().getText()), deleteRowDto.getParams().getFile());
-            deleteRowDto.getConsumer().accept(deleteRowDto.getTotalService());
-            log.debug(SERVICE_LOGS + "удалить запись " + deleteRowDto.getParams().getIndexField().getText());
-            return deleteByIndex;
-        } else {
-            log.debug(SERVICE_LOGS + "не удалена запись " + deleteRowDto.getParams().getIndexField().getText());
+        try {
+            if (validationUtil.isInputDeleteValid(deleteRowDto.getParams()) && validationUtil.isIndexValid(deleteRowDto.getValidationIndexDto())) {
+                boolean deleteByIndex = repositoryData.deleteByIndex(Integer.parseInt(deleteRowDto.getParams().getIndexField().getText()), deleteRowDto.getParams().getFile());
+                deleteRowDto.getConsumer().accept(deleteRowDto.getTotalService());
+                log.debug(SERVICE_LOGS + "удалить запись " + deleteRowDto.getParams().getIndexField().getText());
+                return deleteByIndex;
+            } else {
+                log.debug(SERVICE_LOGS + "не удалена запись " + deleteRowDto.getParams().getIndexField().getText());
+                return false;
+            }
+        } catch (RepositoryException e) {
+            log.error(e.getMessage());
+            log.error(e.getStackTrace());
             return false;
         }
     }

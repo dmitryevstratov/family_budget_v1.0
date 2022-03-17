@@ -1,6 +1,7 @@
 package com.gmail.shepard1992.familybudgetv1.service.impl;
 
 import com.gmail.shepard1992.familybudgetv1.repository.api.RepositoryData;
+import com.gmail.shepard1992.familybudgetv1.repository.exception.RepositoryException;
 import com.gmail.shepard1992.familybudgetv1.service.api.Service;
 import com.gmail.shepard1992.familybudgetv1.service.api.TotalService;
 import com.gmail.shepard1992.familybudgetv1.service.model.Income;
@@ -50,7 +51,12 @@ public class IncomeServiceImpl implements Service<IncomeDto>, TotalService {
                     .setIndex(indexUtil.incrementIndex(getAll(params.getFile())))
                     .setSumFact(Double.parseDouble(params.getSumFact().getText()))
                     .setType(params.getType().getText()).build();
-            repositoryData.save(mapperUtil.convertToIncome(dto), params.getFile());
+            try {
+                repositoryData.save(mapperUtil.convertToIncome(dto), params.getFile());
+            } catch (RepositoryException e) {
+                log.error(e.getMessage());
+                log.error(e.getStackTrace());
+            }
             updateTotal(params.getDialogStage(), params.getFile());
             log.debug(SERVICE_LOGS + "добавить запись " + dto.toString());
             return true;
@@ -68,19 +74,24 @@ public class IncomeServiceImpl implements Service<IncomeDto>, TotalService {
                 params.getFile(),
                 params.getDialogStage()
         );
-        if (validationUtil.isInputUpdateValid(params) && validationUtil.isIndexValid(validationIndexDto)) {
-            IncomeDto dto = new IncomeDto.IncomeDtoBuilder()
-                    .setIndex(params.getIndex().getText())
-                    .setCategory(params.getCategory().getText())
-                    .setType(params.getType().getText())
-                    .build();
-            if (!params.getSumFact().getText().isEmpty()) {
-                dto.setIncomeSum(Double.parseDouble(params.getSumFact().getText()));
+        try {
+            if (validationUtil.isInputUpdateValid(params) && validationUtil.isIndexValid(validationIndexDto)) {
+                IncomeDto dto = new IncomeDto.IncomeDtoBuilder()
+                        .setIndex(params.getIndex().getText())
+                        .setCategory(params.getCategory().getText())
+                        .setType(params.getType().getText())
+                        .build();
+                if (!params.getSumFact().getText().isEmpty()) {
+                    dto.setIncomeSum(Double.parseDouble(params.getSumFact().getText()));
+                }
+                repositoryData.update(mapperUtil.convertToIncome(dto), params.getFile());
+                updateTotal(params.getDialogStage(), params.getFile());
+                log.debug(SERVICE_LOGS + "редактировать запись " + dto.toString());
+                return true;
             }
-            repositoryData.update(mapperUtil.convertToIncome(dto), params.getFile());
-            updateTotal(params.getDialogStage(), params.getFile());
-            log.debug(SERVICE_LOGS + "редактировать запись " + dto.toString());
-            return true;
+        } catch (RepositoryException e) {
+            log.error(e.getMessage());
+            log.error(e.getStackTrace());
         }
         log.debug(SERVICE_LOGS + "запись не редактирована");
         return false;
@@ -103,10 +114,16 @@ public class IncomeServiceImpl implements Service<IncomeDto>, TotalService {
 
     @Override
     public List<IncomeDto> getAll(File file) {
-        return repositoryData.getAll(file)
-                .stream()
-                .map(mapperUtil::convertToIncomeDto)
-                .collect(Collectors.toList());
+        try {
+            return repositoryData.getAll(file)
+                    .stream()
+                    .map(mapperUtil::convertToIncomeDto)
+                    .collect(Collectors.toList());
+        } catch (RepositoryException e) {
+            log.error(e.getMessage());
+            log.error(e.getStackTrace());
+            return null;
+        }
     }
 
     @Override
@@ -119,7 +136,12 @@ public class IncomeServiceImpl implements Service<IncomeDto>, TotalService {
                     .setSumFact(sum)
                     .setType(EMPTY)
                     .build();
-            repositoryData.save(mapperUtil.convertToIncome(dto), file);
+            try {
+                repositoryData.save(mapperUtil.convertToIncome(dto), file);
+            } catch (RepositoryException e) {
+                log.error(e.getMessage());
+                log.error(e.getStackTrace());
+            }
         };
         TotalServiceByCategoryDto<IncomeDto, Income> dto = new TotalServiceByCategoryDto<>(file, this, repositoryData, consumer);
         totalServiceUtil.setTotalByCategory(dto);
@@ -130,7 +152,14 @@ public class IncomeServiceImpl implements Service<IncomeDto>, TotalService {
         List<IncomeDto> allIncomes = getAll(file);
         allIncomes.stream()
                 .filter(dto -> dto.getCategory().contains(TOTAL_ALL))
-                .forEachOrdered(dto -> repositoryData.deleteByCategory(dto.getCategory(), file));
+                .forEachOrdered(dto -> {
+                    try {
+                        repositoryData.deleteByCategory(dto.getCategory(), file);
+                    } catch (RepositoryException e) {
+                        log.error(e.getMessage());
+                        log.error(e.getStackTrace());
+                    }
+                });
         double totalAll = allIncomes.stream()
                 .filter(dto -> dto.getCategory().contains(TOTAL_BY))
                 .collect(Collectors.toList())
@@ -144,7 +173,12 @@ public class IncomeServiceImpl implements Service<IncomeDto>, TotalService {
                     .setSumFact(totalAll)
                     .setType(EMPTY)
                     .build();
-            repositoryData.save(mapperUtil.convertToIncome(dto), file);
+            try {
+                repositoryData.save(mapperUtil.convertToIncome(dto), file);
+            } catch (RepositoryException e) {
+                log.error(e.getMessage());
+                log.error(e.getStackTrace());
+            }
         }
     }
 
