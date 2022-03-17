@@ -38,7 +38,7 @@ public class CreateReportServiceImpl implements CreateReportService {
             log.debug(SERVICE_LOGS + "создать файл с именем " + dir.getName());
             return repository.createFile(dir, dto);
         } else {
-            log.debug(SERVICE_LOGS + "файл не создан " + dir.getName());
+            log.debug(SERVICE_LOGS + "файл не создан ");
             return null;
         }
     }

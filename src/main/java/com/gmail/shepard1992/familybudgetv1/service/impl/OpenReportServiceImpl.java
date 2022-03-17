@@ -38,7 +38,7 @@ public class OpenReportServiceImpl implements OpenReportService {
             log.debug(SERVICE_LOGS + "открыть отчет с именем " + dir.getName());
             return repository.openFile(dir);
         } else {
-            log.debug(SERVICE_LOGS + "отчет не открыт " + dir.getName());
+            log.debug(SERVICE_LOGS + "отчет не открыт ");
             return null;
         }
     }

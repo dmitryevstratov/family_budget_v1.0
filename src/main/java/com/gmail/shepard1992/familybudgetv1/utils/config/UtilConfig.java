@@ -67,4 +67,14 @@ public class UtilConfig {
         return new ValueUtil();
     }
 
+    @Bean
+    public DeleteRowUtil<Income> getDeleteIncomeRowUtilBean(ValidationUtil validationUtil, RepositoryData<Income> repositoryData) {
+        return new DeleteRowUtil<>(validationUtil, repositoryData);
+    }
+
+    @Bean
+    public DeleteRowUtil<Cost> getDeleteCostRowUtilBean(ValidationUtil validationUtil, RepositoryData<Cost> repositoryData) {
+        return new DeleteRowUtil<>(validationUtil, repositoryData);
+    }
+
 }

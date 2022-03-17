@@ -36,7 +36,9 @@ public class OpenYearReportServiceImpl implements OpenYearReportService {
 
     @Override
     public boolean openReportYear(File[] files, Stage stage) {
-        log.debug(SERVICE_LOGS + " загрузить годовой отчет по месяцам: " + Arrays.stream(files).map(File::getName).collect(Collectors.joining(", ")));
+        if (files != null) {
+            log.debug(SERVICE_LOGS + " загрузить годовой отчет по месяцам: " + Arrays.stream(files).map(File::getName).collect(Collectors.joining(", ")));
+        }
         return validationUtil.isInputReportYearValid(files, stage);
     }
 

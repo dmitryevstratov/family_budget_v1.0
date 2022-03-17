@@ -4,14 +4,8 @@ import com.gmail.shepard1992.familybudgetv1.repository.api.RepositoryData;
 import com.gmail.shepard1992.familybudgetv1.service.api.Service;
 import com.gmail.shepard1992.familybudgetv1.service.api.TotalService;
 import com.gmail.shepard1992.familybudgetv1.service.model.Income;
-import com.gmail.shepard1992.familybudgetv1.service.model.dto.IncomeDto;
-import com.gmail.shepard1992.familybudgetv1.service.model.dto.TotalServiceByCategoryDto;
-import com.gmail.shepard1992.familybudgetv1.service.model.dto.TotalServiceUpdateDto;
-import com.gmail.shepard1992.familybudgetv1.service.model.dto.ValidationIndexDto;
-import com.gmail.shepard1992.familybudgetv1.utils.IndexUtil;
-import com.gmail.shepard1992.familybudgetv1.utils.MapperUtil;
-import com.gmail.shepard1992.familybudgetv1.utils.TotalServiceUtil;
-import com.gmail.shepard1992.familybudgetv1.utils.ValidationUtil;
+import com.gmail.shepard1992.familybudgetv1.service.model.dto.*;
+import com.gmail.shepard1992.familybudgetv1.utils.*;
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.ServiceDeleteRowDto;
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.ServiceNewRowDto;
 import javafx.stage.Stage;
@@ -35,15 +29,17 @@ public class IncomeServiceImpl implements Service<IncomeDto>, TotalService {
     private final MapperUtil mapperUtil;
     private final IndexUtil<IncomeDto> indexUtil;
     private final TotalServiceUtil totalServiceUtil;
+    private final DeleteRowUtil<Income> deleteRowUtil;
     private static final Logger log = Logger.getLogger(IncomeServiceImpl.class.getName());
 
     @Autowired
-    public IncomeServiceImpl(ValidationUtil validationUtil, RepositoryData<Income> repositoryData, MapperUtil mapperUtil, IndexUtil<IncomeDto> indexUtil, TotalServiceUtil totalServiceUtil) {
+    public IncomeServiceImpl(ValidationUtil validationUtil, RepositoryData<Income> repositoryData, MapperUtil mapperUtil, IndexUtil<IncomeDto> indexUtil, TotalServiceUtil totalServiceUtil, DeleteRowUtil<Income> deleteRowUtil) {
         this.validationUtil = validationUtil;
         this.repositoryData = repositoryData;
         this.mapperUtil = mapperUtil;
         this.indexUtil = indexUtil;
         this.totalServiceUtil = totalServiceUtil;
+        this.deleteRowUtil = deleteRowUtil;
     }
 
     @Override
@@ -98,15 +94,11 @@ public class IncomeServiceImpl implements Service<IncomeDto>, TotalService {
                 params.getFile(),
                 params.getDialogStage()
         );
-        if (validationUtil.isInputDeleteValid(params) && validationUtil.isIndexValid(validationIndexDto)) {
-            boolean deleteByIndex = repositoryData.deleteByIndex(Integer.parseInt(params.getIndexField().getText()), params.getFile());
-            updateTotal(params.getDialogStage(), params.getFile());
-            log.debug(SERVICE_LOGS + "удалить запись " + params.getIndexField().getText());
-            return deleteByIndex;
-        } else {
-            log.debug(SERVICE_LOGS + "не удалена запись " + params.getIndexField().getText());
-            return false;
-        }
+        DeleteRowDto<Income> dto = new DeleteRowDto<>(params,
+                validationIndexDto,
+                c -> c.updateTotal(params.getDialogStage(), params.getFile()),
+                this);
+        return deleteRowUtil.deleteRow(dto);
     }
 
     @Override
