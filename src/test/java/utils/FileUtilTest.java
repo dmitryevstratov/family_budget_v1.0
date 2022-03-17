@@ -1,5 +1,6 @@
 package utils;
 
+import com.gmail.shepard1992.familybudgetv1.repository.config.RepositoryConfig;
 import com.gmail.shepard1992.familybudgetv1.utils.FileUtil;
 import com.gmail.shepard1992.familybudgetv1.utils.config.UtilConfig;
 import org.junit.Test;
@@ -9,6 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.File;
+import java.io.IOException;
 
 import static com.gmail.shepard1992.familybudgetv1.utils.FileConstants.FILE_PATH_EMPTY_TEST;
 import static com.gmail.shepard1992.familybudgetv1.utils.FileConstants.FILE_PATH_TEST;
@@ -16,7 +18,8 @@ import static org.junit.Assert.*;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
-        UtilConfig.class
+        UtilConfig.class,
+        RepositoryConfig.class
 })
 public class FileUtilTest {
 
@@ -26,17 +29,17 @@ public class FileUtilTest {
     private final File file = new File(FILE_PATH_TEST);
 
     @Test
-    public void test_when_call_checkEmptyFile_then_return_result() {
+    public void test_when_call_checkEmptyFile_then_return_result() throws IOException {
         assertFalse(fileUtil.checkEmptyFile(file));
     }
 
     @Test
-    public void test_when_call_saveTemplate_then_return_success() {
+    public void test_when_call_saveTemplate_then_return_success() throws IOException {
         assertNotNull(fileUtil.saveTemplate(file));
     }
 
     @Test
-    public void test_when_call_checkEmptyFile_then_return_success() {
+    public void test_when_call_checkEmptyFile_then_return_success() throws IOException {
         assertTrue(fileUtil.checkEmptyFile(new File(FILE_PATH_EMPTY_TEST)));
     }
 

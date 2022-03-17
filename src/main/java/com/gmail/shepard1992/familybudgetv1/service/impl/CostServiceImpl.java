@@ -1,6 +1,7 @@
 package com.gmail.shepard1992.familybudgetv1.service.impl;
 
 import com.gmail.shepard1992.familybudgetv1.repository.api.RepositoryData;
+import com.gmail.shepard1992.familybudgetv1.repository.exception.RepositoryException;
 import com.gmail.shepard1992.familybudgetv1.service.api.Service;
 import com.gmail.shepard1992.familybudgetv1.service.api.TotalService;
 import com.gmail.shepard1992.familybudgetv1.service.model.Cost;
@@ -51,7 +52,12 @@ public class CostServiceImpl implements Service<CostDto>, TotalService {
                     .setSumFact(Double.parseDouble(params.getSumFact().getText()))
                     .setSumPlan(Double.parseDouble(params.getSumPlan().getText()))
                     .setType(params.getType().getText()).build();
-            repositoryData.save(mapperUtil.convertToCost(dto), params.getFile());
+            try {
+                repositoryData.save(mapperUtil.convertToCost(dto), params.getFile());
+            } catch (RepositoryException e) {
+                log.error(e.getMessage());
+                log.error(e.getStackTrace());
+            }
             updateTotal(params.getDialogStage(), params.getFile());
             log.debug(SERVICE_LOGS + "добавить запись " + dto.toString());
             return true;
@@ -69,22 +75,27 @@ public class CostServiceImpl implements Service<CostDto>, TotalService {
                 params.getFile(),
                 params.getDialogStage()
         );
-        if (validationUtil.isInputUpdateValid(params) && validationUtil.isIndexValid(validationIndexDto)) {
-            CostDto dto = new CostDto.CostDtoBuilder()
-                    .setIndex(params.getIndex().getText())
-                    .setCategory(params.getCategory().getText())
-                    .setType(params.getType().getText())
-                    .build();
-            if (!params.getSumFact().getText().isEmpty()) {
-                dto.setCostSumFact(Double.parseDouble(params.getSumFact().getText()));
+        try {
+            if (validationUtil.isInputUpdateValid(params) && validationUtil.isIndexValid(validationIndexDto)) {
+                CostDto dto = new CostDto.CostDtoBuilder()
+                        .setIndex(params.getIndex().getText())
+                        .setCategory(params.getCategory().getText())
+                        .setType(params.getType().getText())
+                        .build();
+                if (!params.getSumFact().getText().isEmpty()) {
+                    dto.setCostSumFact(Double.parseDouble(params.getSumFact().getText()));
+                }
+                if (!params.getSumPlan().getText().isEmpty()) {
+                    dto.setCostSumPlan(Double.parseDouble(params.getSumPlan().getText()));
+                }
+                repositoryData.update(mapperUtil.convertToCost(dto), params.getFile());
+                updateTotal(params.getDialogStage(), params.getFile());
+                log.debug(SERVICE_LOGS + "редактировать запись " + dto.toString());
+                return true;
             }
-            if (!params.getSumPlan().getText().isEmpty()) {
-                dto.setCostSumPlan(Double.parseDouble(params.getSumPlan().getText()));
-            }
-            repositoryData.update(mapperUtil.convertToCost(dto), params.getFile());
-            updateTotal(params.getDialogStage(), params.getFile());
-            log.debug(SERVICE_LOGS + "редактировать запись " + dto.toString());
-            return true;
+        } catch (RepositoryException e) {
+            log.error(e.getMessage());
+            log.error(e.getStackTrace());
         }
         log.debug(SERVICE_LOGS + "запись не редактирована");
         return false;
@@ -107,10 +118,16 @@ public class CostServiceImpl implements Service<CostDto>, TotalService {
 
     @Override
     public List<CostDto> getAll(File file) {
-        return repositoryData.getAll(file)
-                .stream()
-                .map(mapperUtil::convertToCostDto)
-                .collect(Collectors.toList());
+        try {
+            return repositoryData.getAll(file)
+                    .stream()
+                    .map(mapperUtil::convertToCostDto)
+                    .collect(Collectors.toList());
+        } catch (RepositoryException e) {
+            log.error(e.getMessage());
+            log.error(e.getStackTrace());
+            return null;
+        }
     }
 
     @Override
@@ -125,7 +142,12 @@ public class CostServiceImpl implements Service<CostDto>, TotalService {
                     .setSumPlan(sumPlan)
                     .setType(EMPTY)
                     .build();
-            repositoryData.save(mapperUtil.convertToCost(dto), file);
+            try {
+                repositoryData.save(mapperUtil.convertToCost(dto), file);
+            } catch (RepositoryException e) {
+                log.error(e.getMessage());
+                log.error(e.getStackTrace());
+            }
         };
         TotalServiceByCategoryDto<CostDto, Cost> dto = new TotalServiceByCategoryDto<>(file, this, repositoryData, consumer);
         totalServiceUtil.setTotalByCategory(dto);
@@ -136,7 +158,14 @@ public class CostServiceImpl implements Service<CostDto>, TotalService {
         List<CostDto> allCosts = getAll(file);
         allCosts.stream()
                 .filter(dto -> dto.getCategory().contains(TOTAL_ALL))
-                .forEachOrdered(dto -> repositoryData.deleteByCategory(dto.getCategory(), file));
+                .forEachOrdered(dto -> {
+                    try {
+                        repositoryData.deleteByCategory(dto.getCategory(), file);
+                    } catch (RepositoryException e) {
+                        log.error(e.getMessage());
+                        log.error(e.getStackTrace());
+                    }
+                });
         double totalFactAll = allCosts.stream()
                 .filter(dto -> dto.getCategory().contains(TOTAL_BY))
                 .collect(Collectors.toList())
@@ -157,7 +186,12 @@ public class CostServiceImpl implements Service<CostDto>, TotalService {
                     .setSumPlan(totalPlanAll)
                     .setType(EMPTY)
                     .build();
-            repositoryData.save(mapperUtil.convertToCost(dto), file);
+            try {
+                repositoryData.save(mapperUtil.convertToCost(dto), file);
+            } catch (RepositoryException e) {
+                log.error(e.getMessage());
+                log.error(e.getStackTrace());
+            }
         }
     }
 

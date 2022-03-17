@@ -1,6 +1,7 @@
 package repository;
 
 import com.gmail.shepard1992.familybudgetv1.repository.config.RepositoryConfig;
+import com.gmail.shepard1992.familybudgetv1.repository.exception.RepositoryException;
 import com.gmail.shepard1992.familybudgetv1.utils.config.UtilConfig;
 import com.gmail.shepard1992.familybudgetv1.service.model.Report;
 import com.gmail.shepard1992.familybudgetv1.repository.api.ReportRepository;
@@ -29,14 +30,14 @@ public class ReportRepositoryTest {
     private final File file = new File(FILE_PATH_TEST);
 
     @Test
-    public void when_call_get_then_return_report() {
+    public void when_call_get_then_return_report() throws RepositoryException {
         Report report = reportRepository.get(file);
 
         assertNotNull(report);
     }
 
     @Test
-    public void when_call_save_then_return_true() {
+    public void when_call_save_then_return_true() throws RepositoryException {
         Report report = reportRepository.get(file);
         boolean save = reportRepository.save(report, file);
 

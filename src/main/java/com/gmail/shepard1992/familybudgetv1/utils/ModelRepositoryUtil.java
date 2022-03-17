@@ -1,5 +1,6 @@
 package com.gmail.shepard1992.familybudgetv1.utils;
 
+import com.gmail.shepard1992.familybudgetv1.repository.exception.RepositoryException;
 import com.gmail.shepard1992.familybudgetv1.repository.impl.CostRepositoryDataImpl;
 import com.gmail.shepard1992.familybudgetv1.service.model.api.Model;
 import com.gmail.shepard1992.familybudgetv1.repository.model.dto.RepositoryDeleteByCategoryDto;
@@ -19,7 +20,7 @@ public class ModelRepositoryUtil {
 
     private static final Logger log = Logger.getLogger(ModelRepositoryUtil.class.getName());
 
-    public <E extends Model> void update(RepositoryUpdateDto<E> dto) {
+    public <E extends Model> void update(RepositoryUpdateDto<E> dto) throws RepositoryException {
         List<E> list = dto.getRepositoryData().getAll(dto.getFile());
         if (list.stream().anyMatch(inc -> inc.getIndex().equals(dto.getElement().getIndex()))) {
             for (E inc : list) {
@@ -28,13 +29,20 @@ public class ModelRepositoryUtil {
                 }
             }
             dto.getRepositoryData().clear(dto.getFile());
-            list.forEach(inc -> dto.getRepositoryData().save(inc, dto.getFile()));
+            list.forEach(inc -> {
+                try {
+                    dto.getRepositoryData().save(inc, dto.getFile());
+                } catch (RepositoryException e) {
+                    log.error(e.getMessage());
+                    log.error(e.getStackTrace());
+                }
+            });
             log.debug(REPOSITORY_LOGS + "редактирование модели " + dto.getElement().toString());
         }
         log.debug(REPOSITORY_LOGS + "модель не редактировалась " + dto.getElement().toString());
     }
 
-    public <E extends Model> boolean deleteByIndex(RepositoryDeleteByIndexDto<E> dto) {
+    public <E extends Model> boolean deleteByIndex(RepositoryDeleteByIndexDto<E> dto) throws RepositoryException {
         List<E> list = dto.getRepositoryData().getAll(dto.getFile());
         List<E> listToSave = list.stream()
                 .filter(inc -> !inc.getIndex().equals(dto.getIndex().toString()))
@@ -55,14 +63,21 @@ public class ModelRepositoryUtil {
         return false;
     }
 
-    public <E extends Model> void deleteByCategory(RepositoryDeleteByCategoryDto<E> dto) {
+    public <E extends Model> void deleteByCategory(RepositoryDeleteByCategoryDto<E> dto) throws RepositoryException {
         List<E> list = dto.getRepositoryData().getAll(dto.getFile());
         if (list.stream().anyMatch(inc -> inc.getCategory().equals(dto.getCategory()))) {
             for (int i = 0; i < list.size(); i++) {
                 if (list.get(i).getCategory().equals(dto.getCategory())) {
                     list.remove(i);
                     dto.getRepositoryData().clear(dto.getFile());
-                    list.forEach((cost -> dto.getRepositoryData().save(cost, dto.getFile())));
+                    list.forEach((cost -> {
+                        try {
+                            dto.getRepositoryData().save(cost, dto.getFile());
+                        } catch (RepositoryException e) {
+                            log.error(e.getMessage());
+                            log.error(e.getStackTrace());
+                        }
+                    }));
                 }
             }
         }

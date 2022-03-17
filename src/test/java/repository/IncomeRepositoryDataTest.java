@@ -1,6 +1,7 @@
 package repository;
 
 import com.gmail.shepard1992.familybudgetv1.repository.config.*;
+import com.gmail.shepard1992.familybudgetv1.repository.exception.RepositoryException;
 import com.gmail.shepard1992.familybudgetv1.service.model.Income;
 import com.gmail.shepard1992.familybudgetv1.repository.api.RepositoryData;
 import com.gmail.shepard1992.familybudgetv1.utils.config.UtilConfig;
@@ -32,12 +33,12 @@ public class IncomeRepositoryDataTest {
 
     @After
     @Before
-    public void clearFile() {
+    public void clearFile() throws RepositoryException {
         repositoryData.clear(file);
     }
 
     @Test
-    public void test_when_call_save_then_success() {
+    public void test_when_call_save_then_success() throws RepositoryException {
         Income income = new Income.IncomeBuilder()
                 .setIndex("10")
                 .setSum(200d)
@@ -56,14 +57,14 @@ public class IncomeRepositoryDataTest {
     }
 
     @Test
-    public void test_when_call_clear_then_file_empty() {
+    public void test_when_call_clear_then_file_empty() throws RepositoryException {
         repositoryData.clear(file);
         List<Income> all = repositoryData.getAll(file);
         assertTrue(all.isEmpty());
     }
 
     @Test
-    public void test_when_call_deleteByCategory_then_success() {
+    public void test_when_call_deleteByCategory_then_success() throws RepositoryException {
         repositoryData.save(new Income.IncomeBuilder()
                 .setIndex("4")
                 .setCategory("Dog")
@@ -86,7 +87,7 @@ public class IncomeRepositoryDataTest {
     }
 
     @Test
-    public void test_when_call_deleteByIndex_then_success() {
+    public void test_when_call_deleteByIndex_then_success() throws RepositoryException {
         repositoryData.save(new Income.IncomeBuilder()
                 .setIndex("1")
                 .setCategory("Dog")
@@ -110,7 +111,7 @@ public class IncomeRepositoryDataTest {
     }
 
     @Test
-    public void test_when_call_update_then_success() {
+    public void test_when_call_update_then_success() throws RepositoryException {
         repositoryData.save(new Income.IncomeBuilder()
                 .setIndex("0")
                 .setCategory("Dog")
@@ -131,7 +132,7 @@ public class IncomeRepositoryDataTest {
     }
 
     @Test
-    public void test_when_call_getAll_then_return_list(){
+    public void test_when_call_getAll_then_return_list() throws RepositoryException {
         repositoryData.save(new Income.IncomeBuilder()
                 .setIndex("1")
                 .setCategory("Dog")

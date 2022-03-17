@@ -2,6 +2,7 @@ package com.gmail.shepard1992.familybudgetv1.repository.impl;
 
 import com.gmail.shepard1992.familybudgetv1.repository.api.CreateFileReportRepository;
 import com.gmail.shepard1992.familybudgetv1.repository.api.ReportRepository;
+import com.gmail.shepard1992.familybudgetv1.repository.exception.RepositoryException;
 import com.gmail.shepard1992.familybudgetv1.service.model.CostList;
 import com.gmail.shepard1992.familybudgetv1.service.model.IncomeList;
 import com.gmail.shepard1992.familybudgetv1.service.model.Report;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.io.File;
+import java.io.IOException;
 
 import static com.gmail.shepard1992.familybudgetv1.repository.constants.Logs.REPOSITORY_LOGS;
 
@@ -35,20 +37,24 @@ public class CreateFileReportRepositoryImpl implements CreateFileReportRepositor
     }
 
     @Override
-    public File createFile(File dir, CreateDirectoryDto dto) {
+    public File createFile(File dir, CreateDirectoryDto dto) throws RepositoryException {
         if (dir != null) {
-            File file = fileUtil.getFile(dto, dir);
-            if (fileUtil.checkEmptyFile(file)) {
-                Report report = new Report.ReportBuilder()
-                        .setYear(dto.getYear().getValue())
-                        .setMonth(dto.getMonth().getValue())
-                        .setIncomeList(new IncomeList())
-                        .setCosts(new CostList())
-                        .build();
-                reportRepository.save(report, file);
+            try {
+                File file = fileUtil.getFile(dto, dir);
+                if (fileUtil.checkEmptyFile(file)) {
+                    Report report = new Report.ReportBuilder()
+                            .setYear(dto.getYear().getValue())
+                            .setMonth(dto.getMonth().getValue())
+                            .setIncomeList(new IncomeList())
+                            .setCosts(new CostList())
+                            .build();
+                    reportRepository.save(report, file);
+                }
+                log.debug(REPOSITORY_LOGS + "создать файл " + file.getName());
+                return file;
+            } catch (IOException exception) {
+                throw new RepositoryException("Ошибка создания файла", exception);
             }
-            log.debug(REPOSITORY_LOGS + "создать файл " + file.getName());
-            return file;
         }
         log.debug(REPOSITORY_LOGS + "файл не создан");
         return null;

@@ -208,6 +208,7 @@
                         <exclude>**/constants/**</exclude>
                         <exclude>**/model/**</exclude>
                         <exclude>**/mainApp/**</exclude>
+                        <exclude>**/exception/**</exclude>
                     </excludes>
                 </configuration>
             </plugin>

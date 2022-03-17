@@ -1,6 +1,7 @@
 package com.gmail.shepard1992.familybudgetv1.service.impl;
 
 import com.gmail.shepard1992.familybudgetv1.repository.api.ReportRepository;
+import com.gmail.shepard1992.familybudgetv1.repository.exception.RepositoryException;
 import com.gmail.shepard1992.familybudgetv1.service.api.MonthReportService;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.LoadMonthReportDto;
 import com.gmail.shepard1992.familybudgetv1.utils.FileUtil;
@@ -33,6 +34,11 @@ public class MonthReportServiceImpl implements MonthReportService {
     public void loadMonthReport(File[] files, TableView<MonthReportDto> tableView) {
         LoadMonthReportDto dto = new LoadMonthReportDto(files, tableView, repository);
         log.debug(SERVICE_LOGS + " загрузить годовой отчет по месяцам: " + Arrays.stream(files).map(File::getName).collect(Collectors.joining(", ")));
-        fileUtil.loadDtoData(dto);
+        try {
+            fileUtil.loadDtoData(dto);
+        } catch (RepositoryException e) {
+            log.error(e.getMessage());
+            log.error(e.getStackTrace());
+        }
     }
 }

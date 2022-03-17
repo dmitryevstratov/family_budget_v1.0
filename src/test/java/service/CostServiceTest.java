@@ -1,6 +1,7 @@
 package service;
 
 import com.gmail.shepard1992.familybudgetv1.repository.config.RepositoryConfig;
+import com.gmail.shepard1992.familybudgetv1.repository.exception.RepositoryException;
 import com.gmail.shepard1992.familybudgetv1.service.config.ServiceConfig;
 import com.gmail.shepard1992.familybudgetv1.utils.config.UtilConfig;
 import com.gmail.shepard1992.familybudgetv1.service.model.Cost;
@@ -55,7 +56,7 @@ public class CostServiceTest {
     }
 
     @Test
-    public void test_when_call_getAll_then_return_result() {
+    public void test_when_call_getAll_then_return_result() throws RepositoryException {
         ArrayList<Cost> objects = new ArrayList<>();
         objects.add(new Cost.CostBuilder()
                 .setIndex("10")
@@ -70,7 +71,7 @@ public class CostServiceTest {
     }
 
     @Test
-    public void test_when_call_setTotalByCategory_then_return_success() {
+    public void test_when_call_setTotalByCategory_then_return_success() throws RepositoryException {
         List<Cost> costList = new ArrayList<>();
         costList.add(new Cost.CostBuilder()
                 .setIndex("1")
@@ -88,7 +89,7 @@ public class CostServiceTest {
     }
 
     @Test
-    public void test_when_call_setTotalAll_then_return_success() {
+    public void test_when_call_setTotalAll_then_return_success() throws RepositoryException {
         List<Cost> costList = new ArrayList<>();
         costList.add(new Cost.CostBuilder()
                 .setIndex("1")

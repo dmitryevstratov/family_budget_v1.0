@@ -1,5 +1,6 @@
 package com.gmail.shepard1992.familybudgetv1.utils;
 
+import com.gmail.shepard1992.familybudgetv1.repository.exception.RepositoryException;
 import com.gmail.shepard1992.familybudgetv1.service.model.Report;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.LoadMonthReportDto;
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.*;
@@ -31,18 +32,14 @@ public class FileUtil {
         this.mapperUtil = mapperUtil;
     }
 
-    public File getFile(CreateDirectoryDto dto, File dir) {
+    public File getFile(CreateDirectoryDto dto, File dir) throws IOException {
         if (dir != null) {
             String pathYear = Objects.requireNonNull(dir).getAbsolutePath() + DEL + dto.getYear().getValue();
             String pathMonth = dto.getMonth().getValue().toString() + XML;
             File file = getFileByName(pathYear, pathMonth);
             if (file == null && !Files.exists(Path.of(pathYear + DEL + pathMonth))) {
-                try {
-                    createYearDirectory(Objects.requireNonNull(dir).getAbsolutePath() + DEL, dto.getYear().getValue());
-                    file = Files.createFile(Path.of(pathYear + DEL + pathMonth)).toFile();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                createYearDirectory(Objects.requireNonNull(dir).getAbsolutePath() + DEL, dto.getYear().getValue());
+                file = Files.createFile(Path.of(pathYear + DEL + pathMonth)).toFile();
             }
             return file;
         } else {
@@ -50,13 +47,9 @@ public class FileUtil {
         }
     }
 
-    private void createYearDirectory(String dir, Integer dto) {
+    private void createYearDirectory(String dir, Integer dto) throws IOException {
         if (!Files.exists(Path.of(dir + dto))) {
-            try {
-                Files.createDirectory(Path.of(dir + dto));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            Files.createDirectory(Path.of(dir + dto));
         }
     }
 
@@ -73,7 +66,7 @@ public class FileUtil {
         return result;
     }
 
-    public boolean checkEmptyFile(File file) {
+    public boolean checkEmptyFile(File file) throws IOException {
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String s;
             while ((s = reader.readLine()) != null) {
@@ -82,7 +75,7 @@ public class FileUtil {
                 }
             }
         } catch (IOException ex) {
-            ex.printStackTrace();
+            throw ex;
         }
         return true;
     }
@@ -93,22 +86,14 @@ public class FileUtil {
         dto.getTable().setItems(dtoData);
     }
 
-    public File saveTemplate(File file) {
+    public File saveTemplate(File file) throws IOException {
         if (file != null) {
             String strPath = getStringPath(file);
             Path path = Path.of(getStringPath(file));
-            try {
-                if (Files.deleteIfExists(path)) {
-                    try {
-                        return fileRW(file, Files.createFile(path).toFile());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    return fileRW(file, new File(strPath));
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (Files.deleteIfExists(path)) {
+                return fileRW(file, Files.createFile(path).toFile());
+            } else {
+                return fileRW(file, new File(strPath));
             }
         }
         return null;
@@ -169,7 +154,7 @@ public class FileUtil {
         return null;
     }
 
-    public void loadDtoData(LoadMonthReportDto loadDto) {
+    public void loadDtoData(LoadMonthReportDto loadDto) throws RepositoryException {
         ObservableList<MonthReportDto> dtoData = FXCollections.observableArrayList();
         for (File file : loadDto.getFiles()) {
             Report report = loadDto.getRepository().get(file);

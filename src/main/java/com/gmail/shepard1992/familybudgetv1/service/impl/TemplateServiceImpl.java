@@ -2,6 +2,7 @@ package com.gmail.shepard1992.familybudgetv1.service.impl;
 
 import com.gmail.shepard1992.familybudgetv1.repository.api.RepositoryData;
 import com.gmail.shepard1992.familybudgetv1.repository.api.TemplateRepository;
+import com.gmail.shepard1992.familybudgetv1.repository.exception.RepositoryException;
 import com.gmail.shepard1992.familybudgetv1.service.api.TemplateService;
 import com.gmail.shepard1992.familybudgetv1.service.model.Cost;
 import com.gmail.shepard1992.familybudgetv1.service.model.Income;
@@ -37,17 +38,41 @@ public class TemplateServiceImpl implements TemplateService {
     @Override
     public void saveTemplate(File file) {
         log.debug(SERVICE_LOGS + "сохранить шаблон " + file.getName());
-        repository.save(file);
+        try {
+            repository.save(file);
+        } catch (RepositoryException e) {
+            log.error(e.getMessage());
+            log.error(e.getStackTrace());
+        }
     }
 
     @Override
     public boolean loadTemplate(LoadTemplateDto dto) {
         if (validationUtil.isInputLoadTemplateValid(dto)) {
-            incomeRepositoryData.clear(dto.getFile());
-            costRepositoryData.clear(dto.getFile());
+            try {
+                incomeRepositoryData.clear(dto.getFile());
+                costRepositoryData.clear(dto.getFile());
+                incomeRepositoryData.getAll(dto.getTmp()).forEach(income -> {
+                    try {
+                        incomeRepositoryData.save(income, dto.getFile());
+                    } catch (RepositoryException e) {
+                        log.error(e.getMessage());
+                        log.error(e.getStackTrace());
+                    }
+                });
+                costRepositoryData.getAll(dto.getTmp()).forEach(cost -> {
+                    try {
+                        costRepositoryData.save(cost, dto.getFile());
+                    } catch (RepositoryException e) {
+                        log.error(e.getMessage());
+                        log.error(e.getStackTrace());
+                    }
+                });
+            } catch (RepositoryException e) {
+                log.error(e.getMessage());
+                log.error(e.getStackTrace());
+            }
 
-            incomeRepositoryData.getAll(dto.getTmp()).forEach(income -> incomeRepositoryData.save(income, dto.getFile()));
-            costRepositoryData.getAll(dto.getTmp()).forEach(cost -> costRepositoryData.save(cost, dto.getFile()));
             log.debug(SERVICE_LOGS + "загрузить шаблон " + dto.getFile().getName());
             return true;
         }

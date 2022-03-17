@@ -1,5 +1,6 @@
 package utils;
 
+import com.gmail.shepard1992.familybudgetv1.repository.config.RepositoryConfig;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.IncomeDto;
 import com.gmail.shepard1992.familybudgetv1.utils.IndexUtil;
 import com.gmail.shepard1992.familybudgetv1.utils.config.UtilConfig;
@@ -17,6 +18,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {
         UtilConfig.class,
+        RepositoryConfig.class
 })
 public class IndexUtilTest {
 

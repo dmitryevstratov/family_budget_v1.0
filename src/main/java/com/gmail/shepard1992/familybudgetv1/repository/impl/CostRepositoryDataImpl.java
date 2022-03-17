@@ -2,10 +2,10 @@ package com.gmail.shepard1992.familybudgetv1.repository.impl;
 
 import com.gmail.shepard1992.familybudgetv1.repository.api.ReportRepository;
 import com.gmail.shepard1992.familybudgetv1.repository.api.RepositoryData;
+import com.gmail.shepard1992.familybudgetv1.repository.exception.RepositoryException;
 import com.gmail.shepard1992.familybudgetv1.repository.model.dto.RepositoryDeleteByCategoryDto;
 import com.gmail.shepard1992.familybudgetv1.repository.model.dto.RepositoryDeleteByIndexDto;
 import com.gmail.shepard1992.familybudgetv1.repository.model.dto.RepositoryUpdateDto;
-import com.gmail.shepard1992.familybudgetv1.service.impl.CostServiceImpl;
 import com.gmail.shepard1992.familybudgetv1.service.model.Cost;
 import com.gmail.shepard1992.familybudgetv1.service.model.CostList;
 import com.gmail.shepard1992.familybudgetv1.service.model.Report;
@@ -20,7 +20,6 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 import static com.gmail.shepard1992.familybudgetv1.repository.constants.Logs.REPOSITORY_LOGS;
-import static com.gmail.shepard1992.familybudgetv1.service.constants.Logs.SERVICE_LOGS;
 
 @org.springframework.stereotype.Repository
 public class CostRepositoryDataImpl implements RepositoryData<Cost> {
@@ -36,7 +35,7 @@ public class CostRepositoryDataImpl implements RepositoryData<Cost> {
     }
 
     @Override
-    public boolean save(Cost element, File file) {
+    public boolean save(Cost element, File file) throws RepositoryException {
         List<Cost> costList = getAll(file);
         CostList list = new CostList();
         Report report = reportRepository.get(file);
@@ -52,7 +51,7 @@ public class CostRepositoryDataImpl implements RepositoryData<Cost> {
     }
 
     @Override
-    public void update(Cost element, File file) {
+    public void update(Cost element, File file) throws RepositoryException {
         Consumer<Cost> consumer = cost -> {
             if (!element.getCategory().isEmpty()) cost.setModelCategory(element.getCategory());
             if (!element.getType().isEmpty()) cost.setModelType(element.getType());
@@ -64,13 +63,13 @@ public class CostRepositoryDataImpl implements RepositoryData<Cost> {
     }
 
     @Override
-    public boolean deleteByIndex(Integer index, File file) {
+    public boolean deleteByIndex(Integer index, File file) throws RepositoryException {
         RepositoryDeleteByIndexDto<Cost> dto = new RepositoryDeleteByIndexDto<>(file, this, index);
         return facade.deleteByIndex(dto);
     }
 
     @Override
-    public List<Cost> getAll(File file) {
+    public List<Cost> getAll(File file) throws RepositoryException {
         Report report = reportRepository.get(file);
         if (report == null) {
             return new ArrayList<>();
@@ -80,7 +79,7 @@ public class CostRepositoryDataImpl implements RepositoryData<Cost> {
     }
 
     @Override
-    public void clear(File file) {
+    public void clear(File file) throws RepositoryException {
         Report report = reportRepository.get(file);
         report.setReportCostList(new CostList());
         report.getCostList().setCost(new ArrayList<>());
@@ -88,7 +87,7 @@ public class CostRepositoryDataImpl implements RepositoryData<Cost> {
     }
 
     @Override
-    public void deleteByCategory(String category, File file) {
+    public void deleteByCategory(String category, File file) throws RepositoryException {
         RepositoryDeleteByCategoryDto<Cost> dto = new RepositoryDeleteByCategoryDto<>(file, this, category);
         facade.deleteByCategory(dto);
     }
