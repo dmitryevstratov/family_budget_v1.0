@@ -1,35 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0"
-            prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.gmail.shepard1992.familybudgetv1.view.controller.impl.MainControllerImpl">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="600.0" styleClass="main-container" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gmail.shepard1992.familybudgetv1.view.controller.impl.MainControllerImpl">
     <left>
-        <VBox BorderPane.alignment="CENTER">
-            <Button fx:id="createReportBtn" mnemonicParsing="false" onAction="#showModalCreateReport"
-                    text="Создать отчет"/>
-            <Button fx:id="openReportBtn" mnemonicParsing="false" onAction="#showModalOpenReport" text="Открыть отчет"/>
-            <Button fx:id="yearReportBtn" mnemonicParsing="false" onAction="#showModalOpenYearReport"
-                    text="Годовой отчет"/>
+        <VBox alignment="TOP_CENTER" prefHeight="439.0" prefWidth="606.0" styleClass="content-container" BorderPane.alignment="CENTER">
+            <Button fx:id="createReportBtn" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#showModalCreateReport" text="Создать отчет">
+            <VBox.margin>
+               <Insets bottom="5.0" />
+            </VBox.margin></Button>
+            <Button fx:id="openReportBtn" alignment="CENTER" mnemonicParsing="false" onAction="#showModalOpenReport" text="Открыть отчет">
+            <VBox.margin>
+               <Insets bottom="5.0" />
+            </VBox.margin></Button>
+            <Button fx:id="yearReportBtn" alignment="CENTER" mnemonicParsing="false" onAction="#showModalOpenYearReport" text="Годовой отчет" />
         </VBox>
     </left>
     <bottom>
-        <Label text="Разработанно by Евстратов" BorderPane.alignment="CENTER"/>
+        <Label text="Разработанно by Евстратов" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font></Label>
     </bottom>
     <top>
         <VBox alignment="TOP_CENTER" prefHeight="41.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-            <MenuBar>
+            <MenuBar styleClass="top-menu">
                 <Menu mnemonicParsing="false" text="Файл">
-                    <MenuItem mnemonicParsing="false" onAction="#showModalCreateReport" text="Создать отчет"/>
-                    <MenuItem mnemonicParsing="false" onAction="#showModalOpenReport" text="Открыть отчет"/>
-                    <MenuItem mnemonicParsing="false" onAction="#showModalOpenYearReport" text="Годовой отчет"/>
+                    <MenuItem mnemonicParsing="false" onAction="#showModalCreateReport" text="Создать отчет" />
+                    <MenuItem mnemonicParsing="false" onAction="#showModalOpenReport" text="Открыть отчет" />
+                    <MenuItem mnemonicParsing="false" onAction="#showModalOpenYearReport" text="Годовой отчет" />
                 </Menu>
                 <Menu mnemonicParsing="false" text="Помощь">
-                    <MenuItem mnemonicParsing="false" text="Описание приложения"/>
+                    <MenuItem mnemonicParsing="false" text="Описание приложения" />
                 </Menu>
+            <VBox.margin>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </VBox.margin>
             </MenuBar>
-            <Label text="Семейный бюджет v1.0"/>
+            <Label styleClass="header-page" text="Семейный бюджет v1.0">
+            <VBox.margin>
+               <Insets bottom="10.0" top="10.0" />
+            </VBox.margin>
+            <font>
+               <Font name="System Bold" size="18.0" />
+            </font></Label>
+         <BorderPane.margin>
+            <Insets bottom="50.0" />
+         </BorderPane.margin>
         </VBox>
     </top>
 </BorderPane>

@@ -1,77 +1,113 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-            prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.gmail.shepard1992.familybudgetv1.view.controller.impl.ReportControllerImpl">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" styleClass="main-container" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gmail.shepard1992.familybudgetv1.view.controller.impl.ReportControllerImpl">
     <top>
         <VBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-            <MenuBar>
+            <MenuBar styleClass="top-menu">
                 <Menu mnemonicParsing="false" text="Файл">
                     <MenuItem mnemonicParsing="false" onAction="#backToMainView" text="Главное меню" />
-                    <MenuItem mnemonicParsing="false" text="Сохранить шаблон" fx:id="saveTemplate"
-                              onAction="#saveTemplate"/>
-                    <MenuItem mnemonicParsing="false" text="Загрузить шаблон" fx:id="loadTemplate"
-                              onAction="#loadTemplate"/>
+                    <MenuItem fx:id="saveTemplate" mnemonicParsing="false" onAction="#saveTemplate" text="Сохранить шаблон" />
+                    <MenuItem fx:id="loadTemplate" mnemonicParsing="false" onAction="#loadTemplate" text="Загрузить шаблон" />
                 </Menu>
                 <Menu mnemonicParsing="false" text="Помощь">
-                    <MenuItem mnemonicParsing="false" text="Таблица доходы"/>
-                    <MenuItem mnemonicParsing="false" text="Таблица расходы"/>
+                    <MenuItem mnemonicParsing="false" text="Таблица доходы" />
+                    <MenuItem mnemonicParsing="false" text="Таблица расходы" />
                 </Menu>
+            <VBox.margin>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </VBox.margin>
             </MenuBar>
-            <Label alignment="TOP_CENTER" contentDisplay="CENTER" text="Отчет за месяц"/>
+            <Label alignment="TOP_CENTER" contentDisplay="CENTER" styleClass="header-page" text="Отчет за месяц">
+            <VBox.margin>
+               <Insets bottom="10.0" top="10.0" />
+            </VBox.margin>
+            <font>
+               <Font name="System Bold" size="18.0" />
+            </font></Label>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
         </VBox>
     </top>
     <bottom>
-        <Label text="Разработанно by Евстратов" BorderPane.alignment="CENTER"/>
+        <Label text="Разработанно by Евстратов" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font></Label>
     </bottom>
     <center>
-        <SplitPane dividerPositions="0.4999999999999999" prefHeight="160.0" prefWidth="200.0"
-                   BorderPane.alignment="CENTER">
-            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                <VBox prefHeight="334.0" prefWidth="401.0">
-                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="405.0"
-                           text="Таблица расходов"/>
-                    <TableView fx:id="tableCost" prefHeight="190.0" prefWidth="378.0">
+        <SplitPane dividerPositions="0.4999999999999999" prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="423.0" prefWidth="596.0">
+                <VBox alignment="CENTER" layoutX="-1.0" prefHeight="334.0" prefWidth="600.0">
+                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="405.0" text="Таблица расходов" />
+                    <TableView fx:id="tableCost" prefHeight="345.0" prefWidth="600.0" styleClass="table">
                         <columns>
-                            <TableColumn fx:id="indexCost" prefWidth="31.999970257282257" text="#"/>
-                            <TableColumn fx:id="categoryCost" prefWidth="127.99996566772461" text="Категория"/>
-                            <TableColumn fx:id="typeCost" prefWidth="56.0" text="Тип"/>
+                            <TableColumn fx:id="indexCost" prefWidth="31.999970257282257" text="#" />
+                            <TableColumn fx:id="categoryCost" prefWidth="127.99996566772461" text="Категория" />
+                            <TableColumn fx:id="typeCost" prefWidth="56.0" text="Тип" />
                             <TableColumn prefWidth="183.2000274658203" text="Сумма, руб">
                                 <columns>
-                                    <TableColumn fx:id="sumPlanCost" prefWidth="75.0" text="План"/>
-                                    <TableColumn fx:id="sumFactCost" prefWidth="76.0" text="Факт"/>
+                                    <TableColumn fx:id="sumPlanCost" prefWidth="75.0" text="План" />
+                                    <TableColumn fx:id="sumFactCost" prefWidth="76.0" text="Факт" />
                                 </columns>
                             </TableColumn>
                         </columns>
                     </TableView>
-                    <HBox prefHeight="127.0" prefWidth="300.0">
-                        <Button id="addCostsBtn" onAction="#addCostRow" mnemonicParsing="false" text="Добавить"/>
-                        <Button id="updateCostsBtn" onAction="#updateCostRow" mnemonicParsing="false" text="Изменить"/>
-                        <Button id="deleteCostsBtn" onAction="#deleteCostRow" mnemonicParsing="false" text="Удалить"/>
+                    <HBox prefHeight="85.0" prefWidth="600.0">
+                        <Button id="addCostsBtn" mnemonicParsing="false" onAction="#addCostRow" text="Добавить">
+                     <HBox.margin>
+                        <Insets right="5.0" top="5.0" />
+                     </HBox.margin></Button>
+                        <Button id="updateCostsBtn" mnemonicParsing="false" onAction="#updateCostRow" text="Изменить">
+                     <HBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </HBox.margin></Button>
+                        <Button id="deleteCostsBtn" mnemonicParsing="false" onAction="#deleteCostRow" text="Удалить">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin></Button>
                     </HBox>
                 </VBox>
             </AnchorPane>
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                <VBox prefHeight="334.0" prefWidth="401.0">
-                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="405.0"
-                           text="Таблица доходов"/>
-                    <TableView fx:id="tableIncome" prefHeight="191.0" prefWidth="420.0">
+                <VBox alignment="CENTER" prefHeight="334.0" prefWidth="598.0">
+                    <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="405.0" text="Таблица доходов" />
+                    <TableView fx:id="tableIncome" prefHeight="364.0" prefWidth="598.0" styleClass="table">
                         <columns>
-                            <TableColumn fx:id="indexIncome" prefWidth="28.799987018108368" text="#"/>
-                            <TableColumn fx:id="categoryIncome" prefWidth="163.20001602172852" text="Категрия"/>
-                            <TableColumn fx:id="typeIncome" minWidth="0.0" prefWidth="79.99998474121094" text="Тип"/>
-                            <TableColumn fx:id="sumIncome" maxWidth="213.59996032714844" prefWidth="128.7999267578125"
-                                         text="Сумма, руб"/>
+                            <TableColumn fx:id="indexIncome" prefWidth="28.799987018108368" text="#" />
+                            <TableColumn fx:id="categoryIncome" prefWidth="163.20001602172852" text="Категрия" />
+                            <TableColumn fx:id="typeIncome" minWidth="0.0" prefWidth="79.99998474121094" text="Тип" />
+                            <TableColumn fx:id="sumIncome" maxWidth="213.59996032714844" prefWidth="128.7999267578125" text="Сумма, руб" />
                         </columns>
                     </TableView>
-                    <HBox prefHeight="127.0" prefWidth="300.0">
-                        <Button id="addIncomeBtn" mnemonicParsing="false" onAction="#addIncomeRow" text="Добавить"/>
-                        <Button id="updateIncomeBtn" mnemonicParsing="false" onAction="#updateIncomeRow"
-                                text="Изменить"/>
-                        <Button id="deleteIncomeBtn" mnemonicParsing="false" onAction="#deleteIncomeRow"
-                                text="Удалить"/>
+                    <HBox prefHeight="63.0" prefWidth="598.0">
+                        <Button id="addIncomeBtn" mnemonicParsing="false" onAction="#addIncomeRow" text="Добавить">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin></Button>
+                        <Button id="updateIncomeBtn" mnemonicParsing="false" onAction="#updateIncomeRow" text="Изменить">
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin></Button>
+                        <Button id="deleteIncomeBtn" mnemonicParsing="false" onAction="#deleteIncomeRow" text="Удалить">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin></Button>
                     </HBox>
                 </VBox>
             </AnchorPane>
