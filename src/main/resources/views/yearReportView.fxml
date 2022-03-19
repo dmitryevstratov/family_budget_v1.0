@@ -1,41 +1,72 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-            prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.gmail.shepard1992.familybudgetv1.view.controller.impl.YearReportControllerImpl">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.Blend?>
+<?import javafx.scene.effect.ColorAdjust?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="1200.0" styleClass="main-container" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.gmail.shepard1992.familybudgetv1.view.controller.impl.YearReportControllerImpl">
     <top>
         <VBox alignment="TOP_CENTER" prefHeight="50.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-            <MenuBar>
+            <MenuBar styleClass="top-menu">
                 <Menu mnemonicParsing="false" text="Файл">
                     <MenuItem mnemonicParsing="false" onAction="#backToMainView" text="Главное меню" />
                 </Menu>
                 <Menu mnemonicParsing="false" text="Помощь">
-                    <MenuItem mnemonicParsing="false" text="Годовой отчет"/>
+                    <MenuItem mnemonicParsing="false" text="Годовой отчет" />
                 </Menu>
+            <effect>
+               <ColorAdjust />
+            </effect>
+            <padding>
+               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding>
             </MenuBar>
-            <Label alignment="TOP_CENTER" contentDisplay="CENTER" text="Отчет за год"/>
+            <Label alignment="TOP_CENTER" contentDisplay="CENTER" styleClass="header-page" text="Отчет за год" textAlignment="CENTER">
+            <VBox.margin>
+               <Insets bottom="10.0" top="10.0" />
+            </VBox.margin>
+            <font>
+               <Font name="System Bold" size="18.0" />
+            </font>
+            <effect>
+               <Blend />
+            </effect></Label>
         </VBox>
     </top>
     <bottom>
-        <Label text="Разработанно by Евстратов" BorderPane.alignment="CENTER"/>
+        <Label styleClass="footer" text="Разработанно by Евстратов" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="System Italic" size="12.0" />
+         </font></Label>
     </bottom>
     <center>
         <SplitPane prefHeight="160.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
-                <TableView fx:id="table" layoutY="14.0" prefHeight="190.0" prefWidth="800.0">
+                <TableView fx:id="table" layoutY="14.0" prefHeight="476.0" prefWidth="1200.0" styleClass="table">
                     <columns>
-                        <TableColumn fx:id="month" prefWidth="124.80001449584961" text="Месяц"/>
-                        <TableColumn fx:id="income" minWidth="0.0" prefWidth="127.20002746582031" text="Доход, руб"/>
-                        <TableColumn fx:id="cost" maxWidth="264.00006103515625" prefWidth="122.39996337890625"
-                                     text="Расход, руб"/>
-                        <TableColumn fx:id="total" prefWidth="100.0" text="Итого, руб"/>
-                        <TableColumn fx:id="totalPercent" prefWidth="75.0" text="Итого, %"/>
-                        <TableColumn fx:id="majorPurchases" prefWidth="294.39996337890625" text="Крупные покупки"/>
+                        <TableColumn fx:id="month" prefWidth="124.80001449584961" text="Месяц" />
+                        <TableColumn fx:id="income" minWidth="0.0" prefWidth="196.00003051757812" text="Доход, руб" />
+                        <TableColumn fx:id="cost" maxWidth="278.3999938964844" prefWidth="210.4000244140625" text="Расход, руб" />
+                        <TableColumn fx:id="total" prefWidth="168.0" text="Итого, руб" />
+                        <TableColumn fx:id="totalPercent" prefWidth="149.60003662109375" text="Итого, %" />
+                        <TableColumn fx:id="majorPurchases" prefWidth="352.0" text="Крупные покупки" />
                     </columns>
                 </TableView>
             </AnchorPane>
         </SplitPane>
     </center>
+   <padding>
+      <Insets bottom="5.0" top="5.0" />
+   </padding>
 </BorderPane>
