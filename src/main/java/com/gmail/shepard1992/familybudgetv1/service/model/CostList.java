@@ -4,16 +4,16 @@ import java.util.List;
 
 public class CostList {
 
-    private List<Cost> income;
+    private List<Cost> costs;
 
     public CostList() {
     }
 
     public List<Cost> getCost() {
-        return income;
+        return costs;
     }
 
     public void setCost(List<Cost> income) {
-        this.income = income;
+        this.costs = income;
     }
 }

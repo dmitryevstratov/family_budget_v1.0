@@ -7,6 +7,7 @@ import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.cost.Modal
 import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.ServiceNewRowDto;
 import javafx.fxml.FXML;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,9 @@ public class ModalAddRowCostControllerImpl implements ModalAddRowCostController 
 
     @FXML
     private TextField sumFact;
+
+    @FXML
+    private CheckBox isBigPurchase;
 
     @Autowired
     public ModalAddRowCostControllerImpl(Service<CostDto> costService) {
@@ -64,6 +68,7 @@ public class ModalAddRowCostControllerImpl implements ModalAddRowCostController 
                 .setSumFact(sumFact)
                 .setDialogStage(dialogStage)
                 .setFile(file)
+                .setIsBigPurchase(isBigPurchase)
                 .build();
         return costService.addRow(params);
     }

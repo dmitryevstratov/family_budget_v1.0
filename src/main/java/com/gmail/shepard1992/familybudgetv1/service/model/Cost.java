@@ -5,7 +5,7 @@ import com.gmail.shepard1992.familybudgetv1.service.model.api.Model;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
-@XmlType(propOrder = {"index", "category", "type", "sumPlan", "sumFact"})
+@XmlType(propOrder = {"index", "category", "type", "sumPlan", "sumFact", "isBigPurchase"})
 public class Cost implements Model {
 
     @XmlElement
@@ -23,6 +23,9 @@ public class Cost implements Model {
     @XmlElement
     private Double sumFact;
 
+    @XmlElement
+    private String isBigPurchase;
+
     public Cost() {
     }
 
@@ -32,7 +35,7 @@ public class Cost implements Model {
         this.type = costBuilder.type;
         this.sumPlan = costBuilder.sumPlan;
         this.sumFact = costBuilder.sumFact;
-
+        this.isBigPurchase = costBuilder.isBigPurchase;
     }
 
     @Override
@@ -50,6 +53,10 @@ public class Cost implements Model {
 
     public Double getSumFact() {
         return sumFact;
+    }
+
+    public String getBigPurchase() {
+        return isBigPurchase;
     }
 
     @Override
@@ -78,12 +85,17 @@ public class Cost implements Model {
         this.sumFact = sumFact;
     }
 
+    public void setModelIsBigPurchase(String isBigPurchase){
+        this.isBigPurchase = isBigPurchase;
+    }
+
     public static class CostBuilder {
         private String index;
         private String category;
         private String type;
         private Double sumPlan;
         private Double sumFact;
+        private String isBigPurchase;
 
         public CostBuilder setIndex(String index) {
             this.index = index;
@@ -97,6 +109,11 @@ public class Cost implements Model {
 
         public CostBuilder setType(String type) {
             this.type = type;
+            return this;
+        }
+
+        public CostBuilder setIsBigPurchase(String isBigPurchase){
+            this.isBigPurchase = isBigPurchase;
             return this;
         }
 
@@ -114,6 +131,5 @@ public class Cost implements Model {
             return new Cost(this);
         }
     }
-
 
 }

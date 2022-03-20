@@ -45,6 +45,7 @@ public class CostRepositoryDataTest {
                 .setSumPlan(100d)
                 .setType("Type")
                 .setCategory("Category")
+                .setIsBigPurchase("false")
                 .build();
 
         repositoryData.save(cost, file);
@@ -72,6 +73,7 @@ public class CostRepositoryDataTest {
                 .setType("Dog")
                 .setSumFact(100d)
                 .setSumPlan(100d)
+                .setIsBigPurchase("false")
                 .build(), file);
         repositoryData.save(new Cost.CostBuilder()
                 .setIndex("10")
@@ -79,6 +81,7 @@ public class CostRepositoryDataTest {
                 .setType("Dog")
                 .setSumFact(100d)
                 .setSumPlan(100d)
+                .setIsBigPurchase("false")
                 .build(), file);
 
         repositoryData.deleteByCategory("Dog", file);
@@ -97,6 +100,7 @@ public class CostRepositoryDataTest {
                 .setType("Dog")
                 .setSumFact(100d)
                 .setSumPlan(100d)
+                .setIsBigPurchase("false")
                 .build(), file);
         repositoryData.save(new Cost.CostBuilder()
                 .setIndex("3")
@@ -104,6 +108,7 @@ public class CostRepositoryDataTest {
                 .setType("Dog")
                 .setSumFact(100d)
                 .setSumPlan(100d)
+                .setIsBigPurchase("false")
                 .build(), file);
 
         repositoryData.deleteByIndex(3, file);
@@ -123,6 +128,7 @@ public class CostRepositoryDataTest {
                 .setType("Dog")
                 .setSumPlan(100d)
                 .setSumFact(200d)
+                .setIsBigPurchase("false")
                 .build(), file);
 
         repositoryData.update(new Cost.CostBuilder()
@@ -131,6 +137,7 @@ public class CostRepositoryDataTest {
                 .setType("")
                 .setSumPlan(100d)
                 .setSumFact(300d)
+                .setIsBigPurchase("false")
                 .build(), file);
         List<Cost> all = repositoryData.getAll(file);
 
@@ -146,6 +153,7 @@ public class CostRepositoryDataTest {
                 .setType("Dog")
                 .setSumPlan(100d)
                 .setSumFact(200d)
+                .setIsBigPurchase("false")
                 .build(), file);
         repositoryData.save(new Cost.CostBuilder()
                 .setIndex("2")
@@ -153,6 +161,7 @@ public class CostRepositoryDataTest {
                 .setType("Dog")
                 .setSumPlan(100d)
                 .setSumFact(200d)
+                .setIsBigPurchase("false")
                 .build(), file);
         List<Cost> all = repositoryData.getAll(file);
 

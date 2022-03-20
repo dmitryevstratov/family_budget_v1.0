@@ -8,6 +8,7 @@ import com.gmail.shepard1992.familybudgetv1.service.model.dto.TotalServiceUpdate
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -29,7 +30,7 @@ public class TotalServiceUtil {
                         totalDto.getRepositoryData().deleteByCategory(dto.getCategory(), totalDto.getFile());
                     } catch (RepositoryException e) {
                         log.error(e.getMessage());
-                        log.error(e.getStackTrace());
+                        log.error(Arrays.toString(e.getStackTrace()));
                     }
                 });
         Map<String, List<D>> groupByCategory = all.stream()

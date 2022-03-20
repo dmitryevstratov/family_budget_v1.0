@@ -57,6 +57,7 @@ public class CostRepositoryDataImpl implements RepositoryData<Cost> {
             if (!element.getType().isEmpty()) cost.setModelType(element.getType());
             if (element.getSumFact() != null) cost.setModelSumFact(element.getSumFact());
             if (element.getSumPlan() != null) cost.setModelSumPlan(element.getSumPlan());
+            if(element.getBigPurchase() != null) cost.setModelIsBigPurchase(element.getBigPurchase());
         };
         RepositoryUpdateDto<Cost> repositoryUpdateDto = new RepositoryUpdateDto<>(file, this, element, consumer);
         facade.update(repositoryUpdateDto);

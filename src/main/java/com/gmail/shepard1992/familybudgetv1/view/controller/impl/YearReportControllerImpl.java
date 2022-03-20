@@ -46,7 +46,7 @@ public class YearReportControllerImpl implements YearReportController, ButtonBac
     private TableColumn<MonthReportDto, String> totalPercent;
 
     @FXML
-    private TableColumn<MonthReportDto, String> majorPurchases;
+    private TableColumn<MonthReportDto, String> bigPurchases;
 
     @Autowired
     public YearReportControllerImpl(MonthReportService service) {
@@ -65,7 +65,7 @@ public class YearReportControllerImpl implements YearReportController, ButtonBac
         cost.setCellValueFactory(cellData -> cellData.getValue().getCostProperty());
         total.setCellValueFactory(cellData -> cellData.getValue().getTotalProperty());
         totalPercent.setCellValueFactory(cellData -> cellData.getValue().getTotalPercentProperty());
-        majorPurchases.setCellValueFactory(cellData -> cellData.getValue().getMajorPurchasesProperty());
+        bigPurchases.setCellValueFactory(cellData -> cellData.getValue().getMajorPurchasesProperty());
     }
 
     @Override

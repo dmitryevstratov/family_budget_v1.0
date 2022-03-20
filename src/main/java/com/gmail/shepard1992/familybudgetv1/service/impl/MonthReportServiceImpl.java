@@ -38,7 +38,7 @@ public class MonthReportServiceImpl implements MonthReportService {
             fileUtil.loadDtoData(dto);
         } catch (RepositoryException e) {
             log.error(e.getMessage());
-            log.error(e.getStackTrace());
+            log.error(Arrays.toString(e.getStackTrace()));
         }
     }
 }

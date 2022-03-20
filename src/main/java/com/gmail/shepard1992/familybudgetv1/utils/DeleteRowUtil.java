@@ -8,6 +8,8 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
+
 import static com.gmail.shepard1992.familybudgetv1.service.constants.Logs.SERVICE_LOGS;
 
 @Component
@@ -36,7 +38,7 @@ public class DeleteRowUtil<M extends Model> {
             }
         } catch (RepositoryException e) {
             log.error(e.getMessage());
-            log.error(e.getStackTrace());
+            log.error(Arrays.toString(e.getStackTrace()));
             return false;
         }
     }
