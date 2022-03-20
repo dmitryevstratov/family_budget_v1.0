@@ -42,6 +42,7 @@ public class MapperUtil {
                 .setType(costDto.getType())
                 .setSumPlan(costDto.getSumPlan())
                 .setSumFact(costDto.getSumFact())
+                .setIsBigPurchase(costDto.getIsBigPurchase())
                 .build();
     }
 
@@ -52,6 +53,7 @@ public class MapperUtil {
                 .setType(cost.getType())
                 .setSumPlan(cost.getSumPlan())
                 .setSumFact(cost.getSumFact())
+                .setIsBigPurchase(cost.getBigPurchase())
                 .build();
     }
 

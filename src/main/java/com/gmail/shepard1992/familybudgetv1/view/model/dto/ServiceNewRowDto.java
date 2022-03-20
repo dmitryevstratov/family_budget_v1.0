@@ -1,6 +1,7 @@
 package com.gmail.shepard1992.familybudgetv1.view.model.dto;
 
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.api.AbstractServiceRowDto;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -12,6 +13,7 @@ public class ServiceNewRowDto extends AbstractServiceRowDto {
     private final TextField type;
     private final TextField sumFact;
     private final TextField sumPlan;
+    private final CheckBox isBigPurchase;
 
     private ServiceNewRowDto(ServiceNewRowDtoBuilder builder) {
         super(builder.indexField, builder.dialogStage, builder.file);
@@ -19,6 +21,7 @@ public class ServiceNewRowDto extends AbstractServiceRowDto {
         this.type = builder.type;
         this.sumFact = builder.sumFact;
         this.sumPlan = builder.sumPlan;
+        this.isBigPurchase = builder.isBigPurchase;
     }
 
     public TextField getCategory() {
@@ -49,6 +52,10 @@ public class ServiceNewRowDto extends AbstractServiceRowDto {
         return sumPlan;
     }
 
+    public CheckBox getIsBigPurchase(){
+        return isBigPurchase;
+    }
+
     public static class ServiceNewRowDtoBuilder {
         private TextField indexField;
         private TextField category;
@@ -57,6 +64,7 @@ public class ServiceNewRowDto extends AbstractServiceRowDto {
         private TextField sumPlan;
         private Stage dialogStage;
         private File file;
+        private CheckBox isBigPurchase;
 
         public ServiceNewRowDtoBuilder setIndex(TextField indexField) {
             this.indexField = indexField;
@@ -65,6 +73,11 @@ public class ServiceNewRowDto extends AbstractServiceRowDto {
 
         public ServiceNewRowDtoBuilder setCategory(TextField category) {
             this.category = category;
+            return this;
+        }
+
+        public ServiceNewRowDtoBuilder setIsBigPurchase(CheckBox isBigPurchase){
+            this.isBigPurchase = isBigPurchase;
             return this;
         }
 

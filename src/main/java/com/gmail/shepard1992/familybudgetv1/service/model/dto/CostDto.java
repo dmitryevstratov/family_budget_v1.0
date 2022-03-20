@@ -10,11 +10,13 @@ public class CostDto extends AbstractDto {
 
     private Double sumFact;
 
+    private String isBigPurchase;
+
     private CostDto(CostDtoBuilder costBuilder) {
         super(costBuilder.index, costBuilder.category, costBuilder.type);
         this.sumPlan = costBuilder.sumPlan;
         this.sumFact = costBuilder.sumFact;
-
+        this.isBigPurchase = costBuilder.isBigPurchase;
     }
 
     public Double getSumPlan() {
@@ -23,6 +25,10 @@ public class CostDto extends AbstractDto {
 
     public Double getSumFact() {
         return sumFact;
+    }
+
+    public String getIsBigPurchase() {
+        return isBigPurchase;
     }
 
     public StringProperty getCategoryProperty() {
@@ -45,6 +51,10 @@ public class CostDto extends AbstractDto {
         return new SimpleStringProperty(super.getIndex());
     }
 
+    public StringProperty getIsBigPurchaseProperty() {
+        return new SimpleStringProperty(isBigPurchase.toString());
+    }
+
     public void setCostSumPlan(Double sumPlan) {
         this.sumPlan = sumPlan;
     }
@@ -53,12 +63,17 @@ public class CostDto extends AbstractDto {
         this.sumFact = sumFact;
     }
 
+    public void setIsBigPurchase(String isBigPurchase){
+        this.isBigPurchase = isBigPurchase;
+    }
+
     public static class CostDtoBuilder {
         private String index;
         private String category;
         private String type;
         private Double sumPlan;
         private Double sumFact;
+        private String isBigPurchase;
 
         public CostDtoBuilder setIndex(String index) {
             this.index = index;
@@ -72,6 +87,11 @@ public class CostDto extends AbstractDto {
 
         public CostDtoBuilder setType(String type) {
             this.type = type;
+            return this;
+        }
+
+        public CostDtoBuilder setIsBigPurchase(String isBigPurchase) {
+            this.isBigPurchase = isBigPurchase;
             return this;
         }
 
@@ -93,6 +113,6 @@ public class CostDto extends AbstractDto {
     @Override
     public String toString() {
         return super.toString() + ", sumPla - " + sumPlan +
-                ", sumFact=" + sumFact;
+                ", sumFact - " + sumFact + ", isBigPurchase - " + isBigPurchase;
     }
 }

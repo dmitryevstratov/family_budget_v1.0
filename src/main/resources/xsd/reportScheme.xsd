@@ -35,6 +35,7 @@
                                                     <xs:element type="xs:string" name="type"/>
                                                     <xs:element type="xs:double" name="sumPlan"/>
                                                     <xs:element type="xs:double" name="sumFact"/>
+                                                    <xs:element type="xs:string" name="isBigPurchase"/>
                                                 </xs:sequence>
                                             </xs:complexType>
                                         </xs:element>

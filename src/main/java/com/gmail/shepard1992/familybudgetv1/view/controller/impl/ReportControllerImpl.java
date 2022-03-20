@@ -81,6 +81,9 @@ public class ReportControllerImpl implements ReportController, TemplateControlle
     @FXML
     private TableColumn<CostDto, String> sumFactCost;
 
+    @FXML
+    private TableColumn<CostDto, String> isBigPurchase;
+
     @Autowired
     public ReportControllerImpl(Service<IncomeDto> incomeService, Service<CostDto> costService, FileUtil fileUtil, TemplateService templateService) {
         this.incomeService = incomeService;
@@ -114,6 +117,7 @@ public class ReportControllerImpl implements ReportController, TemplateControlle
         typeCost.setCellValueFactory(cellData -> cellData.getValue().getTypeProperty());
         sumFactCost.setCellValueFactory(cellData -> cellData.getValue().getSumFactProperty());
         sumPlanCost.setCellValueFactory(cellData -> cellData.getValue().getSumPlanProperty());
+        isBigPurchase.setCellValueFactory(cellData -> cellData.getValue().getIsBigPurchaseProperty());
     }
 
     private void initializeIncomeTable() {

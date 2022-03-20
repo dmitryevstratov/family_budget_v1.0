@@ -74,8 +74,6 @@ public class FileUtil {
                     return false;
                 }
             }
-        } catch (IOException ex) {
-            throw ex;
         }
         return true;
     }

@@ -1,11 +1,10 @@
 package com.gmail.shepard1992.familybudgetv1.utils;
 
 import com.gmail.shepard1992.familybudgetv1.repository.exception.RepositoryException;
-import com.gmail.shepard1992.familybudgetv1.repository.impl.CostRepositoryDataImpl;
-import com.gmail.shepard1992.familybudgetv1.service.model.api.Model;
 import com.gmail.shepard1992.familybudgetv1.repository.model.dto.RepositoryDeleteByCategoryDto;
 import com.gmail.shepard1992.familybudgetv1.repository.model.dto.RepositoryDeleteByIndexDto;
 import com.gmail.shepard1992.familybudgetv1.repository.model.dto.RepositoryUpdateDto;
+import com.gmail.shepard1992.familybudgetv1.service.model.api.Model;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 

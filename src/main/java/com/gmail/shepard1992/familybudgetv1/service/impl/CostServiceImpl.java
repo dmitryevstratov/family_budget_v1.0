@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -51,12 +52,14 @@ public class CostServiceImpl implements Service<CostDto>, TotalService {
                     .setIndex(indexUtil.incrementIndex(getAll(params.getFile())))
                     .setSumFact(Double.parseDouble(params.getSumFact().getText()))
                     .setSumPlan(Double.parseDouble(params.getSumPlan().getText()))
-                    .setType(params.getType().getText()).build();
+                    .setType(params.getType().getText())
+                    .setIsBigPurchase(String.valueOf(params.getIsBigPurchase().isSelected()))
+                    .build();
             try {
                 repositoryData.save(mapperUtil.convertToCost(dto), params.getFile());
             } catch (RepositoryException e) {
                 log.error(e.getMessage());
-                log.error(e.getStackTrace());
+                log.error(Arrays.toString(e.getStackTrace()));
             }
             updateTotal(params.getDialogStage(), params.getFile());
             log.debug(SERVICE_LOGS + "добавить запись " + dto.toString());
@@ -81,6 +84,7 @@ public class CostServiceImpl implements Service<CostDto>, TotalService {
                         .setIndex(params.getIndex().getText())
                         .setCategory(params.getCategory().getText())
                         .setType(params.getType().getText())
+                        .setIsBigPurchase(String.valueOf(params.getIsBigPurchase().isSelected()))
                         .build();
                 if (!params.getSumFact().getText().isEmpty()) {
                     dto.setCostSumFact(Double.parseDouble(params.getSumFact().getText()));
@@ -141,12 +145,13 @@ public class CostServiceImpl implements Service<CostDto>, TotalService {
                     .setSumFact(sumFact)
                     .setSumPlan(sumPlan)
                     .setType(EMPTY)
+                    .setIsBigPurchase(EMPTY)
                     .build();
             try {
                 repositoryData.save(mapperUtil.convertToCost(dto), file);
             } catch (RepositoryException e) {
                 log.error(e.getMessage());
-                log.error(e.getStackTrace());
+                log.error(Arrays.toString(e.getStackTrace()));
             }
         };
         TotalServiceByCategoryDto<CostDto, Cost> dto = new TotalServiceByCategoryDto<>(file, this, repositoryData, consumer);
@@ -163,7 +168,7 @@ public class CostServiceImpl implements Service<CostDto>, TotalService {
                         repositoryData.deleteByCategory(dto.getCategory(), file);
                     } catch (RepositoryException e) {
                         log.error(e.getMessage());
-                        log.error(e.getStackTrace());
+                        log.error(Arrays.toString(e.getStackTrace()));
                     }
                 });
         double totalFactAll = allCosts.stream()
@@ -185,12 +190,13 @@ public class CostServiceImpl implements Service<CostDto>, TotalService {
                     .setSumFact(totalFactAll)
                     .setSumPlan(totalPlanAll)
                     .setType(EMPTY)
+                    .setIsBigPurchase(EMPTY)
                     .build();
             try {
                 repositoryData.save(mapperUtil.convertToCost(dto), file);
             } catch (RepositoryException e) {
                 log.error(e.getMessage());
-                log.error(e.getStackTrace());
+                log.error(Arrays.toString(e.getStackTrace()));
             }
         }
     }

@@ -47,7 +47,6 @@ public class ReportRepositoryFacade {
     }
 
     public Report get(File file, FileUtil fileUtil) throws IOException, JAXBException {
-        Report report = null;
         if (fileUtil.checkEmptyFile(file)) {
             return null;
         }
@@ -57,7 +56,7 @@ public class ReportRepositoryFacade {
         Unmarshaller unmarshaller = context.createUnmarshaller();
 
         ReportWrapper reportWrapper = (ReportWrapper) unmarshaller.unmarshal(file);
-        report = reportWrapper.getReport();
+        Report report = reportWrapper.getReport();
         log.debug(REPOSITORY_LOGS + "отчет загружен в файл " + file.getName());
         return report;
     }
