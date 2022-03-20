@@ -57,7 +57,7 @@ public class ValueUtilTest {
                 .setIncome(1000d)
                 .setCost(300d)
                 .setMonth("Итого")
-                .setMajorPurchases("")
+                .setBigPurchases("")
                 .setTotal(700d)
                 .setTotalPercent("70,00")
                 .build();
@@ -65,6 +65,32 @@ public class ValueUtilTest {
         list.add(dto);
 
         assertTrue(valueUtil.getTotal(list).equals(dto));
+    }
+
+    @Test
+    public void test_getBigPurchases(){
+        CostList costList = new CostList();
+        List<Cost> costs = new ArrayList<>();
+        costs.add(new Cost.CostBuilder()
+                .setIndex("1")
+                .setType("Машина")
+                .setCategory("Основные")
+                .setSumFact(100d)
+                .setSumPlan(200d)
+                .setIsBigPurchase("true")
+                .build());
+        costs.add(new Cost.CostBuilder()
+                .setIndex("2")
+                .setType("Квартира")
+                .setCategory("Основные")
+                .setSumFact(5000d)
+                .setSumPlan(200d)
+                .setIsBigPurchase("true")
+                .build());
+        costList.setCost(costs);
+
+        assertEquals("Машина = 100.0\n" +
+                "Квартира = 5000.0\n", valueUtil.getBigPurchases(costs));
     }
 
 }

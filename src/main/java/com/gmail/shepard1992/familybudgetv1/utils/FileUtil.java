@@ -160,13 +160,14 @@ public class FileUtil {
             Double costSum = valueUtil.getSumByModelList(report.getCostList().getCost());
             double totalSum = incomeSum - costSum;
             String totalPercent = valueUtil.getTotalPercent(totalSum, incomeSum);
+            String bigPurchases = valueUtil.getBigPurchases(report.getCostList().getCost());
             MonthReportDto dto = new MonthReportDto.MonthReportDtoBuilder()
                     .setMonth(mapperUtil.getNameMonthByNumber(report.getMonth()))
                     .setIncome(incomeSum)
                     .setCost(costSum)
                     .setTotal(totalSum)
                     .setTotalPercent(totalPercent)
-                    .setMajorPurchases("")
+                    .setBigPurchases(bigPurchases)
                     .build();
             dtoData.add(dto);
         }

@@ -1,5 +1,6 @@
 package com.gmail.shepard1992.familybudgetv1.utils;
 
+import com.gmail.shepard1992.familybudgetv1.service.model.Cost;
 import com.gmail.shepard1992.familybudgetv1.service.model.api.Model;
 import com.gmail.shepard1992.familybudgetv1.view.model.dto.MonthReportDto;
 import javafx.collections.ObservableList;
@@ -7,9 +8,18 @@ import org.springframework.stereotype.Component;
 
 import java.text.DecimalFormat;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class ValueUtil {
+
+    public String getBigPurchases(List<Cost> costs) {
+        if (costs == null) return "";
+        return costs.stream()
+                .filter(cost -> Boolean.parseBoolean(cost.getBigPurchase()))
+                .map(cost -> cost.getType() + " = " + cost.getSumFact() + "\n")
+                .collect(Collectors.joining());
+    }
 
     public <M extends Model> Double getSumByModelList(List<M> models) {
         if (models == null) return 0.0;
@@ -29,7 +39,7 @@ public class ValueUtil {
                 .setMonth("Итого")
                 .setIncome(totalIncome)
                 .setCost(totalCost)
-                .setMajorPurchases("")
+                .setBigPurchases("")
                 .setTotal(totalSum)
                 .setTotalPercent(getTotalPercent(totalSum, totalIncome))
                 .build();

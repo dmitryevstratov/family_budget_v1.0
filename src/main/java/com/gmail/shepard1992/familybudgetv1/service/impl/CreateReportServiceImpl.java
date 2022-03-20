@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.util.Arrays;
 
 import static com.gmail.shepard1992.familybudgetv1.service.constants.Logs.SERVICE_LOGS;
 
@@ -41,7 +42,7 @@ public class CreateReportServiceImpl implements CreateReportService {
                 return repository.createFile(dir, dto);
             } catch (RepositoryException e) {
                 log.error(e.getMessage());
-                log.error(e.getStackTrace());
+                log.error(Arrays.toString(e.getStackTrace()));
                 return null;
             }
         } else {

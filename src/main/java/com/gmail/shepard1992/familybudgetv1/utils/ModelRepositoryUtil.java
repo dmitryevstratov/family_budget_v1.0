@@ -8,6 +8,7 @@ import com.gmail.shepard1992.familybudgetv1.service.model.api.Model;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,7 +34,7 @@ public class ModelRepositoryUtil {
                     dto.getRepositoryData().save(inc, dto.getFile());
                 } catch (RepositoryException e) {
                     log.error(e.getMessage());
-                    log.error(e.getStackTrace());
+                    log.error(Arrays.toString(e.getStackTrace()));
                 }
             });
             log.debug(REPOSITORY_LOGS + "редактирование модели " + dto.getElement().toString());
@@ -74,7 +75,7 @@ public class ModelRepositoryUtil {
                             dto.getRepositoryData().save(cost, dto.getFile());
                         } catch (RepositoryException e) {
                             log.error(e.getMessage());
-                            log.error(e.getStackTrace());
+                            log.error(Arrays.toString(e.getStackTrace()));
                         }
                     }));
                 }

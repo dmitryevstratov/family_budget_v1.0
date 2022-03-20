@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -55,7 +56,7 @@ public class IncomeServiceImpl implements Service<IncomeDto>, TotalService {
                 repositoryData.save(mapperUtil.convertToIncome(dto), params.getFile());
             } catch (RepositoryException e) {
                 log.error(e.getMessage());
-                log.error(e.getStackTrace());
+                log.error(Arrays.toString(e.getStackTrace()));
             }
             updateTotal(params.getDialogStage(), params.getFile());
             log.debug(SERVICE_LOGS + "добавить запись " + dto.toString());
@@ -91,7 +92,7 @@ public class IncomeServiceImpl implements Service<IncomeDto>, TotalService {
             }
         } catch (RepositoryException e) {
             log.error(e.getMessage());
-            log.error(e.getStackTrace());
+            log.error(Arrays.toString(e.getStackTrace()));
         }
         log.debug(SERVICE_LOGS + "запись не редактирована");
         return false;
@@ -121,7 +122,7 @@ public class IncomeServiceImpl implements Service<IncomeDto>, TotalService {
                     .collect(Collectors.toList());
         } catch (RepositoryException e) {
             log.error(e.getMessage());
-            log.error(e.getStackTrace());
+            log.error(Arrays.toString(e.getStackTrace()));
             return null;
         }
     }
@@ -140,7 +141,7 @@ public class IncomeServiceImpl implements Service<IncomeDto>, TotalService {
                 repositoryData.save(mapperUtil.convertToIncome(dto), file);
             } catch (RepositoryException e) {
                 log.error(e.getMessage());
-                log.error(e.getStackTrace());
+                log.error(Arrays.toString(e.getStackTrace()));
             }
         };
         TotalServiceByCategoryDto<IncomeDto, Income> dto = new TotalServiceByCategoryDto<>(file, this, repositoryData, consumer);
@@ -157,7 +158,7 @@ public class IncomeServiceImpl implements Service<IncomeDto>, TotalService {
                         repositoryData.deleteByCategory(dto.getCategory(), file);
                     } catch (RepositoryException e) {
                         log.error(e.getMessage());
-                        log.error(e.getStackTrace());
+                        log.error(Arrays.toString(e.getStackTrace()));
                     }
                 });
         double totalAll = allIncomes.stream()
@@ -177,7 +178,7 @@ public class IncomeServiceImpl implements Service<IncomeDto>, TotalService {
                 repositoryData.save(mapperUtil.convertToIncome(dto), file);
             } catch (RepositoryException e) {
                 log.error(e.getMessage());
-                log.error(e.getStackTrace());
+                log.error(Arrays.toString(e.getStackTrace()));
             }
         }
     }

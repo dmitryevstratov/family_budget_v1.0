@@ -115,7 +115,7 @@ public class MonthReportDto {
             return this;
         }
 
-        public MonthReportDtoBuilder setMajorPurchases(String majorPurchases) {
+        public MonthReportDtoBuilder setBigPurchases(String majorPurchases) {
             this.majorPurchases = majorPurchases;
             return this;
         }

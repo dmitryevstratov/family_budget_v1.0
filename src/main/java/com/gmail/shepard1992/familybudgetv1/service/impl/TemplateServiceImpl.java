@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
+import java.util.Arrays;
 
 import static com.gmail.shepard1992.familybudgetv1.service.constants.Logs.SERVICE_LOGS;
 
@@ -42,7 +43,7 @@ public class TemplateServiceImpl implements TemplateService {
             repository.save(file);
         } catch (RepositoryException e) {
             log.error(e.getMessage());
-            log.error(e.getStackTrace());
+            log.error(Arrays.toString(e.getStackTrace()));
         }
     }
 
@@ -57,7 +58,7 @@ public class TemplateServiceImpl implements TemplateService {
                         incomeRepositoryData.save(income, dto.getFile());
                     } catch (RepositoryException e) {
                         log.error(e.getMessage());
-                        log.error(e.getStackTrace());
+                        log.error(Arrays.toString(e.getStackTrace()));
                     }
                 });
                 costRepositoryData.getAll(dto.getTmp()).forEach(cost -> {
@@ -65,12 +66,12 @@ public class TemplateServiceImpl implements TemplateService {
                         costRepositoryData.save(cost, dto.getFile());
                     } catch (RepositoryException e) {
                         log.error(e.getMessage());
-                        log.error(e.getStackTrace());
+                        log.error(Arrays.toString(e.getStackTrace()));
                     }
                 });
             } catch (RepositoryException e) {
                 log.error(e.getMessage());
-                log.error(e.getStackTrace());
+                log.error(Arrays.toString(e.getStackTrace()));
             }
 
             log.debug(SERVICE_LOGS + "загрузить шаблон " + dto.getFile().getName());

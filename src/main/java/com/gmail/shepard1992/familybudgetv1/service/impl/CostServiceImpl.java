@@ -99,7 +99,7 @@ public class CostServiceImpl implements Service<CostDto>, TotalService {
             }
         } catch (RepositoryException e) {
             log.error(e.getMessage());
-            log.error(e.getStackTrace());
+            log.error(Arrays.toString(e.getStackTrace()));
         }
         log.debug(SERVICE_LOGS + "запись не редактирована");
         return false;
@@ -129,7 +129,7 @@ public class CostServiceImpl implements Service<CostDto>, TotalService {
                     .collect(Collectors.toList());
         } catch (RepositoryException e) {
             log.error(e.getMessage());
-            log.error(e.getStackTrace());
+            log.error(Arrays.toString(e.getStackTrace()));
             return null;
         }
     }
