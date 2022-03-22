@@ -43,6 +43,8 @@ public class ReportControllerImpl implements ReportController, TemplateControlle
 
     private final ButtonFileApi loadTemplateBtn = MainApplication::loadTemplate;
     private final ButtonApi backToMainView = MainApplication::showRootView;
+    private final ButtonApi btnHelpIncomeTable = MainApplication::showModalHelpIncomeTableView;
+    private final ButtonApi btnHelpCostTable = MainApplication::showModalHelpCostTableView;
 
     //Таблица доходов
 
@@ -179,6 +181,18 @@ public class ReportControllerImpl implements ReportController, TemplateControlle
     @Override
     public void backToMainView() {
         backToMainView.click(mainApp);
+    }
+
+    @FXML
+    @Override
+    public void showModalHelpIncomeTable() {
+        btnHelpIncomeTable.click(mainApp);
+    }
+
+    @FXML
+    @Override
+    public void showModalHelpCostTable() {
+        btnHelpCostTable.click(mainApp);
     }
 
     @Override

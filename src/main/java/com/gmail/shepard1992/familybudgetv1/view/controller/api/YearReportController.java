@@ -6,4 +6,6 @@ public interface YearReportController extends Controller {
 
     void setFiles(File[] files);
 
+    void showModalHelpYearReportTable();
+
 }

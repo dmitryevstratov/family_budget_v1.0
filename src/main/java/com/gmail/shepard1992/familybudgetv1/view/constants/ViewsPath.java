@@ -28,4 +28,12 @@ public interface ViewsPath {
 
     String YEAR_REPORT_VIEW = "/views/yearReportView.fxml";
 
+    String MODAL_HELP_MAIN = "/views/modal/helps/modalShowHelpMainView.fxml";
+
+    String MODAL_HELP_REPORT_INCOME = "/views/modal/helps/modalShowHelpReportIncomeTableView.fxml";
+
+    String MODAL_HELP_REPORT_COST = "/views/modal/helps/modalShowHelpReportCostTableView.fxml";
+
+    String MODAL_HELP_YEAR_REPORT = "/views/modal/helps/modalShowHelpYearReportView.fxml";
+
 }

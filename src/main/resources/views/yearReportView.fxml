@@ -23,7 +23,7 @@
                     <MenuItem mnemonicParsing="false" onAction="#backToMainView" text="Главное меню" />
                 </Menu>
                 <Menu mnemonicParsing="false" text="Помощь">
-                    <MenuItem mnemonicParsing="false" text="Годовой отчет" />
+                    <MenuItem mnemonicParsing="false" onAction="#showModalHelpYearReportTable" text="Годовой отчет" />
                 </Menu>
             <effect>
                <ColorAdjust />

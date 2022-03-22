@@ -13,6 +13,8 @@ import java.io.IOException;
 
 public class ModalTemplateViewViewServiceImpl implements ModalTemplateViewService {
 
+    //ToDo обработка ошибок
+
     private Stage primaryStage;
     private final ApplicationContext context;
     private MainApplication mainApp;

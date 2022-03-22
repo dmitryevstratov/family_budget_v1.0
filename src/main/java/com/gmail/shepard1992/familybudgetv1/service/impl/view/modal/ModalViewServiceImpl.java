@@ -1,6 +1,7 @@
 package com.gmail.shepard1992.familybudgetv1.service.impl.view.modal;
 
 import com.gmail.shepard1992.familybudgetv1.service.api.ModalViewService;
+import com.gmail.shepard1992.familybudgetv1.service.impl.CreateReportServiceImpl;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.show.ShowReportModalViewDto;
 import com.gmail.shepard1992.familybudgetv1.utils.facade.ViewFacade;
 import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.ModalCreateReportController;
@@ -8,17 +9,24 @@ import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.ModalOpenR
 import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.ModalOpenYearReportController;
 import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
 import javafx.stage.Stage;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.util.Arrays;
+
 @Service
 public class ModalViewServiceImpl implements ModalViewService {
+
+    //ToDo обработка ошибок
 
     private Stage primaryStage;
     private final ApplicationContext context;
     private MainApplication mainApp;
     private final ViewFacade viewFacade;
+    private static final Logger log = Logger.getLogger(CreateReportServiceImpl.class.getName());
 
     @Autowired
     public ModalViewServiceImpl(ApplicationContext context, ViewFacade viewFacade) {
@@ -42,6 +50,15 @@ public class ModalViewServiceImpl implements ModalViewService {
     public void showModalOpenYearReportView(String view) {
         ShowReportModalViewDto<ModalOpenYearReportController> dto = new ShowReportModalViewDto<>(ModalOpenYearReportController.class, context, mainApp, primaryStage, view);
         viewFacade.showReportModalView(dto);
+    }
+
+    @Override
+    public void showModalHelpView(String view) {
+        try {
+            viewFacade.showModalView(view, primaryStage);
+        } catch (IOException exception) {
+            log.error(Arrays.toString(exception.getStackTrace()));
+        }
     }
 
     @Override

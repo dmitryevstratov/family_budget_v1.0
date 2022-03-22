@@ -19,6 +19,8 @@ import static javafx.stage.Modality.WINDOW_MODAL;
 @Component
 public class ViewFacade {
 
+    //ToDo обработка ошибок
+
     public <C> FXMLLoader showView(ShowViewDto<C> showViewDto) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainApplication.class.getResource(showViewDto.getView()));
@@ -29,6 +31,16 @@ public class ViewFacade {
         showViewDto.getPrimaryStage().setScene(scene);
         showViewDto.getPrimaryStage().show();
         return loader;
+    }
+
+    public void showModalView(String view, Stage stage) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainApplication.class.getResource(view));
+        BorderPane rootLayout = loader.load();
+
+        Stage dialogStage = getStage(rootLayout, stage);
+
+        dialogStage.showAndWait();
     }
 
     public <C extends ModalNewRowController> void showModalView(ModalViewDto<C> params) throws IOException {
@@ -49,7 +61,6 @@ public class ViewFacade {
     }
 
     public <C extends ModalController> void showModalView(ShowModalLoadTemplateDto<C> dto) throws IOException {
-        //ToDo рефаткоринг
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainApplication.class.getResource(dto.getView()));
         loader.setControllerFactory(cls -> dto.getContext().getBean(dto.getClassController()));

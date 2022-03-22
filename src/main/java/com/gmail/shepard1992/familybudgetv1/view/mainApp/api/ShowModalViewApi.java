@@ -12,4 +12,12 @@ public interface ShowModalViewApi {
 
     void showModalOpenYearReportView();
 
+    void showModalHelpView();
+
+    void showModalHelpIncomeTableView();
+
+    void showModalHelpCostTableView();
+
+    void showModalHelpYearReportTableView();
+
 }

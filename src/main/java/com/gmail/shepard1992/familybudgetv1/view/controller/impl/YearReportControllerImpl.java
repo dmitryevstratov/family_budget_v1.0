@@ -24,6 +24,7 @@ public class YearReportControllerImpl implements YearReportController, ButtonBac
     private final MonthReportService service;
 
     private final ButtonApi backToMainView = MainApplication::showRootView;
+    private final ButtonApi btnShowModalHelpYearReportTable = MainApplication::showModalHelpYearReportTableView;
 
     //Таблица
 
@@ -71,6 +72,12 @@ public class YearReportControllerImpl implements YearReportController, ButtonBac
     @Override
     public void setFiles(File[] files) {
         this.files = files;
+    }
+
+    @FXML
+    @Override
+    public void showModalHelpYearReportTable() {
+        btnShowModalHelpYearReportTable.click(mainApp);
     }
 
     @Override
