@@ -6,19 +6,20 @@ import com.gmail.shepard1992.familybudgetv1.utils.facade.ViewFacade;
 import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.ModalLoadTemplateController;
 import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
 import javafx.stage.Stage;
+import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class ModalTemplateViewViewServiceImpl implements ModalTemplateViewService {
-
-    //ToDo обработка ошибок
 
     private Stage primaryStage;
     private final ApplicationContext context;
     private MainApplication mainApp;
     private final ViewFacade viewFacade;
+    private static final Logger log = Logger.getLogger(ModalTemplateViewViewServiceImpl.class.getName());
 
     public ModalTemplateViewViewServiceImpl(ApplicationContext context, ViewFacade viewFacade) {
         this.context = context;
@@ -31,7 +32,8 @@ public class ModalTemplateViewViewServiceImpl implements ModalTemplateViewServic
         try {
             viewFacade.showModalView(dto);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+            log.error(Arrays.toString(e.getStackTrace()));
         }
     }
 

@@ -1,5 +1,6 @@
 package com.gmail.shepard1992.familybudgetv1.service.impl.view;
 
+import com.gmail.shepard1992.familybudgetv1.service.impl.view.modal.ModalCostViewServiceImpl;
 import com.gmail.shepard1992.familybudgetv1.view.controller.api.YearReportController;
 import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
 import com.gmail.shepard1992.familybudgetv1.view.controller.api.MainController;
@@ -9,22 +10,23 @@ import com.gmail.shepard1992.familybudgetv1.service.api.ViewService;
 import com.gmail.shepard1992.familybudgetv1.utils.facade.ViewFacade;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 @Service
 public class ViewServiceImpl implements ViewService {
-
-    //ToDo рефакторинг
 
     private Stage primaryStage;
     private final ApplicationContext context;
     private MainApplication mainApp;
     private final ViewFacade viewFacade;
+    private static final Logger log = Logger.getLogger(ViewServiceImpl.class.getName());
 
     @Autowired
     public ViewServiceImpl(ApplicationContext context, ViewFacade viewFacade) {
@@ -40,7 +42,8 @@ public class ViewServiceImpl implements ViewService {
             MainController mainController = loader.getController();
             mainController.setMainApp(mainApp);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+            log.error(Arrays.toString(e.getStackTrace()));
         }
     }
 
@@ -53,7 +56,8 @@ public class ViewServiceImpl implements ViewService {
             reportController.setFiles(files);
             reportController.setMainApp(mainApp);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+            log.error(Arrays.toString(e.getStackTrace()));
         }
     }
 
@@ -66,7 +70,8 @@ public class ViewServiceImpl implements ViewService {
             reportController.setFile(file);
             reportController.setMainApp(mainApp);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+            log.error(Arrays.toString(e.getStackTrace()));
         }
     }
 

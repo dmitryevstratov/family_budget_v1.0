@@ -1,6 +1,7 @@
 package com.gmail.shepard1992.familybudgetv1.utils.facade;
 
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.show.*;
+import com.gmail.shepard1992.familybudgetv1.utils.exception.UtilException;
 import com.gmail.shepard1992.familybudgetv1.view.controller.api.Controller;
 import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.ModalController;
 import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.ModalDeleteRowController;
@@ -18,8 +19,6 @@ import static javafx.stage.Modality.WINDOW_MODAL;
 
 @Component
 public class ViewFacade {
-
-    //ToDo обработка ошибок
 
     public <C> FXMLLoader showView(ShowViewDto<C> showViewDto) throws IOException {
         FXMLLoader loader = new FXMLLoader();
@@ -104,7 +103,7 @@ public class ViewFacade {
         dialogStage.showAndWait();
     }
 
-    public <C extends Controller> void showReportModalView(ShowReportModalViewDto<C> modalDto) {
+    public <C extends Controller> void showReportModalView(ShowReportModalViewDto<C> modalDto) throws UtilException {
         try {
             ShowViewDto<C> dto = new ShowViewDto<>(modalDto.getView(), modalDto.getClassController(), modalDto.getContext(), modalDto.getPrimaryStage());
             FXMLLoader loader = showView(dto);
@@ -112,7 +111,7 @@ public class ViewFacade {
             controller.setMainApp(modalDto.getMainApp());
             controller.setDialogStage(dto.getPrimaryStage());
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new UtilException("Ошибка отображения модального окна отчета", e);
         }
     }
 

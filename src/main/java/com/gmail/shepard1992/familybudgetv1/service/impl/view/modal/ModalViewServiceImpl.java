@@ -3,6 +3,7 @@ package com.gmail.shepard1992.familybudgetv1.service.impl.view.modal;
 import com.gmail.shepard1992.familybudgetv1.service.api.ModalViewService;
 import com.gmail.shepard1992.familybudgetv1.service.impl.CreateReportServiceImpl;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.show.ShowReportModalViewDto;
+import com.gmail.shepard1992.familybudgetv1.utils.exception.UtilException;
 import com.gmail.shepard1992.familybudgetv1.utils.facade.ViewFacade;
 import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.ModalCreateReportController;
 import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.ModalOpenReportController;
@@ -20,8 +21,6 @@ import java.util.Arrays;
 @Service
 public class ModalViewServiceImpl implements ModalViewService {
 
-    //ToDo обработка ошибок
-
     private Stage primaryStage;
     private final ApplicationContext context;
     private MainApplication mainApp;
@@ -37,19 +36,34 @@ public class ModalViewServiceImpl implements ModalViewService {
     @Override
     public void showCreateReportModalView(String view) {
         ShowReportModalViewDto<ModalCreateReportController> dto = new ShowReportModalViewDto<>(ModalCreateReportController.class, context, mainApp, primaryStage, view);
-        viewFacade.showReportModalView(dto);
+        try {
+            viewFacade.showReportModalView(dto);
+        } catch (UtilException e) {
+            log.error(e.getMessage());
+            log.error(Arrays.toString(e.getStackTrace()));
+        }
     }
 
     @Override
     public void showOpenReportModalView(String view) {
         ShowReportModalViewDto<ModalOpenReportController> dto = new ShowReportModalViewDto<>(ModalOpenReportController.class, context, mainApp, primaryStage, view);
-        viewFacade.showReportModalView(dto);
+        try {
+            viewFacade.showReportModalView(dto);
+        } catch (UtilException e) {
+            log.error(e.getMessage());
+            log.error(Arrays.toString(e.getStackTrace()));
+        }
     }
 
     @Override
     public void showModalOpenYearReportView(String view) {
         ShowReportModalViewDto<ModalOpenYearReportController> dto = new ShowReportModalViewDto<>(ModalOpenYearReportController.class, context, mainApp, primaryStage, view);
-        viewFacade.showReportModalView(dto);
+        try {
+            viewFacade.showReportModalView(dto);
+        } catch (UtilException e) {
+            log.error(e.getMessage());
+            log.error(Arrays.toString(e.getStackTrace()));
+        }
     }
 
     @Override
@@ -57,6 +71,7 @@ public class ModalViewServiceImpl implements ModalViewService {
         try {
             viewFacade.showModalView(view, primaryStage);
         } catch (IOException exception) {
+            log.error(exception.getMessage());
             log.error(Arrays.toString(exception.getStackTrace()));
         }
     }

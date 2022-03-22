@@ -1,5 +1,6 @@
 package com.gmail.shepard1992.familybudgetv1.service.impl.view.modal;
 
+import com.gmail.shepard1992.familybudgetv1.repository.impl.CostRepositoryDataImpl;
 import com.gmail.shepard1992.familybudgetv1.service.api.ModalCostViewService;
 import com.gmail.shepard1992.familybudgetv1.service.model.api.AbstractAddRowModalViewDto;
 import com.gmail.shepard1992.familybudgetv1.service.model.dto.show.DeleteRowModalViewDto;
@@ -11,11 +12,13 @@ import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.cost.Modal
 import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.cost.ModalUpdateRowCostController;
 import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
 import javafx.stage.Stage;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 @Service
 public class ModalCostViewServiceImpl implements ModalCostViewService {
@@ -24,6 +27,7 @@ public class ModalCostViewServiceImpl implements ModalCostViewService {
     private final ApplicationContext context;
     private MainApplication mainApp;
     private final ViewFacade viewFacade;
+    private static final Logger log = Logger.getLogger(ModalCostViewServiceImpl.class.getName());
 
     @Autowired
     public ModalCostViewServiceImpl(ApplicationContext context, ViewFacade viewFacade) {
@@ -37,7 +41,8 @@ public class ModalCostViewServiceImpl implements ModalCostViewService {
             ModalViewDto<ModalAddRowCostController> params = new ModalViewDto<>(ModalAddRowCostController.class, context, mainApp, primaryStage, dto.getView(), dto.getDto(), dto.getFile());
             viewFacade.showModalView(params);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+            log.error(Arrays.toString(e.getStackTrace()));
         }
     }
 
@@ -47,7 +52,8 @@ public class ModalCostViewServiceImpl implements ModalCostViewService {
             ModalViewDto<ModalUpdateRowCostController> params = new ModalViewDto<>(ModalUpdateRowCostController.class, context, mainApp, primaryStage, dto.getView(), dto.getDto(), dto.getFile());
             viewFacade.showModalView(params);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+            log.error(Arrays.toString(e.getStackTrace()));
         }
     }
 
@@ -57,7 +63,8 @@ public class ModalCostViewServiceImpl implements ModalCostViewService {
         try {
             viewFacade.showDeleteRowModalView(deleteRowModalViewDto);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+            log.error(Arrays.toString(e.getStackTrace()));
         }
     }
 

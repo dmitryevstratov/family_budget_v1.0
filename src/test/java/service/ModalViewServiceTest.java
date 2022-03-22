@@ -3,6 +3,7 @@ package service;
 import com.gmail.shepard1992.familybudgetv1.repository.config.RepositoryConfig;
 import com.gmail.shepard1992.familybudgetv1.service.api.ModalViewService;
 import com.gmail.shepard1992.familybudgetv1.service.config.ServiceConfig;
+import com.gmail.shepard1992.familybudgetv1.utils.exception.UtilException;
 import com.gmail.shepard1992.familybudgetv1.utils.config.UtilConfig;
 import com.gmail.shepard1992.familybudgetv1.utils.facade.ViewFacade;
 import config.UtilConfigTest;
@@ -37,7 +38,7 @@ public class ModalViewServiceTest {
     }
 
     @Test
-    public void test_when_call_showCreateReportModalView_then_return_result(){
+    public void test_when_call_showCreateReportModalView_then_return_result() throws UtilException {
         doNothing().when(viewFacade).showReportModalView(any());
 
         modalViewService.showCreateReportModalView("");
@@ -46,7 +47,7 @@ public class ModalViewServiceTest {
     }
 
     @Test
-    public void test_when_call_showOpenReportModalView_then_return_result(){
+    public void test_when_call_showOpenReportModalView_then_return_result() throws UtilException {
         doNothing().when(viewFacade).showReportModalView(any());
 
         modalViewService.showOpenReportModalView("");

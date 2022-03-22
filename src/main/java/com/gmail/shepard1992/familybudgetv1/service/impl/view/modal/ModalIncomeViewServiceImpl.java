@@ -11,21 +11,22 @@ import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.income.Mod
 import com.gmail.shepard1992.familybudgetv1.view.controller.api.modal.income.ModalUpdateRowIncomeController;
 import com.gmail.shepard1992.familybudgetv1.view.mainApp.MainApplication;
 import javafx.stage.Stage;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 @Service
 public class ModalIncomeViewServiceImpl implements ModalIncomeViewService {
-
-    //ToDo обработка ошибок
 
     private Stage primaryStage;
     private final ApplicationContext context;
     private MainApplication mainApp;
     private final ViewFacade viewFacade;
+    private static final Logger log = Logger.getLogger(ModalIncomeViewServiceImpl.class.getName());
 
     @Autowired
     public ModalIncomeViewServiceImpl(ApplicationContext context, ViewFacade viewFacade) {
@@ -39,7 +40,8 @@ public class ModalIncomeViewServiceImpl implements ModalIncomeViewService {
             ModalViewDto<ModalAddRowIncomeController> params = new ModalViewDto<>(ModalAddRowIncomeController.class, context, mainApp, primaryStage, dto.getView(), dto.getDto(), dto.getFile());
             viewFacade.showModalView(params);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+            log.error(Arrays.toString(e.getStackTrace()));
         }
     }
 
@@ -49,7 +51,8 @@ public class ModalIncomeViewServiceImpl implements ModalIncomeViewService {
             ModalViewDto<ModalUpdateRowIncomeController> params = new ModalViewDto<>(ModalUpdateRowIncomeController.class, context, mainApp, primaryStage, dto.getView(), dto.getDto(), dto.getFile());
             viewFacade.showModalView(params);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+            log.error(Arrays.toString(e.getStackTrace()));
         }
     }
 
@@ -59,7 +62,8 @@ public class ModalIncomeViewServiceImpl implements ModalIncomeViewService {
         try {
             viewFacade.showDeleteRowModalView(deleteRowModalViewDto);
         } catch (IOException e) {
-            e.printStackTrace();
+            log.error(e.getMessage());
+            log.error(Arrays.toString(e.getStackTrace()));
         }
     }
 
