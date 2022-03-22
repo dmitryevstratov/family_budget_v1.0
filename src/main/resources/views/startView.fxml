@@ -39,7 +39,7 @@
                     <MenuItem mnemonicParsing="false" onAction="#showModalOpenYearReport" text="Годовой отчет" />
                 </Menu>
                 <Menu mnemonicParsing="false" text="Помощь">
-                    <MenuItem mnemonicParsing="false" text="Описание приложения" />
+                    <MenuItem mnemonicParsing="false" onAction="#showModalHelp" text="Описание приложения" />
                 </Menu>
             <VBox.margin>
                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

@@ -16,6 +16,10 @@ public interface ReportController extends Controller {
 
     void deleteCostRow();
 
+    void showModalHelpIncomeTable();
+
+    void showModalHelpCostTable();
+
     void setFile(File file);
 
 }

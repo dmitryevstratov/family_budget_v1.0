@@ -20,6 +20,8 @@ import java.io.IOException;
 @Service
 public class ModalIncomeViewServiceImpl implements ModalIncomeViewService {
 
+    //ToDo обработка ошибок
+
     private Stage primaryStage;
     private final ApplicationContext context;
     private MainApplication mainApp;

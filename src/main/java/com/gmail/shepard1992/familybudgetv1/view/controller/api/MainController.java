@@ -8,4 +8,6 @@ public interface MainController extends Controller{
 
     void showModalOpenYearReport();
 
+    void showModalHelp();
+
 }

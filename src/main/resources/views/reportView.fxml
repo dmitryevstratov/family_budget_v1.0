@@ -19,8 +19,8 @@
                               text="Загрузить шаблон"/>
                 </Menu>
                 <Menu mnemonicParsing="false" text="Помощь">
-                    <MenuItem mnemonicParsing="false" text="Таблица доходы"/>
-                    <MenuItem mnemonicParsing="false" text="Таблица расходы"/>
+                    <MenuItem mnemonicParsing="false" onAction="#showModalHelpIncomeTable" text="Таблица доходы"/>
+                    <MenuItem mnemonicParsing="false" onAction="#showModalHelpCostTable" text="Таблица расходы"/>
                 </Menu>
                 <VBox.margin>
                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>

@@ -185,4 +185,24 @@ public class MainApplication extends Application implements ShowViewApi, IncomeA
     public void showModalOpenYearReportView() {
         modalViewService.showModalOpenYearReportView(MODAL_OPEN_YEAR_REPORT_VIEW);
     }
+
+    @Override
+    public void showModalHelpView() {
+        modalViewService.showModalHelpView(MODAL_HELP_MAIN);
+    }
+
+    @Override
+    public void showModalHelpIncomeTableView() {
+        modalViewService.showModalHelpView(MODAL_HELP_REPORT_INCOME);
+    }
+
+    @Override
+    public void showModalHelpCostTableView() {
+        modalViewService.showModalHelpView(MODAL_HELP_REPORT_COST);
+    }
+
+    @Override
+    public void showModalHelpYearReportTableView() {
+        modalViewService.showModalHelpView(MODAL_HELP_YEAR_REPORT);
+    }
 }

@@ -11,4 +11,6 @@ public interface ModalViewService extends Controller {
 
     void showModalOpenYearReportView(String view);
 
+    void showModalHelpView(String view);
+
 }
